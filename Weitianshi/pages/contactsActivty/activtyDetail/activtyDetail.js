@@ -1,17 +1,17 @@
-let app = getApp();
+let app = getApp()
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as ShareModel from '../../../utils/model/shareModel';
+import * as ShareModel from '../../../utils/shareModel';
 Page({
   data: {
     status: false,
     activtyDetail: app.globalData.picUrl.activtyDetail
   },
-  onLoad() {
+  onLoad: function () {
     let that = this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
   },
-  onShow() {
+  onShow: function () {
     let that = this;
     app.loginPage(function (user_id) {
       wx.request({
@@ -20,37 +20,54 @@ Page({
           user_id: user_id,
         },
         method: 'POST',
-        success(res) {
-          app.log('res', res);
+        success: function (res) {
+          app.log(that,'res',res)
           let status = res.data.data.button_type;
-          let activtyData = res.data.data;
+          let activtyData = res.data.data
           that.setData({
             status: status,
             activtyData: activtyData
-          });
+          })
         }
-      });
-    });
+      })
+    })
   },
 
-  onShareAppMessage() {
+  onShareAppMessage: function () {
     return ShareModel.activtyShare();
   },
   //报名
-  enroll(e) {
-    let that = this;
+  enroll: function (e) {
     let xxx = e.currentTarget.dataset.url;
     let user_id = wx.getStorageSync('user_id');
-    app.checkUserInfo(this, res => {
-      let complete = res.data.is_complete;
-      wx.navigateTo({
-        url: xxx
-      });
+    wx.request({
+      url: url_common + '/api/user/checkUserInfo',
+      data: {
+        user_id: user_id
+      },
+      method: 'POST',
+      success: function (res) {
+        app.log(that,'报名',res);
+        if (res.data.status_code == 2000000) {
+          let complete = res.data.is_complete;
+          if (complete == 1) {
+            wx.navigateTo({
+              url: xxx
+            })
+          } else if (complete == 0) {
+            wx.removeStorageSync('followed_user_id')
+            app.href('/pages/register/companyInfo/companyInfo?type=1')
+          }
+        } else {
+          wx.removeStorageSync('followed_user_id')
+          app.href('/pages/register/personInfo/personInfo?type=2')
+        }
+      }
     })
   },
   // 重新加载
   refresh() {
-    let timer;
+    let timer = '';
     wx.showLoading({
       title: 'loading',
       mask: true
@@ -58,6 +75,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

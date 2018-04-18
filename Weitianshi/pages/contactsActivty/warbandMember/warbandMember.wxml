@@ -1,5 +1,4 @@
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
 <view class="s_frame" wx:if="{{warMemberList.length!=0}}">
   <scroll-view bindscrolltolower="loadMore" scroll-top="{{scroll}}" scroll-y="{{true}}">
     <block wx:for="{{warMemberList}}" wx:key="{{index}}">
@@ -31,7 +30,7 @@
   <view class="hasNothing">暂无成员</view>
 </view>
 <view class="flex btn">
-  <view class="addWar" bindtap="addWar" wx:if="{{follow_status == 0}}">加战队</view>
-  <view class="addWar" wx:if="{{follow_status == 1}}">已加入</view>
+   <view class="addWar" bindtap="addWar" wx:if="{{follow_status == 0}}">加战队</view>
+   <view class="addWar" wx:if="{{follow_status == 1}}">已加入</view> 
   <button open-type="share" id="share" class="invitePersons">为他拉票</button>
 </view>

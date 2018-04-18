@@ -14,19 +14,19 @@ Page({
     buttonOneText: '发布',
     nonet: true
   },
-  onLoad(options) {
+  onLoad: function (options) {
     var that = this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
     var current = options.current;//current=1:从my页面跳转过来的
     this.setData({
       current: current
-    });
+    })
     //获取资源分类名称和id
     wx.request({
       url: app.globalData.url_common + '/api/category/getResourceCategory',
       data: {},
       method: 'POST',
-      success(res) {
+      success: function (res) {
         //判断用户是否填写过资源需求
         var res_find = wx.getStorageSync("resource_find");//寻求的资源
         var res_give = wx.getStorageSync("resource_give"); //可提供的资源
@@ -47,32 +47,32 @@ Page({
         }
         //可提供的资源添加名称和id
         if (res_give) {
-          for (let i = 0; i < res_give.length; i++) {
+          for (var i = 0; i < res_give.length; i++) {
             res_give_name.push(res_give[i].resource_name);
-            res_give_id.push(res_give[i].resource_id);
+            res_give_id.push(res_give[i].resource_id)
           }
         }
-        var targetValue = res_find_name;    //选中寻求资源的标签值的数组
-        var targetId = res_find_id;   //选中寻求资源的标签id的数组
-        var targetCheck = [];    //选中寻求资源的标签checked的数组
-        var enchangeValue = res_give_name;    //选中可提供资源的标签值的数组
-        var enchangeId = res_give_id;   //选中可提供资源的标签id的数组
-        var enchangeCheck = [];    //选中可提供资源的标签checked的数组
-        for (let i = 0; i < enchange.length; i++) {
+        var targetValue = res_find_name    //选中寻求资源的标签值的数组
+        var targetId = res_find_id   //选中寻求资源的标签id的数组
+        var targetCheck = []    //选中寻求资源的标签checked的数组
+        var enchangeValue = res_give_name    //选中可提供资源的标签值的数组
+        var enchangeId = res_give_id   //选中可提供资源的标签id的数组
+        var enchangeCheck = []    //选中可提供资源的标签checked的数组
+        for (var i = 0; i < enchange.length; i++) {
           if (res_give_name.indexOf(enchange[i].resource_name) != -1) {//如果enchange里面的资源名称,么米有在give里面,那么 给checked  一个布尔值
             enchange[i].checked = true;
           } else {
             enchange[i].checked = false;
           }
-          enchangeCheck.push(enchange[i].checked);
+          enchangeCheck.push(enchange[i].checked)
         }
-        for (let i = 0; i < target.length; i++) {
+        for (var i = 0; i < target.length; i++) {
           if (res_find_name.indexOf(target[i].resource_name) != -1) {
             target[i].checked = true;
           } else {
             target[i].checked = false;
           }
-          targetCheck.push(target[i].checked);
+          targetCheck.push(target[i].checked)
         }
         that.setData({
           enchange: enchange,
@@ -86,23 +86,23 @@ Page({
           describe: describe
         });
       },
-      fail(res) {
+      fail: function (res) {
       },
-    });
+    })
 
   },
   //下拉刷新
-  onPullDownRefresh() {
-    wx.stopPullDownRefresh();
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh()
   },
   //传值部份可提供资源
-  checkboxChange(e) {
+  checkboxChange: function (e) {
     var that = this;
     var thisData = e.currentTarget.dataset;
     var e_index = thisData.index;//数组下标
     var e_value = thisData.value;
-    // var e_check = thisData.check;
-    var enchange = this.data.enchange;//返回的所有数据
+    var e_check = thisData.check;
+    var enchange = this.data.enchange//返回的所有数据
     var enchangeValue = this.data.enchangeValue;
     var enchangeId = this.data.enchangeId;//已添加的数字
     var enchangeCheck = this.data.enchangeCheck;
@@ -110,16 +110,16 @@ Page({
       if (enchangeValue.length < 5) {
         enchangeCheck[e_index] = true;
         enchange[e_index].checked = true;
-        enchangeValue.push(enchange[e_index].resource_name);
-        enchangeId.push(enchange[e_index].resource_id);//点击时把数据的ID添加起来
+        enchangeValue.push(enchange[e_index].resource_name)
+        enchangeId.push(enchange[e_index].resource_id)//点击时把数据的ID添加起来
       } else {
-        app.errorHide(that, "最多可选择五项", 1000);
+        app.errorHide(that, "最多可选择五项", 1000)
       }
     } else {//当取消按钮时
       enchangeCheck[e_index] = false;
       enchange[e_index].checked = false;
-      enchangeValue.splice(enchangeValue.indexOf(e_value), 1);
-      enchangeId.splice(enchangeId.indexOf(e_index + 1), 1);
+      enchangeValue.splice(enchangeValue.indexOf(e_value), 1)
+      enchangeId.splice(enchangeId.indexOf(e_index + 1), 1)
     }
     this.setData({
       enchange: enchange,
@@ -129,13 +129,13 @@ Page({
     });
   },
   //传值部份2寻求资源
-  checkboxChange2(e) {
+  checkboxChange2: function (e) {
     var that = this;
     var thisData = e.currentTarget.dataset;
     var e_index = thisData.index;
     var e_value = thisData.value;
-    // var e_check = thisData.check;
-    var target = this.data.target;
+    var e_check = thisData.check;
+    var target = this.data.target
     var targetValue = this.data.targetValue;
     var targetId = this.data.targetId;
     var targetCheck = this.data.targetCheck;
@@ -144,16 +144,16 @@ Page({
       if (targetValue.length < 5) {
         targetCheck[e_index] = true;
         target[e_index].checked = true;
-        targetValue.push(target[e_index].resource_name);
-        targetId.push(target[e_index].resource_id);
+        targetValue.push(target[e_index].resource_name)
+        targetId.push(target[e_index].resource_id)
       } else {
-        app.errorHide(that, "最多可选择五项", 1000);
+        app.errorHide(that, "最多可选择五项", 1000)
       }
     } else {
       targetCheck[e_index] = false;
       target[e_index].checked = false;
-      targetValue.splice(targetValue.indexOf(e_value), 1);
-      targetId.splice(targetId.indexOf(e_index + 1), 1);
+      targetValue.splice(targetValue.indexOf(e_value), 1)
+      targetId.splice(targetId.indexOf(e_index + 1), 1)
     }
     this.setData({
       target: target,
@@ -163,26 +163,26 @@ Page({
     });
   },
   //具体描述
-  bindTextAreaBlur(e) {
+  bindTextAreaBlur: function (e) {
     var describe = e.detail.value;
     this.setData({
       describe: describe
-    });
+    })
   },
   //可提供资源自定义添加
-  offerAdd() {
+  offerAdd: function () {
     wx.showModal({
       title: "自定义标签",
       content: "<input type='text' placehold='helloWorld'/>"
-    });
+    })
   },
   //点击确定
-  publish() {
+  publish: function () {
     var that = this;
     var enchange = this.data.enchange;
     var enchangeValue = this.data.enchangeValue;
     var enchangeId = this.data.enchangeId;
-    var target = this.data.target;
+    var target = this.data.target
     var targetValue = this.data.targetValue;
     var targetId = this.data.targetId;
     var user_id = wx.getStorageSync('user_id');
@@ -197,18 +197,18 @@ Page({
           res_find: targetId,
           res_desc: describe
         }
-      };
+      }
       app.buttonSubmit(that, submitData, that.data.buttonOneText, res => {
         wx.setStorageSync("resource_desc", describe);
-        app.errorHide(that,'资源需求发布成功',1000);
+        app.errorHide(that,'资源需求发布成功',1000)
         setTimeout(res=>{
           wx.navigateBack({
             delta: 1
-          });
-        },1000);
-      });
+          })
+        },1000)
+      })
     } else {
-      app.errorHide(that, "可提供资源和在需求资源不能同时为空", 1500);
+      app.errorHide(that, "可提供资源和在需求资源不能同时为空", 1500)
     }
   },
   // 重新加载
@@ -221,6 +221,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
 });

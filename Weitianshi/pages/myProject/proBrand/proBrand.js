@@ -1,12 +1,12 @@
 let app = getApp();
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as ShareModel from '../../../utils/model/shareModel';
+import * as ShareModel from '../../../utils/shareModel';
 Page({
   data: {
     nonet: true
   },
-  onLoad(options) {
+  onLoad: function (options) {
     this.setData({
       index: options.index,
       id: options.project_id,
@@ -16,9 +16,9 @@ Page({
     });
     console.log('pro_id', this.data.id);
     let that = this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
   },
-  onShow() {
+  onShow: function () {
     //  投资人数据
     let that = this;
     let id = this.data.id;
@@ -40,36 +40,37 @@ Page({
         share_id:share_id
       },
       method: 'POST',
-      success(res) {
-        console.log('projectDetail', res);
+      success: function (res) {
+        console.log('projectDetail', res)
         let project = res.data.data;
         let brandList = res.data.data.brand;
-        console.log(brandList);
+        console.log(brandList)
         that.setData({
           project: project,
           brandList: brandList
         });
-        console.log(this.data.brandList);
+        console.log(this.data.brandList)
       },
-    });
+    })
   },
 
 
 
   //下拉刷新
-  onPullDownRefresh() {
-    wx.stopPullDownRefresh();
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh()
   },
   // 重新加载
   refresh() {
+    let timer = '';
     wx.showLoading({
       title: 'loading',
       mask: true
     });
-    setTimeout(x => {
+    timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
 
 

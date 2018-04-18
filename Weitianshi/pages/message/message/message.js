@@ -1,4 +1,5 @@
 var app = getApp();
+var url = app.globalData.url;
 var url_common = app.globalData.url_common;
 Page({
   data: {
@@ -29,11 +30,11 @@ Page({
     ],
     status: 0
   },
-  onLoad(){
+  onLoad:function(){
     let that=this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
   },
-  onShow() {
+  onShow: function () {
     var that = this;
     var user_id = wx.getStorageSync('user_id');
     var messageList = this.data.messageList;
@@ -46,56 +47,56 @@ Page({
           user_id: user_id
         },
         method: 'POST',
-        success(res) {
+        success: function (res) {
           var list = res.data.data;
           list.forEach((x, index) => {
             messageList[index].message_name = x.message_name;
             messageList[index].count = x.count;
             messageList[index].type_id = x.type_id;
             if (x.count) {
-              messageList[index].count = x.count;
+              messageList[index].count = x.count
             } else {
-              messageList[index].count = 0;
+              messageList[index].count = 0
             }
-          });
+          })
           that.setData({
             messageList: messageList,
             count: count,
             type_id: type_id
-          });
+          })
         }
-      });
+      })
     }
   },
   // 跳转到人脉申请页面
-  beAddedContacts() {
-    app.href('/pages/message/beAddedContacts/beAddedContacts');
+  beAddedContacts: function () {
+    app.href('/pages/message/beAddedContacts/beAddedContacts')
   },
   // 项目申请跳转
-  projectApply(e) {
+  projectApply: function (e) {
     let type = e.currentTarget.dataset.type;
     let group_id = this.data.group_id;
     app.delayDeal(x=>{
       if (group_id) {
-        app.href('/pages/message/applyProject/applyProject?type=' + type + '&&group_id=' + group_id);
+        app.href('/pages/message/applyProject/applyProject?type=' + type + '&&group_id=' + group_id)
       } else {
-        app.href('/pages/message/applyProject/applyProject?type=' + type);
+        app.href('/pages/message/applyProject/applyProject?type=' + type)
       }
-    });
+    })
   },
   // 项目推送
-  projectPush(e) {
+  projectPush: function (e) {
     let type = e.currentTarget.dataset.type;
     let group_id = this.data.group_id;
     if (group_id) {
-      app.href('/pages/message/pushProject/pushProject?type=' + type + '&&group_id=' + group_id);
+      app.href('/pages/message/pushProject/pushProject?type=' + type + '&&group_id=' + group_id)
     } else {
-      app.href('/pages/message/pushProject/pushProject?type=' + type);
+      app.href('/pages/message/pushProject/pushProject?type=' + type)
     }
   },
   //测试一键尽调
   testOneKey() {
-    app.href('/pages/oneKeyResearch/oneKeyResearch?id=RpAQ5jpx');
+    app.href('/pages/oneKeyResearch/oneKeyResearch?id=RpAQ5jpx')
   },
   // 重新加载
   refresh() {
@@ -107,6 +108,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

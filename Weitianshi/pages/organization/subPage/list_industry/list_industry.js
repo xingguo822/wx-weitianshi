@@ -1,19 +1,19 @@
 var app = getApp();
 var url = app.globalData.url;
 var url_common = app.globalData.url_common;
-import *  as  FilterModel from '../../../../utils/model/filterModel';
-import * as ShareModel from '../../../../utils/model/shareModel';
+import *  as  FilterModel from '../../../../utils/filterModel';
+import * as ShareModel from '../../../../utils/shareModel';
 Page({
   data: {
     nonet: true
   },
 
-  onLoad(options) {
+  onLoad: function (options) {
     let that = this;
     app.netWorkChange(that)
   },
 
-  onShow() {
+  onShow: function () {
     let that = this;
     app.httpPost({
       url: url_common + '/api/investment/fieldlist',

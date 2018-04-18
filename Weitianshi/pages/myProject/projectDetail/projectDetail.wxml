@@ -1,4 +1,4 @@
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <import src="/pages/Template/Template.wxml" />
   <!--页面主体  -->

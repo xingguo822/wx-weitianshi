@@ -173,7 +173,7 @@ page {
 .btnHaveInterest, .btnNoInterest {
   font-size: 24rpx;
   color: #40587a;
-  border: 1rpx solid black;
+  border: 1px solid black;
   height: 52rpx;
   line-height: 52rpx;
   padding: 0 32rpx;
@@ -182,17 +182,16 @@ page {
 
 .btnNoInterest {
   margin: 20rpx 0 0 0;
-  padding: 0 20rpx;
 }
-
 
 #time {
-  font-size: 22rpx;
+  font-size: 20rpx;
   color: #999;
-  line-height: 32rpx;
+  line-height: 20rpx;
   text-align: right;
-  margin: 12rpx 32rpx 32rpx 0;
+  margin: 10rpx 0 20rpx 0;
 }
+
 /*==========我申请查看的项目===============  */
 
 .apply {
@@ -212,33 +211,39 @@ page {
 }
 
 .outsideBox {
+  margin: 0 30rpx;
   position: relative;
 }
 
 #introduce {
-  background: #fafafa;
+  background: #f3f4f8;
   border-radius: 4rpx 4rpx 0 0;
   font-size: 26rpx;
   color: #666;
   line-height: 88rpx;
   text-align: left;
   height: 88rpx;
+  margin-left: 30rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 670rpx;
+  padding-left: 16rpx;
 }
 
-#introduce .introduce {
-  background: #fafafa;
+.introduce {
+  background: #f3f4f8;
   border-radius: 4rpx 4rpx 0 0;
   font-size: 26rpx;
   color: #666;
   line-height: 88rpx;
   text-align: left;
+  height: 88rpx;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  width: 686rpx;
-  padding-left: 32rpx;
+  width: 670rpx;
+  padding-left: 16rpx;
 }
 
 .applyMyProject .userPosition {
@@ -294,23 +299,23 @@ page {
 }
 
 .agreeBtn, .refuseBtn {
-  font-size: 30rpx;
-  line-height: 86rpx;
+  font-size: 28rpx;
+  color: #40587a;
+  line-height: 28rpx;
+  text-align: left;
+  margin-left: 16rpx;
 }
 
 .agreeBox {
-  width: 50%;
-  background: white;
-  justify-content: center;
-  color: #3378e0;
+  padding-left: 94rpx;
 }
 
 .refuseBox {
-  background: white;
-  color: #333;
-  width: 50%;
-  justify-content: center;
+  padding-left: 88rpx;
+  padding-right: 122rpx;
+  border-right: 1rpx solid #e6e6e6;
 }
+
 .iconStyle {
   width: 24rpx;
   height: 26rpx;
@@ -407,6 +412,12 @@ page {
   padding-bottom: 30rpx;
 }
 
+.bottomTab {
+  border-top: 1rpx solid #e6e6e6;
+  padding-top: 28rpx;
+  padding-bottom: 30rpx;
+  background: white;
+}
 
 .user_text {
   background: #f2f2f2;
@@ -453,17 +464,4 @@ page {
   width: 90%;
   height: 2rpx;
   background: #e6e6e6;
-}
-.t-line {
-  width: 1rpx;
-  height: 40rpx;
-  background: #f0f0f0;
-  margin-top: 13rpx;
-}
-.allContent {
-  background: white;
-}
-.aLine {
-  border-top: 1rpx solid #e6e6e6;
-  margin: 0 32rpx;
 }

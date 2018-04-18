@@ -35,10 +35,10 @@ Component({
       value: '分享'
     }
   },
-  attached(e) {
+  attached: function (e) {
     console.log(this)
   },
-  detached() {
+  detached: function () {
   },
   methods: {
     _toIndex(){

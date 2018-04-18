@@ -1,4 +1,4 @@
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <!--错误提示-->
   <view class="error" wx:if="{{error=='1'}}">{{error_text}}</view>
@@ -13,8 +13,8 @@
       <view class="statusTitle" wx:if="{{status == 1}}">{{group_title}}认证审核中</view>
       <view class="statusTitle" wx:if="{{status == 2}}">{{group_title}}认证审核通过</view>
       <view class="statusTitle" wx:if="{{status == 3}}">{{group_title}}认证审核未通过</view>
-      <view class="severThing">认证会员将由微天使直接服务 </view>
-      <view>请加微信weitianshiFA</view>
+      <view class="severThing">认证会员将由微天使创始人直接服务 </view>
+      <view>加FA哥微信weitianshiFA</view>
     </view>
   </view>
   <textarea id="textContent" bindinput="leaveMessage" maxlength="500" placeholder="如需认证其他身份，可在此留言" />

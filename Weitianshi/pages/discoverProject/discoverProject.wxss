@@ -7,6 +7,17 @@
   z-index: 999;
 }
 
+.xiangmu {
+  width: 100%;
+  height: 1992rpx;
+}
+
+.xiangmu1 {
+  width: 100%;
+  height: 50rpx;
+  background: #ccc;
+}
+
 .swiper-tab-list {
   display: inline-block;
   width: 33.33%;
@@ -48,9 +59,10 @@
 }
 
 .title {
+  font-size: 26rpx;
   color: #333;
-  line-height: 50rpx;
-  font-size: 36rpx;
+  line-height: 26rpx;
+  text-align: left;
 }
 
 .title .block {
@@ -201,7 +213,7 @@
   height: auto;
 }
 
-.searchSth {
+.seachSth {
   width: 684rpx;
   border-radius: 92rpx;
   background: #fff;
@@ -229,10 +241,10 @@
   text-align: center;
   padding: 44rpx 0 40rpx 0;
   height: 140rpx;
-  position: relative;
 }
 
 .jumpImage {
+  background: rgba(58, 158, 244, 0.34);
   width: 90rpx;
   height: 88rpx;
   border-radius: 100%;
@@ -268,6 +280,12 @@
   position: relative;
   background: #fff;
 }
+
+/* .insideBox {
+  border-bottom: 0.5rpx solid #f0f0f0;
+  padding: 32rpx;
+  position: relative;
+} */
 
 .insideBox:last-child {
   border-bottom: none;
@@ -437,8 +455,7 @@
   color: #666;
   border-top: 0.5rpx solid #f0f0f0;
 }
-
-.selectPic {
+.selectPic{
   height: 40rpx;
   width: 40rpx;
   margin-right: 4rpx;
@@ -447,11 +464,10 @@
 }
 
 /*==============================loading  */
-
 .b1 {
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 100%; 
   top: 0px;
   background: rgba(0, 0, 0, 0.4);
   overflow: hidden;
@@ -473,52 +489,4 @@
 
 .t_image1 {
   margin-top: 548rpx;
-}
-
-/*筛选图标  */
-
-.search_img {
-  width: 112rpx;
-  height: 112rpx;
-  position: fixed;
-  bottom: 184rpx;
-  right: 32rpx;
-  text-align: center;
-}
-
-.search_img image {
-  width: 112rpx;
-  height: 112rpx;
-}
-
-.t-hoverColor {
-}
-
-.countShowNum {
-  position: absolute;
-  top: 40rpx;
-  left: 116rpx;
-  font-size: 20rpx;
-  line-height: 28rpx;
-  color: #666;
-}
-
-.allProjectDetail {
-  margin-bottom: 0;
-}
-
-.projectColumn {
-  height: 162rpx;
-  width: 100%;
-  background: blue;
-  margin-top: 36rpx;
-}
-
-.clickMore {
-  height: 98rpx;
-  width: 100%;
-  font-size: 24rpx;
-  color: #666;
-  line-height: 98rpx;
-  text-align: center;
 }

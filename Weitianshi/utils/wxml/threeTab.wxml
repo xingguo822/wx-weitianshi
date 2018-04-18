@@ -18,10 +18,10 @@
                 <view class="flex"><view class="describle">{{project.pro_intro}}</view><image src="/img/img-dujia@2x.png" class="projectDetailType" wx:if="{{project.is_exclusive == 1}}"></image>
                   <!-- <image src="/img/img-feidujiaqianyue@2x.png" class="projectDetailType" wx:if="{{project.is_exclusive == 2}}"></image> -->
                 </view>
-                <view class="flex industryBox" wx:if="{{industy_sort.length != 0}}">
+                <view class="flex allIndustry" wx:if="{{industy_sort.length != 0}}">
                   <!-- <view class="industry">{{industy_sort}}</view> -->
                   <block wx:for="{{pro_industry}}" wx:key="{{index}}">
-                    <label class="allIndustry">{{item.industry_name}}</label>
+                    <label class="industry">{{item.industry_name}}</label>
                   </block>
                 </view>
                 <view class="allProjectDetail flex" wx:if="{{project.pro_area != ''||project.pro_stage!=''||project.pro_scale!=''}}">

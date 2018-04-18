@@ -2,7 +2,7 @@
 <!--找项目投资人  -->
 
 
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view id='matchInvestor' wx:if="{{nonet}}">
   <!--蓝顶  -->
   <view class='blueTop'>

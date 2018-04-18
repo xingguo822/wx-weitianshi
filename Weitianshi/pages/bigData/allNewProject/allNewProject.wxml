@@ -1,4 +1,0 @@
-<import src="/pages/Template/Template.wxml" />
-<block wx:for="{{sourceData.events_list.list}}" wx:key="{{index}}">
-  <template is='bigDataProject' data='{{item,type:1}}'></template>
-</block>

@@ -8,9 +8,9 @@ behavior1 = Behavior({
   data: {
     myBehaviorData: {}
   },
-  attached() { },
+  attached: function () { },
   methods: {
-    myBehaviorMethod() { }
+    myBehaviorMethod: function () { }
   }
 })
 

@@ -21,14 +21,14 @@ Page({
     nonet: true
   },
 
-  onLoad(options) {
+  onLoad: function (options) {
     let user_id = wx.getStorageSync('user_id');
     let that = this;
     // options.project存在为编辑项目;不存在为创建项目
     if (options.project) {
       this.setData({
         project_id: options.project
-      });
+      })
       wx.request({
         url: url_common + '/api/project/getProjectEditInfo',
         data: {
@@ -36,7 +36,7 @@ Page({
           project_id: options.project
         },
         method: 'POST',
-        success(res) {
+        success: function (res) {
           that.setData({
             open_status: res.data.data.open_status,
             power_share_status: res.data.data.power_share_status,
@@ -44,15 +44,15 @@ Page({
             company_open_status: !res.data.data.company_open_status,
             black_company: res.data.data.black_list.black_company,
             black_user: res.data.data.black_list.black_user
-          });
+          })
           if (res.data.data.black_list) {
             that.setData({
               white_company: res.data.data.black_list.white_company,
               white_user: res.data.data.black_list.white_user,
-            });
+            })
           }
         }
-      });
+      })
     } else {
       let setPrivacy = wx.getStorageSync('setPrivacy');
       if (setPrivacy){
@@ -65,72 +65,72 @@ Page({
           white_user: setPrivacy.white_user,
           black_company: setPrivacy.black_company,
           black_user: setPrivacy.black_user
-        });
+        })
       }
     }
-    app.netWorkChange(that);
+    app.netWorkChange(that)
   },
   //公开项目
-  switchChange1(e) {
+  switchChange1: function (e) {
     let open_status = e.detail.value;
     this.setData({
       open_status: open_status
-    });
+    })
   },
   //分享项目
-  switchChange2(e) {
+  switchChange2: function (e) {
     let power_share_status = e.detail.value;
     this.setData({
       power_share_status: power_share_status
-    });
+    })
   },
   //认证
-  switchChange3(e) {
+  switchChange3: function (e) {
     let power_investor_status = e.detail.value;
     this.setData({
       power_investor_status: power_investor_status
-    });
+    })
   },
   //隐藏
-  switchChange4(e) {
+  switchChange4: function (e) {
     let company_open_status = e.detail.value;
     this.setData({
       company_open_status: company_open_status
-    });
+    })
   },
   //白名单公司
-  whiteCompany(e) {
+  whiteCompany: function (e) {
     let white_company = e.detail.value;
     this.setData({
       white_company: white_company
-    });
+    })
   },
   //白名单用户
-  whiteUser(e) {
+  whiteUser: function (e) {
     let white_user = e.detail.value;
     this.setData({
       white_user: white_user
-    });
+    })
   },
   //黑名单机构
-  blackCompany(e) {
+  blackCompany: function (e) {
     let black_company = e.detail.value;
     let that = this;
     that.setData({
       black_company: black_company
-    });
+    })
   },
   //黑名单用户
-  blackUser(e) {
+  blackUser: function (e) {
     let black_user = e.detail.value;
     let that = this;
     that.setData({
       black_user: black_user
-    });
+    })
   },
   //保存私密性设置
-  saveInitPrivacy() {
-    console.log(1);
+  saveInitPrivacy: function () {
+    console.log(1)
     var that = this;
     let project_id = this.data.project_id;
     let open_status = Number(this.data.open_status);
@@ -153,12 +153,12 @@ Page({
       black_company,
       black_user,
       subscribe
-    };
+    }
     setPrivacy.subscribe.white_company = white_company;
     setPrivacy.subscribe.white_user = white_user;
     setPrivacy.subscribe.black_company = black_company;
     setPrivacy.subscribe.black_user = black_user;
-    wx.setStorageSync('setPrivacy', setPrivacy);
+    wx.setStorageSync('setPrivacy', setPrivacy)
     // 保存私密性
     if (project_id) {
       app.httpPost({
@@ -179,16 +179,16 @@ Page({
           wx.removeStorageSync('setPrivacy');
           wx.navigateBack({
             delta: 1,
-          });
+          })
         } else {
-          app.errorHide(that, res.data.error_msg, 3000);
+          app.errorHide(that, res.data.error_msg, 3000)
         }
-      });
+      })
 
     } else {
       wx.navigateBack({
         delta: 1,
-      });
+      })
     }
   },
   // 重新加载
@@ -201,6 +201,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

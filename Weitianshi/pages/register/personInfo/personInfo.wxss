@@ -2,14 +2,62 @@ page {
   background: white;
 }
 
+#personInfo {
+  font-size: 28rpx;
+  color: #333;
+  padding: 0 48rpx;
+}
+
+#bindPhone {
+  font-size: 28rpx;
+  color: #333;
+  padding: 0 48rpx;
+}
+
+.title {
+  justify-content: center;
+  padding: 64rpx 0;
+  font-size: 24rpx;
+  color: #666;
+}
+
+button {
+  border: none;
+  padding: 0 16rpx;
+}
+
+input {
+  border-radius: 4px;
+  padding: 20rpx 32rpx;
+  background: #f2f2f2;
+  width: 100%;
+  margin-bottom: 48rpx;
+}
+
+#name, #telephone, #checkCode {
+  justify-content: space-between;
+  position: relative;
+}
+
+/*验证码按钮*/
+
 .clear {
   position: absolute;
   top: 12rpx;
-  right: 48rpx;
+  right: 0;
   z-index: 999;
+  background: #f2f2f2;
   border: none;
-  font-size: 26rpx;
-  color: #3378e0;
+}
+
+#checkCode .clear {
+  color: #40587a;
+  font-size: 28rpx;
+}
+
+#checkCode .clearOn {
+  background: #f2f2f2;
+  color: grey;
 }
 
 .nextBtn {
@@ -19,6 +67,7 @@ page {
   color: white;
   font-size: 32rpx;
   border-radius: 200rpx;
+  /* width: 300rpx !important; */
   width: 100% !important;
   display: inline-block;
 }
@@ -35,7 +84,7 @@ page {
   font-size: 32rpx;
   border-radius: 200rpx;
   width: 304rpx !important;
-  display: inline-block;
+  display: inline-block
 }
 
 .nextBtn1:first-child {
@@ -44,7 +93,7 @@ page {
 
 /*微信绑定  */
 
-/* .WXbind {
+.WXbind {
   background: #f2f2f2;
   border-radius: 4px;
   font-size: 28rpx;
@@ -71,71 +120,4 @@ button::after {
   margin:0 12rpx;
   font-size: 28rpx;
   color:#cccccc;
-} */
-
-.registerImg {
-  width: 48rpx;
-  height: 48rpx;
-  margin-right: 24rpx;
-  position: relative;
-  top: 14rpx;
-}
-
-.registerPhone {
-  margin-top: 152rpx;
-  margin-left: 48rpx;
-}
-
-.registerNum {
-  margin-top: 80rpx;
-  margin-left: 48rpx;
-  margin-bottom: 72rpx;
-  position: relative;
-}
-
-.telephoneText {
-  font-size: 32rpx;
-  color: #333;
-  border-bottom: 1rpx solid #f0f0f0;
-  padding: 16rpx 0;
-  line-height: 44rpx;
-  width: 582rpx;
-}
-.nextBtn {
-  background: #40587a;
-  position: relative;
-  padding: 0 36rpx;
-  color: white;
-  font-size: 32rpx;
-  border-radius: 200rpx;
-  width: 100% !important;
-  display: inline-block;
-}
-
-.nextBtn:first-child {
-  margin-right: 46rpx;
-}
-
-/*验证码按钮*/
-
-.clear {
-  position: absolute;
-  top: 12rpx;
-  right: 48rpx;
-  z-index: 999;
-  border: none;
-  font-size: 26rpx;
-  color: #3378e0;
-}
-
-.registerNum  .clearOn {
-  background: #fff;
-  color: grey;
-}
-button[disabled][type="default"], wx-button[disabled]:not([type]) {
-  background: #fff;
-}
-
-.btnBox{
-  margin: 0 48rpx;
 }

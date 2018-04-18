@@ -46,7 +46,7 @@ Page({
     modalBox: 0,
     buttonOneText: '保存',
   },
-  onLoad(options) {
+  onLoad: function (options) {
     let that = this;
     let editProId = options.pro_id;
     let edit = options.edit;
@@ -58,17 +58,10 @@ Page({
     // picker 初始数据预处理
     this._pickerDeal(stage, stage_arry, 'stage_name', 'stage', 'stage_arry');
     this._pickerDeal(scale, scale_arry, 'scale_money', 'scale', 'scale_arry');
-    app.netWorkChange(that);
-    // 查看入口是否为推送项目
-    let enterance = options.enterance;
-    let pushTo_user_id = options.pushTo_user_id;
-    console.log(options)
-    this.setData({
-      enterance, pushTo_user_id
-    })
+    app.netWorkChange(that)
   },
   //页面显示
-  onShow() {
+  onShow: function () {
     // 项目领域取值
     this._tranIndustryDeal();
     this._tranAreaDeal();
@@ -79,17 +72,17 @@ Page({
   //picker数据预处理
   _pickerDeal(item, itemArr, itemName, string_item, string_itemArr) {
     if (string_itemArr == 'stage_arry') {
-      item.unshift({ stage_name: '请选择' });
+      item.unshift({ stage_name: '请选择' })
     } else{
-      item.unshift({ scale_money: '请选择' });
+      item.unshift({ scale_money: '请选择' })
     }
     item.forEach(x => {
-      itemArr.push(x[itemName]);
-    });
+      itemArr.push(x[itemName])
+    })
     this.setData({
       [string_item]: item,
       [string_itemArr]: itemArr
-    });
+    })
   },
   //tran_industry取值处理
   _tranIndustryDeal() {
@@ -99,9 +92,9 @@ Page({
       industryCard.value = [];
       industryCard.id = [];
       tran_industry.forEach(x => {
-        industryCard.value.push(x.industry_name);
-        industryCard.id.push(x.industry_id);
-      });
+        industryCard.value.push(x.industry_name)
+        industryCard.id.push(x.industry_id)
+      })
       //字体颜色改变
       industryCard.css = 'black';
     } else {
@@ -111,7 +104,7 @@ Page({
     }
     this.setData({
       industryCard: industryCard
-    });
+    })
   },
   //tran_area取值处理
   _tranAreaDeal() {
@@ -121,13 +114,13 @@ Page({
         area_title: tran_area[1].area_title,
         provinceNum: tran_area[0].area_id,
         cityNum: tran_area[1].area_id
-      });
+      })
     }
   },
   //私密性取值
   _privacyData() {
     let setPrivacy = wx.getStorageSync('setPrivacy');
-    app.log(setPrivacy);
+    app.log(that,setPrivacy)
     if (setPrivacy) {
       this.setData({
         open_status: setPrivacy.open_status,
@@ -139,126 +132,127 @@ Page({
         black_company: setPrivacy.black_company,
         black_user: setPrivacy.black_user,
         subscribe: setPrivacy.subscribe
-      });
+      })
     }
   },
   //下拉刷新
-  onPullDownRefresh() {
-    wx.stopPullDownRefresh();
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh()
   },
   //项目名称
-  projectName(e) {
+  projectName: function (e) {
     this.setData({
       projectName: e.detail.value
-    });
+    })
   },
   //项目领域
   industryChoice() {
-    app.href('/pages/form/industry/industry?current=0');
+    app.href('/pages/form/industry/industry?current=0')
   },
+
   //是否独家的效果实现
-  tipsOn(e) {
+  tipsOn: function (e) {
     this.setData({
       tips_index: e.detail.value
-    });
+    })
   },
   //项目阶段
-  stage(e) {
+  stage: function (e) {
     this.setData({
       stage_index: e.detail.value,
     });
   },
   //期望融资
-  scale(e) {
+  scale: function (e) {
     this.setData({
       scale_index: e.detail.value,
     });
   },
   //关闭模态框
-  closeModal() {
+  closeModal: function () {
     this.setData({
       modalBox: 0
-    });
+    })
   },
   //去电脑上传
-  toPc() {
+  toPc: function () {
     this.setData({
       modalBox: 1
-    });
+    })
   },
   //需要Bp美化
-  switchChange1(e) {
+  switchChange1: function (e) {
     this.setData({
       service_ps_bp: e.detail.value
-    });
+    })
   },
   //需要融资股份(FA)服务
-  switchChange2(e) {
+  switchChange2: function (e) {
     this.setData({
       service_fa: e.detail.value
-    });
+    })
   },
   //是否需要云投行服务
-  switchChange3(e) {
+  switchChange3: function (e) {
     this.setData({
       service_yun: e.detail.value
-    });
+    })
   },
   //私密性跳转
-  initPrivacy() {
+  initPrivacy: function () {
     let project = this.data.pro_id;
     if (project) {
-      app.href('/pages/myProject/initPrivacy/initPrivacy?project=' + project);
+      app.href('/pages/myProject/initPrivacy/initPrivacy?project=' + project)
     } else {
-      app.href('/pages/myProject/initPrivacy/initPrivacy');
+      app.href('/pages/myProject/initPrivacy/initPrivacy')
     }
   },
   //地区跳转
   areaJump(){
-    app.href('/pages/form/area1/area1?current=0');
+    app.href('/pages/form/area1/area1?current=0')
   },
   //私密性处理(辅助函数)
   privacyDeal() {
     let subscribe = this.data.subscribe;
-    Number(subscribe.white_company);
-    Number(subscribe.white_user);
+    Number(subscribe.white_company)
+    Number(subscribe.white_user)
     this.setData({
       subscribe: subscribe
-    });
-    this.totalScore(this.data.projectName);
-    this.totalScore(this.data.pro_company_name);
-    this.totalScore(this.data.pro_finance_stock_after);
-    this.totalScore(this.data.service_yun);
-    this.totalScore(this.data.service_fa);
-    this.totalScore(this.data.service_ps_bp);
+    })
+    this.totalScore(this.data.projectName)
+    this.totalScore(this.data.pro_company_name)
+    this.totalScore(this.data.pro_finance_stock_after)
+    this.totalScore(this.data.service_yun)
+    this.totalScore(this.data.service_fa)
+    this.totalScore(this.data.service_ps_bp)
     return {
       open_status: this.data.open_status,
       power_share_status: this.data.power_share_status,
       power_investor_status: this.data.power_investor_status,
       company_open_status: this.data.company_open_status,
-    };
+    }
 
   },
   //完整度(辅助函数)
-  totalScore(name) {
+  totalScore: function (name) {
     let pro_total_score = this.data.pro_total_score;
     if (name) {
       pro_total_score = pro_total_score + 2.4;
       this.setData({
         pro_total_score: pro_total_score
-      });
+      })
     }
   },
   //到电脑
-  upLoadPc() {
+  upLoadPc: function () {
     let that = this;
     let privacy = this.privacyDeal();
-    let type = 'create';
+    let type = 'create'
     if (that.data.pro_id) {
-      type = 'update';
+      type = 'update'
     }
     wx.scanCode({
-      success(res) {
+      success: function (res) {
         wx.request({
           url: app.globalData.url_common + '/api/auth/writeUserInfo',
           data: {
@@ -286,28 +280,27 @@ Page({
             }
           },
           method: 'POST',
-          success(res) {
+          success: function (res) {
             if (res.data.status_code == 2000000) {
               //清除数据
               wx.setStorageSync('tran_industry', []);
               wx.setStorageSync('tran_area', []);
               wx.removeStorageSync('setPrivacy');
-              app.href('/pages/myProject/bpScanSuccess/bpScanSuccess');
+              app.href('/pages/myProject/bpScanSuccess/bpScanSuccess')
               that.setData({
                 modalBox: 0
-              });
+              })
             }
           }
-        });
+        })
       },
-    });
+    })
   },
   //点击发布
-  public() {
+  public: function () {
     let that = this;
     let theData = this.data;
     let privacy = this.privacyDeal();
-    let pushTo_user_id = this.data.pushTo_user_id;
     // --------------------表单的各项值-------------------------------------
     // let describe = that.data.describe;
     let industry = that.data.industryCard.id;
@@ -320,7 +313,7 @@ Page({
 
     // 表单检验和发送表单
     if (!projectName) {
-      app.errorHide(that, '请填写项目名称', 3000);
+      app.errorHide(that, '请填写项目名称', 3000)
     } else {
       // 区别处理创建项目和维护项目
       let httpUrl = '/api/project/createProject';
@@ -347,28 +340,23 @@ Page({
           power_investor_status: privacy.power_investor_status,
           company_open_status: Number(!privacy.company_open_status),
         },
-      };
+      }
       app.buttonSubmit(that, submitData, that.data.buttonOneText, res => {
         let projectId = res.data.project_id;
-        let enterance = that.data.enterance;
         //数据清空
         wx.setStorageSync('tran_industry', []);
         wx.setStorageSync('tran_area', []);
         wx.removeStorageSync('setPrivacy');
-        app.errorHide(that, successText, 1000);
+        app.errorHide(that, successText, 1000)
         // 提交中过渡态处理
-        setTimeout(x => { 
-          if(enterance == 'pushProject'){ 
-            app.redirectTo('/pages/myProject/pushTo/pushTo?pushId=' + pushTo_user_id + '&&projectId=' + projectId);
-          }else{
-            app.redirectTo('/pages/myProject/publishSuccess/publishSuccess?type=' + 8 + '&&projectId=' + projectId);
-          }
-        }, 1000);
-      });
+          setTimeout(x => {
+            app.href('/pages/myProject/publishSuccess/publishSuccess?type=' + 8 + '&&projectId=' + projectId)
+          }, 1000)
+      })
     }
   },
-  onUnload() {
-    app.initTran();
+  onUnload: function () {
+    app.initTran()
   },
   // 重新加载
   refresh() {
@@ -380,6 +368,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
 });

@@ -1,5 +1,6 @@
-var app = getApp();
-var url = app.globalData.url;
+var app = getApp()
+var url = app.globalData.url
+var url_common = app.globalData.url_common;
 var save = true;
 Page({
   data: {
@@ -25,15 +26,15 @@ Page({
     buttonOneText:'发布',
     nonet: true
   },
-  onLoad(options) {
+  onLoad: function (options) {
     var user_id = wx.getStorageSync('user_id');
     var that = this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
     var current = options.current;
     this.setData({
       current: current
-    });
-    // var y_area = '';
+    })
+    var y_area = '';
     //检查是否发布过投资信息
     wx.request({
       url: url + '/api/investor/checkInvestorInfo',
@@ -41,7 +42,7 @@ Page({
         user_id: user_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         var thisData = res.data.data;
         let tran_industry = thisData.industry_tag;
         let tran_scale = thisData.scale_tag;
@@ -49,7 +50,7 @@ Page({
         let tran_hotCity = thisData.area_tag;
         if (res.data.data != '') {
           //获取已存有的投资领域,投资阶段,投资金额,投資地区
-          // var industry = wx.getStorageSync('industry');//项目领域总数
+          var industry = wx.getStorageSync('industry')//项目领域总数                   
           var y_describe = thisData.investor_desc;
           that.setData({
             tran_industry: tran_industry,
@@ -57,23 +58,23 @@ Page({
             tran_scale: tran_scale,
             tran_hotCity: tran_hotCity,
             describe: y_describe
-          });
+          })
           //投资领域
           wx.setStorageSync('tran_industry', tran_industry);
           // //投资阶段
           wx.setStorageSync('tran_stage', tran_stage);
           // //投资金额
-          wx.setStorageSync("tran_scale", tran_scale);
+          wx.setStorageSync("tran_scale", tran_scale)
           // //投资地区
-          wx.setStorageSync("tran_hotCity", tran_hotCity);
+          wx.setStorageSync("tran_hotCity", tran_hotCity)
           // 具体描述
-          wx.setStorageSync('y_describe', y_describe);
+          wx.setStorageSync('y_describe', y_describe)
         }
       },
-    });
+    })
   },
   //页面显示
-  onShow() {
+  onShow: function () {
     var that = this;
     var y_describe = wx.getStorageSync('y_describe');
     var tran_industry = wx.getStorageSync('tran_industry');
@@ -86,32 +87,32 @@ Page({
       tran_scale: tran_scale,
       tran_hotCity: tran_hotCity,
       tran_stage: tran_stage
-    });
+    })
   },
   //给所有添加checked属性
-  for(name) {
+  for: function (name) {
     for (var i = 0; i < name.length; i++) {
       name[i].checked = false;
     }
   },
 
   //下拉刷新
-  onPullDownRefresh() {
-    wx.stopPullDownRefresh();
+  onPullDownRefresh: function () {
+    wx.stopPullDownRefresh()
   },
 
   //文本框输入
-  bindTextAreaBlur(e) {
+  bindTextAreaBlur: function (e) {
     var that = this;
     wx.setStorageSync('y_describe', e.detail.value);
     that.setData({
       y_describe: e.detail.value
-    });
+    })
   },
 
 
   //期望融资
-  expect(e) {
+  expect: function (e) {
     var picker = 1;
     this.setData({
       expect_index: e.detail.value,
@@ -122,7 +123,7 @@ Page({
 
 
   //点击发布
-  public() {
+  public: function () {
     save = !save;
     var that = this;
     var theData = that.data;
@@ -139,23 +140,23 @@ Page({
     // 根据接口转化数据格式
     if (industryValue != "") {
       industryValue.forEach((x) => {
-        industryId.push(x.industry_id);
-      });
+        industryId.push(x.industry_id)
+      })
     }
     if (payStage != "") {
       payStage.forEach((x) => {
-        payStageId.push(x.stage_id);
-      });
+        payStageId.push(x.stage_id)
+      })
     }
     if (payMoney != "") {
       payMoney.forEach((x) => {
-        payMoneyId.push(x.scale_id);
-      });
+        payMoneyId.push(x.scale_id)
+      })
     }
     if (payArea != "") {
       payArea.forEach((x) => {
-        payAreaId.push(x.area_id);
-      });
+        payAreaId.push(x.area_id)
+      })
     }
 
 
@@ -171,29 +172,29 @@ Page({
           investor_area: payAreaId,
           investor_desc: y_describe
         }
-      };
+      }
       app.buttonSubmit(that, submitData, that.data.buttonOneText, res => {
-        wx.removeStorageSync("tran_industry");
-        wx.removeStorageSync("tran_scale");
-        wx.removeStorageSync("tran_stage");
-        wx.removeStorageSync("tran_hotCity");
+        wx.removeStorageSync("tran_industry")
+        wx.removeStorageSync("tran_scale")
+        wx.removeStorageSync("tran_stage")
+        wx.removeStorageSync("tran_hotCity")
         let current = that.data.current;
-        app.errorHide(that, '投资需求提交成功', 1000);
+        app.errorHide(that, '投资需求提交成功', 1000)
         setTimeout(x => {
           if (current == 1) {
             wx.navigateBack({
               delta: 1
-            });
+            })
           } else {
-            app.href('/pages/discoverProject/discoverProject');
+            app.href('/pages/discoverProject/discoverProject')
           }
-        }, 1000);
-      });
+        }, 1000)
+      })
     } else {
       that.setData({
         error: "1"
-      });
-      setTimeout(function () {
+      })
+      var errorTime = setTimeout(function () {
         that.setData({
           error: "0"
         });
@@ -201,25 +202,25 @@ Page({
       if (industryId == 0) {
         that.setData({
           error_text: "领域不能为空"
-        });
+        })
       } else if (payStageId == 0) {
         that.setData({
           error_text: "阶段不能为空"
-        });
+        })
       } else if (payMoneyId == 0) {
         that.setData({
           error_text: "金额不能为空"
-        });
+        })
       } else if (payAreaId == 0) {
         that.setData({
           error_text: "地区不能为空"
-        });
+        })
       }
     }
   },
 
-  onUnload() {
-    app.initTran();
+  onUnload: function () {
+    app.initTran()
   },
   // 重新加载
   refresh() {
@@ -231,6 +232,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
 });

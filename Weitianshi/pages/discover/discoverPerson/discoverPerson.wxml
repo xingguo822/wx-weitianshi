@@ -1,5 +1,5 @@
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <!--筛选和搜索  -->
   <template is="newSearch" data="{{text:searchText,searchTap:'searchSth',filter:'tagFilter'}}"></template>
@@ -16,7 +16,7 @@
       </view>
     </block>
     <template is="theBottom" wx:if="{{jiandi==true}}"></template>
-    <view class="t-highBox"></view>
+    <view class="high"></view>
   </scroll-view>
   <!--空状态-->
   <template is="isEmpty" data="{{emptyNumber:investorList}}"></template>

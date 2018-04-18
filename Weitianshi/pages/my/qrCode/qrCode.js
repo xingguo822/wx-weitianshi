@@ -1,13 +1,13 @@
 let app = getApp();
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as ShareModel from '../../../utils/model/shareModel';
+import * as ShareModel from '../../../utils/shareModel'
 Page({
   data: {
     dataUrl: "",
     nonet: true
   },
-  onLoad(options) {
+  onLoad: function (options) {
     let that = this;
     let QR_id = this.options.user_id;
     let type = this.options.type;
@@ -15,11 +15,11 @@ Page({
       this.setData({
         QR_id: QR_id,
         type: type
-      });
-    }
-    app.netWorkChange(that);
+      })
+    };
+    app.netWorkChange(that)
   },
-  onShow() {
+  onShow: function () {
     let that = this;
     let type = this.data.type;
     let QR_id;
@@ -35,7 +35,7 @@ Page({
       wx.setStorageSync('user_id', user_id);
       that.setData({
         user_id: user_id
-      });
+      })
       //载入我的个人信息
       wx.request({
         url: url_common + '/api/user/getUserAllInfo',
@@ -45,13 +45,13 @@ Page({
           view_id: user_id,
         },
         method: 'POST',
-        success(res) {
+        success: function (res) {
           let user = res.data.user_info;
           that.setData({
             user: user,
-          });
+          })
         },
-      });
+      })
       // 获取二维码接口
       wx.request({
         url: url + '/api/wx/getCardQr',
@@ -63,27 +63,27 @@ Page({
           'line_color': { "r": "0", "g": "0", "b": "0" }
         },
         method: 'POST',
-        success(res) {
+        success: function (res) {
           let net = res.data;
           let access_token = net.qrcode;
           that.setData({
             access_token: access_token
-          });
+          })
           let filPath = wx.setStorageSync('access_token', access_token);
         },
-        fail(res) {
+        fail: function (res) {
         }
-      });
-    });
+      })
+    })
   },
 
   //保存小程序码
-  savePic() {
+  savePic: function () {
     let that=this;
     let filePath = wx.getStorageSync('access_token');
     wx.getImageInfo({
       src: filePath,
-      success(res) {
+      success: function (res) {
         let picPath = res.path;
         wx.getSetting({
           success(res) {
@@ -93,36 +93,36 @@ Page({
                 success() {
                   wx.saveImageToPhotosAlbum({
                     filePath: picPath,
-                    success(res) {
+                    success: function (res) {
                       wx.showToast({
                         title: '保存图片成功',
                         icon: 'success'
-                      });
+                      })
                     },
-                    fail(res) {
-                      app.log("filePath",filePath);
-                      console.log(res);
+                    fail: function (res) {
+                      app.log(that,"filePath",filePath)
+                      console.log(res)
                     }
-                  });
+                  })
                 }
-              });
+              })
             }
           }
-        });
+        })
       },
-    });
+    })
   },
 
   //分享页面
-  onShareAppMessage() {
+  onShareAppMessage: function () {
     let that = this;
     return ShareModel.qrCodeShare(that);
   },
   //取消分享
-  cancelShare() {
+  cancelShare: function () {
     this.setData({
       modal: 0
-    });
+    })
   },
   // 重新加载
   refresh() {
@@ -134,7 +134,7 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
 
-});
+})

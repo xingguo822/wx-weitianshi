@@ -1,3 +1,0 @@
-<view class='toTopIcon' bindtap='toTop'>
-  <image class='toTopImg' src='/img/a.png'></image>
-</view>

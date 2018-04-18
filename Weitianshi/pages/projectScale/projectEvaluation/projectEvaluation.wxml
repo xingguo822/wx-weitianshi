@@ -1,7 +1,7 @@
 <!--pages/projectScale/projectEvaluation.wxml-->
 <import src="/pages/Template/Template.wxml" />
 
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <!--滑块评分  -->
   <view class="slider">

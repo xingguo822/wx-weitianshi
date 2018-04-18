@@ -1,14 +1,12 @@
 var app = getApp();
 var url = app.globalData.url;
 var url_common = app.globalData.url_common;
-import * as ShareModel from '../../utils/model/shareModel';
-let RG = require('../../utils/model/register.js');
-let register = new RG.register();
+import * as ShareModel from '../../utils/shareModel';
 Page({
   data: {
     bindContact: false,
     jiandi: false,
-    jiandi1: false,
+    jiandi1:false,
     competeList: [],
     taren: true,
     ziji: false,
@@ -45,18 +43,14 @@ Page({
     imgUrls1: app.globalData.picUrl.projectDetailpotential,
     nonet: true,
     projectImg: app.globalData.picUrl.projectBac,
-    status: 0, // 是否认证过0:未认证1:待审核 2 审核通过 3审核未通过
-    authenModelBox: 0, // 控制联系项目方是否显示
-    group_id: 18 //买方FA 19:卖方FA  6:投资人 3:创业者 8:其他
   },
-  onLoad(options) {
+  onLoad: function (options) {
     var that = this;
     var id = options.id;//当前被查看用户的项目id
     var share_id = options.share_id;
     var page = this.data.page;
     var view_id = '';
     var user_id = wx.getStorageSync('user_id');
-
     that.setData({
       user_id: user_id,
       id: id,
@@ -71,7 +65,7 @@ Page({
         project_id: id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         let ownerId = res.data.user_id;
         app.loginPage(function (user_id) {
           if (ownerId === user_id) {
@@ -99,7 +93,7 @@ Page({
     };
     app.netWorkChange(that)
   },
-  onShow() {
+  onShow: function () {
     let that = this;
     // 机构版买家图谱信息修改
     that.setData({
@@ -123,14 +117,16 @@ Page({
           user_id: user_id
         },
         method: 'POST',
-        success(res) {
+        success: function (res) {
           // 0:未认证1:待审核 2 审核通过 3审核未通过
           let status = res.data.status;
-          let group_id = res.data.group.group_id;
           that.setData({
-            status: status,
-            group_id: group_id
+            status: status
           })
+          // wx.showLoading({
+          //   title: 'loading',
+          //   mask: true,
+          // })
         }
       })
     } else {
@@ -138,7 +134,9 @@ Page({
         status: 5
       })
     }
+
     wx.hideLoading()
+
   },
 
   //是否能查看项目详情和买家图谱,一键尽调状态获取
@@ -153,7 +151,7 @@ Page({
         share_id: share_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         //  0:不能看 1:能看
         let show_company = res.data.data.show_company;
         let show_detail = res.data.data.show_detail;
@@ -161,8 +159,8 @@ Page({
           show_detail: show_detail,
           show_company: show_company
         });
-        app.log("show_detail", show_detail);
-        app.log("show_company", show_company);
+        app.log(that,"show_detail",show_detail);
+        app.log(that,"show_company",show_company);
         that.projectDetailInfo(that, pro_id, is_share, share_id, show_company);
       }
     })
@@ -180,14 +178,14 @@ Page({
         share_id: share_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         let brandList = res.data.data.brand;
         let project = res.data.data;
         that.setData({
           competition_id: res.data.data.competition_id,
         })
         // console.log(user_id, id, is_share)
-        app.log("bp", res)
+        app.log(that,"bp", res)
         if (project.pro_BP) {
           let BPath = project.pro_BP.file_url;
           that.setData({
@@ -482,7 +480,7 @@ Page({
         company_name: company_name
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         let nothing = res.data.data
         if (nothing == 0) {
           that.setData({
@@ -516,7 +514,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success(res) {
+            success: function (res) {
               let projectDetailsList = res.data.data;
               if (projectDetailsList.length != 0) {
                 let projectDetailsOne = projectDetailsList[0];
@@ -542,7 +540,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success(res) {
+            success: function (res) {
               // 变更信息
               let brandInfoList = res.data.data.brand;
               let companyChangeList = res.data.data.company_change;
@@ -572,7 +570,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success(res) {
+            success: function (res) {
               let teamList = res.data.data;
               teamList.forEach((x, index) => {
                 teamList[index].team_member_name = x.team_member_name;
@@ -589,7 +587,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success(res) {
+            success: function (res) {
               let historyFinance = res.data.data;
               historyFinance.forEach((x, index) => {
                 historyFinance[index].history_financing_money = x.history_financing_money;
@@ -609,7 +607,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success(res) {
+            success: function (res) {
               let mileStone = res.data.data;
               mileStone.forEach((x, index) => {
                 mileStone[index].milestone_event = x.milestone_event;
@@ -627,7 +625,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success(res) {
+            success: function (res) {
               let newsList = res.data.data;
               newsList.forEach((x, index) => {
                 newsList[index].project_news_label = x.project_news_label;
@@ -641,15 +639,13 @@ Page({
             }
           })
           // 相似公司
-          console.log('id',that.data.id);
           wx.request({
             url: url_common + '/api/dataTeam/getCrawlerCompeting',
             data: {
-              com_id: com_id,
-              project_id:that.data.id,
+              com_id: com_id
             },
             method: 'POST',
-            success(res) {
+            success: function (res) {
               let competeList = res.data.data;
               let projectLabelList = [];
               let projectArray = [];
@@ -683,10 +679,10 @@ Page({
         project_id: id,
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         wx.hideLoading()
         let investor2 = res.data.data;
-        app.log("投资人", investor2)
+        app.log(that,"投资人",investor2)
         let matchCount = res.data.match_count;
         that.setData({
           investor2: investor2,
@@ -711,10 +707,10 @@ Page({
         project_id: id,
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         wx.hideLoading()
         let investment_list = res.data.data.investment_list;
-        app.log("投资机构", investment_list)
+        app.log(that,"投资机构",investment_list)
         let investment_total_num = res.data.data.investment_total_num;
         that.setData({
           investment_list: investment_list,
@@ -729,7 +725,7 @@ Page({
     })
   },
   // 买家图谱上拉加载
-  loadMore() {
+  loadMore: function () {
     let that = this;
     let user_id = this.data.user_id;
     let id = this.data.id;
@@ -744,7 +740,7 @@ Page({
     }
     //调用通用加载函数
     app.loadMore(that, request, "investor2");
-    app.log('投资人', this.data.page_end);
+    app.log(that,'投资人',this.data.page_end);
     if (this.data.page_end == true) {
       that.setData({
         jiandi: true
@@ -761,12 +757,12 @@ Page({
       url: url_common + '/api/investment/matchs',
       data: {
         project_id: id,
-        page: currentPage1
+        page:currentPage1
       },
     }
     //调用通用加载函数
     app.loadMoreM(that, request, "investment_list");
-    app.log('投资机构', this.data.page_end1);
+    app.log(that,'投资机构', this.data.page_end1);
     if (this.data.page_end1 == true) {
       that.setData({
         jiandi1: true
@@ -774,20 +770,20 @@ Page({
     }
   },
   // 跳转详情页
-  institutionalDetails1(e) {
+  institutionalDetails1: function (e) {
     let thisData = e.currentTarget.dataset;
     app.href('/pages/organization/org_detail/org_detail?investment_id=' + thisData.id)
   },
   /* -----------------------交互行为------------------------------------------- */
   // 用户详情
-  userDetail(e) {
+  userDetail: function (e) {
     var id = e.currentTarget.dataset.id;
     let pages = getCurrentPages();
     pages.splice(0, 1)
     app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id)
   },
   // 项目详情-里程碑 展开收起
-  moreInfo(e) {
+  moreInfo: function (e) {
     let id = e.target.dataset.id;
     let that = this;
     if (id == 3) {
@@ -809,7 +805,7 @@ Page({
       })
     }
   },
-  noMoreInfo(e) {
+  noMoreInfo: function (e) {
     let id = e.target.dataset.id;
     let that = this;
     if (id == 3) {
@@ -831,27 +827,34 @@ Page({
     }
   },
   // 查看bp
-  sendBp() {
+  sendBp: function () {
     let that = this;
     let user_id = wx.getStorageSync("user_id");
-    app.checkUserInfo(this, res => {
-      let userEmail = res.data.user_email;
-      if (userEmail) {
-        that.setData({
-          userEmail: userEmail,
-          sendPc: 1,
-          checkEmail: true,
-        })
-      } else {
-        that.setData({
-          sendPc: 1,
-          checkEmail: false
-        })
+    wx.request({
+      url: url_common + '/api/user/checkUserInfo',
+      data: {
+        user_id: user_id
+      },
+      method: 'POST',
+      success: function (res) {
+        let userEmail = res.data.user_email;
+        if (userEmail) {
+          that.setData({
+            userEmail: userEmail,
+            sendPc: 1,
+            checkEmail: true,
+          })
+        } else {
+          that.setData({
+            sendPc: 1,
+            checkEmail: false
+          })
+        }
       }
     })
   },
   // 更改邮箱
-  writeBpEmail(e) {
+  writeBpEmail: function (e) {
     let userEmail = e.detail.value;
     if (userEmail) {
       this.setData({
@@ -866,7 +869,7 @@ Page({
     }
   },
   // 发送
-  bpModalSure(e) {
+  bpModalSure: function (e) {
     let that = this;
     let index = e.currentTarget.dataset.index;
     let sendPc = that.data.sendPc;
@@ -885,7 +888,8 @@ Page({
             user_email: userEmail
           },
           method: 'POST',
-          success(res) {
+          success: function (res) {
+            app.console(res)
             that.setData({
               userEmail: userEmail
             })
@@ -899,7 +903,7 @@ Page({
                   email: userEmail
                 },
                 method: 'POST',
-                success(res) {
+                success: function (res) {
                   if (res.data.status_code == 2000000) {
                     app.errorHide(that, 'BP文件发送邮箱成功', 3000)
                     wx.request({
@@ -911,7 +915,7 @@ Page({
                         project_id: project_id
                       },
                       method: 'POST',
-                      success(res) {
+                      success: function (res) {
                       }
                     })
                   } else {
@@ -938,7 +942,7 @@ Page({
 
   },
   // 取消
-  bpModalCancel(options) {
+  bpModalCancel: function (options) {
     let index = options.currentTarget.dataset.index;
     let that = this;
     let sendPc = that.data.sendPc;
@@ -952,32 +956,30 @@ Page({
       })
     }
   },
-  collectProject() {
+  collectProject: function () {
     let that = this;
     app.errorHide(that, "收藏项目近期开放", 3000);
   },
   //商业计划书
-  businessBook() {
+  businessBook: function () {
     let BPath = this.data.BPath;
+
     let user_id = wx.getStorageSync('user_id');
     let project_id = this.data.id;
     let that = this;
-    app.checkUserInfo(this, x => {
+    app.checkUserInfo(x => {
       if (BPath) {
-        let aa = BPath;
-        let one = aa.lastIndexOf(".");
-        let bb = aa.substring((one + 1), aa.length);
-        if (bb == 'zip' || bb == 'rar') {
-          wx.showModal({
-            title: '提示',
-            content: '小程序暂不支持当前文件格式预览',
-          })
-        } else {
-          wx.showActionSheet({
-            itemList: ['直接预览', '发送到邮箱'],
-            success(res) {
-              if (res.tapIndex == 1) {
-                app.checkUserInfo(this, res => {
+        wx.showActionSheet({
+          itemList: ['直接预览', '发送到邮箱'],
+          success: function (res) {
+            if (res.tapIndex == 1) {
+              wx.request({
+                url: url_common + '/api/user/checkUserInfo',
+                data: {
+                  user_id: user_id
+                },
+                method: 'POST',
+                success: function (res) {
                   let userEmail = res.data.user_email;
                   if (userEmail) {
                     that.setData({
@@ -991,51 +993,51 @@ Page({
                       checkEmail: false
                     })
                   }
-                })
-              } else if (res.tapIndex == 0) {
-                wx.showLoading({
-                  title: 'loading',
-                  mask: true,
-                })
-                app.log("BP", BPath)
-                wx.downloadFile({
-                  url: BPath,
-                  success(res) {
-                    var filePath = res.tempFilePath;
-                    app.log("bp", filePath)
-                    wx.openDocument({
-                      filePath: filePath,
-                      success(res) {
-                        app.log('打开文档成功')
-                        wx.hideLoading();
-                        wx.request({
-                          url: url_common + '/api/project/insertViewBpRecord',
-                          data: {
-                            type: 'preview',
-                            open_session: wx.getStorageSync('open_session'),
-                            user_id: user_id,
-                            project_id: project_id
-                          },
-                          method: 'POST',
-                          success(res) {
+                }
+              })
+            } else if (res.tapIndex == 0) {
+              wx.showLoading({
+                title: 'loading',
+                mask: true,
+              })
+              app.log(that,"BP",BPath)
+              wx.downloadFile({
+                url: BPath,
+                success: function (res) {
+                  var filePath = res.tempFilePath;
+                  app.log(that,"bp", filePath)
+                  wx.openDocument({
+                    filePath: filePath,
+                    success: function (res) {
+                      app.log(that,'打开文档成功')
+                      wx.hideLoading();
+                      wx.request({
+                        url: url_common + '/api/project/insertViewBpRecord',
+                        data: {
+                          type: 'preview',
+                          open_session: wx.getStorageSync('open_session'),
+                          user_id: user_id,
+                          project_id: project_id
+                        },
+                        method: 'POST',
+                        success: function (res) {
 
-                          },
-                        })
-                      }
-                    })
-                  },
-                  fail() {
-                    wx.hideLoading();
-                    app.errorHide(that, '预览文件过大,请发送到邮箱查看', 3000)
-                  }
-                })
-              }
-            },
-            fail(res) {
-              app.errorHide(that, res.errMsg, 3000)
+                        },
+                      })
+                    }
+                  })
+                },
+                fail() {
+                  wx.hideLoading();
+                  app.errorHide(that, '预览文件过大,请发送到邮箱查看', 3000)
+                }
+              })
             }
-          })
-        }
+          },
+          fail: function (res) {
+            app.errorHide(that, res.errMsg, 3000)
+          }
+        })
       } else {
         wx.showModal({
           title: '提示',
@@ -1045,40 +1047,41 @@ Page({
     });
   },
   //联系项目方
-  contactPerson() {
+  contactPerson: function () {
     let user_id = wx.getStorageSync('user_id');
     let that = this;
-    app.checkUserInfo(this, res => {
-      //如果信息完整就
-      // 身份通过
-      if (this.data.status === 2) {
-        // 如果身份是买方FA，投资人，就去联系项目方
-        if (this.data.group_id === 18 || this.data.group_id === 6) {
-          //可以联系项目方
-          that.setData({
-            modalBox: 1
-          })
+    wx.request({
+      url: url_common + '/api/user/checkUserInfo',
+      data: {
+        user_id: user_id
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.status_code == 2000000) {
+          var complete = res.data.is_complete;
+          if (complete == 1) {
+            //如果信息完整就可以联系项目方
+            that.setData({
+              modalBox: 1
+            })
+          } else if (complete == 0) {
+            app.href('/pages/register/companyInfo/companyInfo?type=1')
+          }
         } else {
-          that.setData({
-            authenModelBox: 1
-          })
+          app.href('/pages/register/personInfo/personInfo?type=2')
         }
-        // 其他全部去那边
-      } else {
-        that.setData({
-          authenModelBox: 1
-        })
-      }
-    })
+      },
+    });
+
   },
   //关闭模态框
-  closeModal() {
+  closeModal: function () {
     this.setData({
       modalBox: 0
     })
   },
   //约谈
-  contentProject(e) {
+  contentProject: function (e) {
     let message = e.detail.value;
     let message_length = e.detail.value.length;
     let that = this;
@@ -1092,7 +1095,7 @@ Page({
     }
   },
   //约谈信息发送
-  yesBtn() {
+  yesBtn: function () {
     let that = this;
     let message = this.data.message;
     let project_id = this.data.id;//项目id
@@ -1115,7 +1118,7 @@ Page({
     })
   },
   /*点击tab切换*/
-  swichNav(e) {
+  swichNav: function (e) {
     let that = this;
     if (this.data.currentTab === e.target.dataset.current) {
       return false;
@@ -1126,18 +1129,18 @@ Page({
     }
   },
   /*滑动切换tab*/
-  bindChange(e) {
+  bindChange: function (e) {
     let that = this;
     let current = e.detail.current;
     that.setData({ currentTab: e.detail.current });
   },
   //分享当前页面
-  onShareAppMessage() {
+  onShareAppMessage: function () {
     let that = this;
     return ShareModel.projectDetailShare(that);
   },
   // 项目详情中的展开和收起
-  allBrightPoint(e) {
+  allBrightPoint: function (e) {
     let check = e.currentTarget.dataset.check;
     if (check == 0) {
       this.setData({
@@ -1163,7 +1166,7 @@ Page({
       })
     }
   },
-  noBrightPoint(e) {
+  noBrightPoint: function (e) {
     let check = e.currentTarget.dataset.check;
     if (check == 0) {
       this.setData({
@@ -1191,40 +1194,61 @@ Page({
     }
   },
   // 立即认证
-  toAccreditation() {
+  toAccreditation: function () {
     let status = this.data.status;
     let user_id = wx.getStorageSync('user_id');
-    app.checkUserInfo(this, res => {
-      //如果信息完整就可以显示去认证
-      if (status == 0) {
-        app.href('/pages/my/identity/indentity/indentity')
-      } else {
-        wx.request({
-          url: url_common + '/api/user/getUserGroupByStatus',
-          data: {
-            user_id: user_id
-          },
-          method: 'POST',
-          success(res) {
-            let group_id = res.data.group.group_id;
-            app.href('/pages/my/identity/indentity/indentity?group_id=' + group_id + '&&recertification=' + 1)
+    wx.request({
+      url: url_common + '/api/user/checkUserInfo',
+      data: {
+        user_id: user_id
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.status_code == 2000000) {
+          var complete = res.data.is_complete;
+          if (complete == 1) {
+            //如果信息完整就可以显示去认证
+            if (status == 0) {
+              app.href('/pages/my/identity/indentity/indentity')
+            } else if (status == 3) {
+              wx.showModal({
+                title: '友情提示',
+                content: '您的身份未通过审核,只有投资人和买方FA才可申请查看项目',
+                confirmColor: "#333333;",
+                confirmText: "重新认证",
+                showCancel: false,
+                success: function (res) {
+                  wx.request({
+                    url: url_common + '/api/user/getUserGroupByStatus',
+                    data: {
+                      user_id: user_id
+                    },
+                    method: 'POST',
+                    success: function (res) {
+                      let group_id = res.data.group.group_id;
+                      app.href('/pages/my/identity/indentity/indentity?group_id=' + group_id)
+                    }
+                  })
+                }
+              })
+            }
+          } else if (complete == 0) {
+            wx.removeStorageSync('followed_user_id')
+            app.href('/pages/register/companyInfo/companyInfo?type=1')
           }
-        })
-      }
-    })
-  },
-  // 暂不认证
-  noAccreditation() {
-    this.setData({
-      authenModelBox: 0
-    })
+        } else {
+          wx.removeStorageSync('followed_user_id')
+          app.href('/pages/register/personInfo/personInfo?type=2')
+        }
+      },
+    });
   },
   // 申请查看
-  applyProject(e) {
+  applyProject: function (e) {
     let that = this;
     let user_id = this.data.user_id;
     let pro_id = this.data.id;
-    app.operationModel('projectApply', this, pro_id, res => {
+    app.operationModel('projectApply', pro_id, res => {
       if (res.data.status_code = 2000000) {
         this.setData({
           button_type: 0
@@ -1244,12 +1268,12 @@ Page({
     if (id != user_id) {
       app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id)
     } else if (id == user_id) {
-      app.href('/pages/my/myCard/myCard')
+      app.href('/pages/my/my/my')
     }
   },
   // 一键尽调页面展开
   //查看全部
-  checkMore(e) {
+  checkMore: function (e) {
     let id = e.target.dataset.id;
     if (id == 1) {
       this.setData({
@@ -1276,7 +1300,7 @@ Page({
     }
   },
   // 折叠
-  noCheckMore(e) {
+  noCheckMore: function (e) {
     let id = e.target.dataset.id;
     if (id == 1) {
       this.setData({
@@ -1309,35 +1333,36 @@ Page({
   //   })
   // }
   // 机构版买家图谱跳转
-  toMap() {
+  toMap: function () {
     var that = this;
     app.href('/pages/organization/subPage/project_orgMatch/project_orgMatch?project_id=' + this.data.id);
   },
   // 项目评分
-  projectRemark() {
+  projectRemark: function () {
     let user = this.data.user_id;
     let project_id = this.data.id;
     let competition = this.data.competition_id;
-    app.checkUserInfo(this, res => {
+    app.operationModel('checkUserInfo', res => {
       app.href('/pages/projectScale/projectEvaluation/projectEvaluation?project_id=' + project_id + "&user_id=" + user + "&competition_id=" + competition);
     })
+
   },
   // 机构版买家图谱跳转
-  toMap() {
+  toMap: function () {
     var that = this;
     app.href('/pages/organization/subPage/project_orgMatch/project_orgMatch?project_id=' + this.data.id);
   },
   // 进入潜在投资方
-  potential() {
+  potential: function () {
     let that = this;
     that.setData({ currentTab: 1 });
   },
-  onKey() {
+  onKey: function () {
     let that = this;
     that.setData({ currentTab: 2 });
   },
   // 买家图谱
-  matchButt() {
+  matchButt: function () {
     let that = this;
     that.setData({
       matchBut: true,
@@ -1345,7 +1370,7 @@ Page({
     })
   },
   // 机构版买家图谱
-  matchButt1() {
+  matchButt1: function () {
     let that = this;
     that.setData({
       matchBut1: true,
@@ -1353,11 +1378,11 @@ Page({
     })
   },
   // 跳转到首页
-  moreProject() {
+  moreProject: function () {
     app.href('/pages/discoverProject/discoverProject')
   },
   //跳转到历史融资
-  toHistory() {
+  toHistory: function () {
     let that = this;
     let share_id = this.data.share_id;
     let user_id = wx.getStorageSync('user_id');
@@ -1369,7 +1394,7 @@ Page({
     }
   },
   //跳转到核心团队
-  toTeam() {
+  toTeam: function () {
     let that = this;
     let share_id = this.data.share_id;
     let user_id = wx.getStorageSync('user_id');
@@ -1381,7 +1406,7 @@ Page({
     }
   },
   //跳转到产品
-  toBrand() {
+  toBrand: function () {
     let that = this;
     let share_id = this.data.share_id;
     let user_id = wx.getStorageSync('user_id');
@@ -1393,7 +1418,7 @@ Page({
     }
   },
   //跳转到里程碑
-  mileStone() {
+  mileStone: function () {
     let that = this;
     let user_id = wx.getStorageSync('user_id');
     let share_id = this.data.share_id;
@@ -1404,7 +1429,7 @@ Page({
       app.href('/pages/myProject/proMilestone/proMilestone?user_id=' + user_id + '&&project_id=' + id);
     }
   },
-  contactTap() {
+  contactTap: function () {
     let that = this;
     that.setData({
       bindContact: true
@@ -1426,17 +1451,5 @@ Page({
       wx.hideLoading();
       this.onShow();
     }, 1500)
-  },
-  // 微信授权绑定
-  getPhoneNumber(e) {
-    register.getPhoneNumber.call(this, e);
-  },
-  // 手机号码绑定
-  telephoneRegister() {
-    register.telephoneRegister.call(this);
-  },
-  // 关闭绑定方式选择弹框
-  closeRegisterModal() {
-    register.closeRegisterModal.call(this);
   }
 }) 

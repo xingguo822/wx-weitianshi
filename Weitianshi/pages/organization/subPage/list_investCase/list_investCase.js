@@ -1,9 +1,9 @@
 let app = getApp();
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as ShareModel from '../../../../utils/model/shareModel';
-import * as httpModel from '../../../../utils/model/httpModel';
-import * as FilterModel from '../../../../utils/model/filterModel';
+import * as ShareModel from '../../../../utils/shareModel';
+import * as httpModel from '../../../../utils/httpModel';
+import * as FilterModel from '../../../../utils/filterModel';
 Page({
   data: {
     SearchInit: FilterModel.data,
@@ -11,12 +11,12 @@ Page({
     linkDataShow: FilterModel._linkDataShow,
     nonet: true
   },
-  onLoad(options) {
+  onLoad: function (options) {
     let that = this;
     this.setData({
       investment_id: options.investment_id,
     });
-    app.log("investment_id",this.data.investment_id);
+    app.log(that,"investment_id",this.data.investment_id);
     //更改搜索模块初始化设置
     FilterModel.reInitSearch(that, {
       tab: [
@@ -41,7 +41,7 @@ Page({
     });
     app.netWorkChange(that)
   },
-  onShow() {
+  onShow: function () {
     let that = this;
     that.setData({
       requestCheck: true,
@@ -155,7 +155,7 @@ Page({
         filter: this.data.SearchInit.searchData,
         investment_id: this.data.investment_id,
       },
-      success(res) {
+      success: function (res) {
         wx.hideLoading()
         let newPage = res.data.data;
         let list = res.data.data.project_list;

@@ -5,7 +5,7 @@ Page({
   data: {
     nonet: true
   },
-  onLoad(options) {
+  onLoad: function (options) {
     let user_name = options.name;
     let user_brand = options.brand;
     let user_company = options.company;
@@ -28,7 +28,7 @@ Page({
     })
   },
   // 姓名
-  nameEdit(e) {
+  nameEdit: function (e) {
     let user_name = e.detail.value;
     let user_name_length = e.detail.value.length;
     let that = this;
@@ -42,7 +42,7 @@ Page({
   },
 
   // 品牌
-  brandEdit(e) {
+  brandEdit: function (e) {
     let user_brand = e.detail.value;
     let user_brand_length = e.detail.value.length;
     let that = this;
@@ -55,7 +55,7 @@ Page({
     }
   },
   // 公司
-  companyEdit(e) {
+  companyEdit: function (e) {
     let user_company_name = e.detail.value;
     let user_company_name_length = e.detail.value.length;
     let pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
@@ -73,7 +73,7 @@ Page({
     }
   },
   // 职位
-  careerEdit(e) {
+  careerEdit: function (e) {
     let user_career = e.detail.value;
     let user_career_length = e.detail.value.length;
     let that = this;
@@ -86,7 +86,7 @@ Page({
     }
   },
   // 邮箱
-  emailEdit(e) {
+  emailEdit: function (e) {
     let user_email = e.detail.value;
     let user_email_length = e.detail.value.length;
     this.setData({
@@ -94,7 +94,7 @@ Page({
     })
   },
   // 微信
-  weChat(e) {
+  weChat: function (e) {
     let user_weChat = e.detail.value;
     let user_weChat_length = e.detail.value.length;
     let that = this;
@@ -107,7 +107,7 @@ Page({
     }
   },
   // 个人描述
-  personDescrible(e) {
+  personDescrible: function (e) {
     let user_describle = e.detail.value;
     let user_describle_length = e.detail.value.length;
     let that = this;
@@ -119,7 +119,7 @@ Page({
       app.errorHide(that, "不能超过500个数字", 1000)
     }
   },
-  save() {
+  save: function () {
     let that = this;
     let user_id = wx.getStorageSync('user_id');
     let user_name = this.data.user_name;
@@ -132,14 +132,14 @@ Page({
     let type = this.data.type;
     let pages = getCurrentPages();
     let currPage = pages[pages.length - 1];
-    let prePage = pages[pages.length - 2];
-    let user_info = prePage.data.user_info;
+    let prevPage = pages[pages.length - 2];
+    let user_info = prevPage.data.user_info;
 
     // 姓名type:0 手机type:1 品牌type:2 公司type:3 职位type:4 邮箱type:5 微信type:6 个人描述type:7
     if (type == 0) {
       user_info.user_real_name = user_name;
       if (user_name != '') {
-        prePage.setData({
+        prevPage.setData({
           user_info: user_info
         })
         wx.navigateBack({
@@ -151,7 +151,7 @@ Page({
 
     } else if (type == 2) {
       user_info.user_brand = user_brand;
-      prePage.setData({
+      prevPage.setData({
         user_info: user_info
       })
       wx.navigateBack({
@@ -160,7 +160,7 @@ Page({
     } else if (type == 3) {
       user_info.user_company_name = user_company_name;
       if (user_company_name != '') {
-        prePage.setData({
+        prevPage.setData({
           user_info: user_info
         })
         wx.navigateBack({
@@ -172,7 +172,7 @@ Page({
     } else if (type == 4) {
       user_info.user_company_career = user_career;
       if (user_career != '') {
-        prePage.setData({
+        prevPage.setData({
           user_info: user_info
         })
         wx.navigateBack({
@@ -185,7 +185,7 @@ Page({
       user_info.user_email = user_email;
       let that = this;
       if (app.checkEmail(user_email) || user_email == '') {
-        prePage.setData({
+        prevPage.setData({
           user_info: user_info
         })
         wx.navigateBack({
@@ -197,7 +197,7 @@ Page({
     }
     else if (type == 6) {
       user_info.user_wechat = user_weChat;
-      prePage.setData({
+      prevPage.setData({
         user_info: user_info
       })
       wx.navigateBack({
@@ -206,7 +206,7 @@ Page({
     }
     else if (type == 7) {
       user_info.user_intro = user_describle;
-      prePage.setData({
+      prevPage.setData({
         user_info: user_info
       })
       wx.navigateBack({

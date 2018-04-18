@@ -7,11 +7,11 @@ Page({
     disabled: false,
     nonet: true
   },
-  onLoad() {
+  onLoad: function () {
     let that = this;
     app.netWorkChange(that)
   },
-  btnYes() {
+  btnYes: function () {
     console.log(4544)
     wx.navigateBack({
       delta: 2
@@ -19,11 +19,12 @@ Page({
   },
   // 重新加载
   refresh() {
+    let timer = '';
     wx.showLoading({
       title: 'loading',
       mask: true
     });
-    setTimeout(x => {
+    timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
     }, 1500)

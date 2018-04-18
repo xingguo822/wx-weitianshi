@@ -1,6 +1,6 @@
 <include src='/utils/wxml/projectDetail' />
 
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 
 <view class="flex t-aboutNetwork" wx:if="{{nonet}}">
   <view class="t-flexBox" hover-class="t-hoverColor" bindtap="moreProject">

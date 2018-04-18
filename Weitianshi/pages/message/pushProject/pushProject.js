@@ -1,8 +1,6 @@
 var app = getApp();
 var url = app.globalData.url;
 var url_common = app.globalData.url_common;
-let RG = require('../../../utils/model/register.js');
-let register = new RG.register();
 Page({
   data: {
     winWidth: 0,//选项卡
@@ -13,19 +11,17 @@ Page({
     // handle_status: 0 // handle_status:待处理:0  感兴趣:1
     modalBox: 0,
     buttonOneText: "确定",
-    nonet: true,
-    jiandi : false,
-    atBottom : false
+    nonet: true
   },
-  onLoad(options) {
+  onLoad: function (options) {
     let type = options.type;
     let that = this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
     that.setData({
       type: type
-    });
+    })
   },
-  onShow() {
+  onShow: function () {
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let that = this;
     let type = this.data.type;
@@ -33,46 +29,40 @@ Page({
     wx.showLoading({
       title: 'loading',
       mask: true,
-    });
+    })
     wx.request({
       url: url_common + '/api/message/getProjectWithPushToMe',
       data: {
-        user_id: user_id
+        user_id : user_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         wx.hideLoading();
         let pushToList = res.data.data;
         let count1 = res.data.count;
-        if (count1 >= 999) {
-          count1 = "999+"
-        }
         that.setData({
           count1: count1,
           pushToList: pushToList,
-        });
+        })
       }
-    });
+    })
 
     // 我推送的项目
     wx.request({
       url: url_common + '/api/message/pushProjectList',
       data: {
-        user_id: user_id
+        user_id : user_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         let pushProjectList = res.data.data;
         let count = res.data.count;
-        if (count >= 999) {
-          count = "999+"
-        }
         that.setData({
           count: count,
           pushProjectList: pushProjectList
-        });
+        })
       }
-    });
+    })
     // 向后台发送信息取消红点 推送给我的
     wx.request({
       url: url_common + '/api/message/setMessageToRead',
@@ -81,9 +71,9 @@ Page({
         type_id: type
       },
       method: "POST",
-      success(res) {
+      success: function (res) {
       }
-    });
+    })
     that.setData({
       requestCheck: true,
       requestCheckBoolean: true,
@@ -92,10 +82,10 @@ Page({
       page_end: false,
       page_endBoolean: false,
       push_page: 1
-    });
+    })
   },
   /*滑动切换tab*/
-  bindChange(e) {
+  bindChange: function (e) {
     var that = this;
     let type = this.data.type;
     var current = e.detail.current;
@@ -111,17 +101,17 @@ Page({
           type: "push"
         },
         method: "POST",
-        success(res) {
+        success: function (res) {
           if (res.data.status_code == 2000000) {
             pushProjectList.forEach((x) => {
               x.message_status = 1;
-            });
+            })
             that.setData({
               hasRedPoint: false
-            });
+            })
           }
         }
-      });
+      })
     } else if (current == 0) {
       wx.request({
         url: url_common + '/api/message/setMessageToRead',
@@ -130,31 +120,31 @@ Page({
           type_id: type
         },
         method: "POST",
-        success(res) {
+        success: function (res) {
           if (res.data.status_code == 2000000) {
             pushToList.forEach((x) => {
               x.message_status = 1;
-            });
+            })
             that.setData({
               pushToList: pushToList
-            });
+            })
           }
 
         }
-      });
+      })
       if (this.data.hasRedPoint === false) {
         pushProjectList.forEach((x) => {
           x.message_status = 1;
-        });
+        })
         that.setData({
           pushProjectList: pushProjectList
-        });
+        })
       }
     }
     that.setData({ currentTab: e.detail.current });
   },
   /*点击tab切换*/
-  swichNav(e) {
+  swichNav: function (e) {
     var that = this;
     let cancel = this.data.cancel;
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
@@ -168,17 +158,17 @@ Page({
             type: "push"
           },
           method: "POST",
-          success(res) {
+          success: function (res) {
             if (res.data.status_code == 2000000) {
               pushProjectList.forEach((x) => {
                 x.message_status = 1;
-              });
+              })
               that.setData({
                 pushProjectList: pushProjectList
-              });
+              })
             }
           }
-        });
+        })
       } else if (current == 0) {
         wx.request({
           url: url_common + '/api/message/setMessageToRead',
@@ -187,27 +177,27 @@ Page({
             type_id: type
           },
           method: "POST",
-          success(res) {
+          success: function (res) {
             if (res.data.status_code == 2000000) {
               pushToList.forEach((x) => {
                 x.message_status = 1;
-              });
+              })
               that.setData({
                 pushToList: pushToList
-              });
+              })
             }
           }
-        });
+        })
       }
       return false;
     } else {
       that.setData({
         currentTab: e.target.dataset.current
-      });
+      })
     }
   },
   // 点击跳转
-  projectDetail(e) {
+  projectDetail: function (e) {
     // 获取我自己的项目id
     var that = this;
     // 获取当前点击的项目id
@@ -219,25 +209,26 @@ Page({
         project_id: id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         var that = this;
         var userId = res.data.user_id;
         var user = wx.getStorageSync('user_id');
         if (userId == user) {
-          app.href('/pages/myProject/projectDetail/projectDetail?id=' + id + '&&index=' + 0);
+          app.href('/pages/myProject/projectDetail/projectDetail?id=' + id + '&&index=' + 0)
         } else {
-          app.href('/pages/projectDetail/projectDetail?id=' + id);
+          app.href('/pages/projectDetail/projectDetail?id=' + id)
         }
       }
-    });
+    })
   },
   //点击跳转到用户详情
-  personDetail(e) {
+  personDetail: function (e) {
     var id = e.currentTarget.dataset.project;
-    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
+    app.console(id)
+    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id)
   },
   //推送给我的加载更多
-  loadMore() {
+  loadMore: function () {
     //请求上拉加载接口所需要的参数
     var that = this;
     var user_id = wx.getStorageSync('user_id');
@@ -248,12 +239,12 @@ Page({
         user_id: user_id,
         page: this.data.currentPage
       }
-    };
+    }
     //调用通用加载函数
-    app.loadMore(that, request, "pushToList");
+    app.loadMore(that, request, "pushToList")
   },
   // 我推送的项目加载更多
-  moreForApply() {
+  moreForApply: function () {
     //请求上拉加载接口所需要的参数
     var user_id = wx.getStorageSync("user_id");
     let that = this;
@@ -264,7 +255,7 @@ Page({
           wx.showToast({
             title: 'loading...',
             icon: 'loading'
-          });
+          })
           that.data.push_page++;
           that.setData({
             otherCurrentPage: this.data.push_page,
@@ -278,31 +269,30 @@ Page({
               page: this.data.otherCurrentPage
             },
             method: 'POST',
-            success(res) {
+            success: function (res) {
               var newPage = res.data.data;
               var page_end = res.data.page_end;
               for (var i = 0; i < newPage.length; i++) {
-                pushProjectList.push(newPage[i]);
+                pushProjectList.push(newPage[i])
               }
               that.setData({
                 pushProjectList: pushProjectList,
                 page_endBoolean: page_end,
                 requestCheckBoolean: true
-              });
+              })
             }
-          });
+          })
         } else {
-          // app.errorHide(that, "没有更多了", that, 3000);
+          app.errorHide(that, "没有更多了", that, 3000)
           that.setData({
-            requestCheckBoolean: true,
-            jiandi : true
+            requestCheckBoolean: true
           });
         }
       }
     }
   },
   // 感兴趣
-  interesting(e) {
+  interesting: function (e) {
     let that = this;
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let push_id = e.currentTarget.dataset.push;
@@ -315,10 +305,10 @@ Page({
       currentProject_id: currentProject_id,
       push_id: push_id,
       status: status
-    });
+    })
   },
   //不感兴趣
-  noInteresting(e) {
+  noInteresting: function (e) {
     let that = this;
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let push_id = e.currentTarget.dataset.push;
@@ -333,29 +323,29 @@ Page({
         status: status
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         let statusCode = res.data.status_code;
         if (statusCode == 2000000) {
           pushToList.forEach((x) => {
             if (x.push_id == push_id) {
-              x.handle_status = 2;
+              x.handle_status = 2
             }
-          });
+          })
           wx.showToast({
             title: '没兴趣',
             duration: 2000,
             image: "/img/icon-chacha@2x.png"
-          });
+          })
           that.setData({
             pushToList: pushToList
-          });
+          })
         } else {
         }
       }
-    });
+    })
   },
   // 同意或者拒绝
-  btn(e) {
+  btn: function (e) {
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let that = this;
     let record_id = e.currentTarget.dataset.record;
@@ -368,49 +358,65 @@ Page({
         record_id: record_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         if (status == 1) {
         } else if (status == 2) {
           that.setData({
             record_id: record_id
-          });
+          })
         }
       }
-    });
-  },
-  //联系项目方
-  contactPerson() {
-    let user_id = wx.getStorageSync('user_id');
-    let that = this;
-    app.checkUserInfo(this, res => {
-      var complete = res.data.is_complete;
-      //如果信息完整就可以联系项目方
-      that.setData({
-        modalBox: 1
-      });
     })
   },
+  //联系项目方
+  contactPerson: function () {
+    let user_id = wx.getStorageSync('user_id');
+    let that = this;
+    wx.request({
+      url: url_common + '/api/user/checkUserInfo',
+      data: {
+        user_id: user_id
+      },
+      method: 'POST',
+      success: function (res) {
+        if (res.data.status_code == 2000000) {
+          var complete = res.data.is_complete;
+          if (complete == 1) {
+            //如果信息完整就可以联系项目方
+            that.setData({
+              modalBox: 1
+            })
+          } else if (complete == 0) {
+            app.href('/pages/register/companyInfo/companyInfo?type=1')
+          }
+        } else {
+          app.href('/pages/register/personInfo/personInfo?type=2')
+        }
+      },
+    });
+
+  },
   //关闭模态框
-  closeModal() {
+  closeModal: function () {
     this.setData({
       modalBox: 0
-    });
+    })
   },
   //约谈
-  contentProject(e) {
+  contentProject: function (e) {
     let message = e.detail.value;
     let message_length = e.detail.value.length;
     let that = this;
     if (message_length <= 500) {
       this.setData({
         message: message
-      });
+      })
     } else {
-      app.errorHide(that, "不能超过500个数字", 1000);
+      app.errorHide(that, "不能超过500个数字", 1000)
     }
   },
   //约谈信息发送
-  yesBtn() {
+  yesBtn: function () {
     let that = this;
     let currentProject_id = this.data.currentProject_id;
     let push_id = this.data.push_id;
@@ -426,21 +432,21 @@ Page({
         project_id: currentProject_id,
         remark: message
       },
-    };
+    }
     app.buttonSubmit(that, submitData, that.data.buttonOneText, res => {
       // 提交中过渡态处理
       setTimeout(x => {
         this.contactProjectPerson(user_id, push_id, status, pushToList);
-      }, 1000);
-    });
+      }, 1000)
+    })
   },
   //加入项目库
-  addProjectLibrary(e) {
+  addProjectLibrary: function (e) {
     let user_id = wx.getStorageSync('user_id');
     let project_id = e.currentTarget.dataset.project;
     let pushToList = this.data.pushToList;
     let that = this;
-    app.log("pushList", pushToList);
+    app.log(that,"pushList",pushToList)
     wx.request({
       url: url_common + '/api/project/importProject',
       data: {
@@ -448,20 +454,20 @@ Page({
         project_id: project_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         if (res.data.status_code == 2000000) {
           pushToList.forEach((x) => {
             if (x.project_id == project_id) {
-              x.import_status = 1;
+              x.import_status = 1
             }
             that.setData({
               pushToList: pushToList
-            });
-          });
+            })
+          })
         } else {
         }
       }
-    });
+    })
   },
   //联系项目方后 改变样式
   contactProjectPerson(user_id, push_id, status, pushToList) {
@@ -469,34 +475,34 @@ Page({
     wx.request({
       url: url_common + '/api/message/handlePushProjectMessage',
       data: {
-        user_id: user_id,
+        user_id : user_id,
         push_id: push_id,
         status: status
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         let statusCode = res.data.status_code;
         if (statusCode == 2000000) {
           pushToList.forEach((x) => {
             if (x.push_id == push_id) {
-              x.handle_status = 1;
+              x.handle_status = 1
             }
-          });
+          })
           wx.showToast({
             title: '已感兴趣',
             icon: 'success',
             duration: 2000
-          });
+          })
           that.setData({
             pushToList: pushToList
-          });
+          })
         } else {
         }
       }
-    });
+    })
     that.setData({
       modalBox: 0
-    });
+    })
   },
   // 重新加载
   refresh() {
@@ -508,19 +514,7 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
-  },
-  // 微信授权绑定
-  getPhoneNumber(e) {
-    register.getPhoneNumber.call(this, e);
-  },
-  // 手机号码绑定
-  telephoneRegister() {
-    register.telephoneRegister.call(this);
-  },
-  // 关闭绑定方式选择弹框
-  closeRegisterModal() {
-    register.closeRegisterModal.call(this);
+    }, 1500)
   }
-});
+})
 

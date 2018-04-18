@@ -8,7 +8,7 @@ Page({
     provinceNum: 1,
     nonet: true
   },
-  onLoad(options) {
+  onLoad: function (options) {
     // current==0发布融资项目 current==1 维护融资项目 current==2 添加投资案例
     let that = this;
     // 获取数据并标定check
@@ -40,7 +40,7 @@ Page({
         pid: provinceNum
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         let city = res.data.data;
         city.forEach(x => {
           x.check = false;
@@ -55,7 +55,7 @@ Page({
       }
     });
   },
-  province(e) {
+  province: function (e) {
     let that = this;
     let index = e.target.dataset.index;
     let id = e.target.dataset.id;
@@ -74,7 +74,7 @@ Page({
         pid: id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         let city = res.data.data;
         that.setData({
           city: city,
@@ -85,7 +85,7 @@ Page({
       }
     });
   },
-  city(e) {
+  city: function (e) {
     let that = this;
     let index = e.target.dataset.index;
     let id = e.target.dataset.id;
@@ -113,7 +113,7 @@ Page({
     })
   },
   //下拉刷新
-  onPullDownRefresh() {
+  onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
   },
   // 重新加载

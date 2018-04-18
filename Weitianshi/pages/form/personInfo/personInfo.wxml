@@ -1,4 +1,5 @@
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
+
 <view wx:if="{{nonet}}">
   <view wx:if="{{type == 0}}">
     <input class="myName" id="name" value="{{user_name}}" maxlength="20" bindinput="nameEdit" placeholder="请输入姓名" />

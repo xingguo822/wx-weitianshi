@@ -16,7 +16,8 @@ scroll-view {
 }
 
 .investGroupBlock {
-  /* border-bottom: 0 !important; *//* padding-bottom: 0; */
+  /* border-bottom: 0 !important; */
+  /* padding-bottom: 0; */
 }
 
 /*我的项目卡片*/
@@ -424,7 +425,7 @@ scroll-view {
   color: #666;
   line-height: 50rpx;
   text-align: center;
-  margin: 0 16rpx 20rpx 0;
+  margin:0 16rpx 20rpx 0;
   white-space: nowrap;
   margin-bottom: 20rpx;
 }
@@ -745,7 +746,7 @@ button::after {
 }
 
 .title {
-  margin-bottom: 30rpx;
+   margin-bottom: 30rpx; 
   font-size: 15px;
   color: #333;
   /* line-height: 21px; */
@@ -1298,11 +1299,12 @@ button::after {
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 666;
 }
 
 .contactModalBox {
   height: 616rpx;
-  width: 510rpx;
+  width: 506rpx;
   background-color: white;
   margin-top: 206rpx;
   margin-left: 90rpx;
@@ -1310,34 +1312,10 @@ button::after {
   position: relative;
 }
 
-/* 认证弹框 */
-
-.authenModalBox {
-  border-radius: 8rpx;
-  height: 300rpx;
-  width: 572rpx;
-  background-color: white;
-  margin-top: 374rpx;
-  margin-left: 90rpx;
-  padding: 32rpx 0 0 0;
-  position: relative;
-}
-
-.authenModalTips {
-  font-size: 28rpx;
-  color: #666;
-  text-align: center;
-}
-
-.authenModalTop {
-  margin-top: 32rpx;
-  padding: 0 32rpx 0rpx 32rpx;
-}
-
 .modalTitle {
   font-size: 36rpx;
   color: #333;
-  line-height: 50rpx;
+  line-height: 36rpx;
   text-align: center;
 }
 
@@ -1376,26 +1354,6 @@ button::after {
   margin-top: 72rpx;
 }
 
-.authBtn {
-  width: 50%;
-  float: left;
-  height: 88rpx;
-  line-height: 88rpx;
-  margin-top: 50rpx;
-  font-size: 30rpx;
-  border-top: 2rpx solid #f0f0f0;
-}
-
-.tempBtn {
-  background: #3378e0;
-  color: #fff;
-  border-radius: 0 0 8rpx 0;
-}
-
-.noTempBtn {
-  border-radius: 0 0 0 8rpx;
-}
-
 .close {
   width: 48rpx;
   height: 48rpx;
@@ -1403,33 +1361,6 @@ button::after {
   top: 185rpx;
   right: 67rpx;
   z-index: 99;
-}
-
-.yesBtn {
-  border-radius: 0 0 8rpx 8rpx;
-  height: 88rpx;
-  line-height: 88rpx;
-  border-top: 2rpx solid #f0f0f0;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  font-size: 15px;
-  color: #333;
-}
-
-.bottomBtn {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-
-.tempReloadBtn {
-  font-size: 15px;
-  color: #3378e0;
-  border-left: 2rpx solid #f0f0f0;
-  border-radius: 0 0 8rpx 0;
 }
 
 /*打分  */

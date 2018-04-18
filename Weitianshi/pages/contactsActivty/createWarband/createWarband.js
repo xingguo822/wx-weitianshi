@@ -5,36 +5,37 @@ Page({
   data: {
     filePath: ''
   },
-  onLoad(options) {
+  onLoad: function (options) {
     let that = this;
     app.netWorkChange(that);
   },
-  onShow() {
+  onShow: function () {
   },
-  writeNewThing(e) {
+  writeNewThing: function (e) {
+    let that = this;
     let type = e.currentTarget.dataset.type;
     let team_name = this.data.team_name;
     let team_founder = this.data.team_founder;
     if (type == 2) {
-      app.href('/pages/contactsActivty/createInfo/createInfo?type=' + type + '&team_name=' + team_name);
+      app.href('/pages/contactsActivty/createInfo/createInfo?type=' + type + '&team_name=' + team_name)
     }
     else if (type == 3) {
-      app.href('/pages/contactsActivty/createInfo/createInfo?type=' + type + '&team_founder=' + team_founder);
+      app.href('/pages/contactsActivty/createInfo/createInfo?type=' + type + '&team_founder=' + team_founder)
     }
   },
   // 战队logo上传
-  warLogo() {
+  warLogo: function () {
     let that = this;
     let user_id = wx.getStorageSync('user_id');
     wx.chooseImage({
       count: 1, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success(res) {
+      success: function (res) {
         var tempFilePaths = res.tempFilePaths;
-        // let avatar = tempFilePaths[0];
+        let avatar = tempFilePaths[0];
         let size = res.tempFiles[0].size;
-        app.log("size", size);
+        app.log(that, "size", size);
         if (size <= 1048576) {
           wx.uploadFile({
             url: url_common + '/api/team/uploadLogo', //仅为示例，非真实的接口地址
@@ -43,25 +44,25 @@ Page({
             formData: {
               user_id: user_id,
             },
-            success(res) {
+            success: function (res) {
               let data = JSON.parse(res.data);
               let image_id = data.data.image_id;
               that.setData({
                 image_id: image_id
-              });
+              })
             }
-          });
+          })
           that.setData({
             filePath: tempFilePaths
-          });
+          })
         } else {
-          app.errorHide(that, "上传图片不能超过1M", 1500);
+          app.errorHide(that, "上传图片不能超过1M", 1500)
         }
       }
-    });
+    })
   },
-  createWar() {
-    let user_id = wx.getStorageSync('user_id');
+  createWar: function () {
+    let user_id = wx.getStorageSync('user_id')
     let team_name = this.data.team_name;
     let team_founder = this.data.team_founder;
     let team_logo = this.data.image_id;
@@ -75,7 +76,7 @@ Page({
         team_logo: team_logo
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         let team_id = res.data.team_id;
         let user_id = wx.getStorageSync('user_id');
         if (res.data.status_code == 2000000) {
@@ -85,12 +86,12 @@ Page({
             confirmText: "下一步",
             confirmColor: "#333333",
             showCancel: false,
-            success(res) {
+            success: function (res) {
               wx.redirectTo({
                 url: '/pages/contactsActivty/activtyRegister/activtyRegister'
-              });
+              })
             }
-          });
+          })
         } else if (res.data.status_code == 411001) {
           wx.showModal({
             title: '创建提示',
@@ -98,29 +99,29 @@ Page({
             confirmText: "加入",
             cancelText: "取消",
             confirmColor: "#333333",
-            success(res) {
+            success: function (res) {
               if (res.confirm) {
                 let arr = [];
                 let parameter = [];
                 arr.push(user_id);
                 arr.push(team_id);
-                parameter.push(arr);
+                parameter.push(arr)
                 wx.request({
                   url: url_common + '/api/team/join',
                   data: {
                     teams: parameter
                   },
                   method: 'POST',
-                  success(res) {
-                    app.log("res",res);
+                  success: function (res) {
+                    app.log(that,"res",res)
                   }
-                });
-                app.href('/pages/contactsActivty/activtyRegister/activtyRegister');
+                })
+                app.href('/pages/contactsActivty/activtyRegister/activtyRegister')
               } else if (res.cancel) {
-                app.log("用户点击取消");
+                app.log(that,"用户点击取消")
               }
             }
-          });
+          })
         } else if (res.data.status_code == 411000) {
           wx.showModal({
             title: '创建提示',
@@ -128,19 +129,19 @@ Page({
             confirmText: "下一步",
             cancelText: "取消",
             confirmColor: "#333333",
-            success(res) {
+            success: function (res) {
               if (res.confirm) {
-                app.href('/pages/contactsActivty/activtyRegister/activtyRegister');
+                app.href('/pages/contactsActivty/activtyRegister/activtyRegister')
               } else if (res.cancel) {
-                app.log("用户点击取消");
+                app.log(that,"用户点击取消")
               }
             }
-          });
+          })
         } else {
-          app.errorHide(that, res.data.error_msg, 3000);
+          app.errorHide(that, res.data.error_msg, 3000)
         }
       }
-    });
+    })
   },
   // 重新加载
   refresh() {
@@ -152,6 +153,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

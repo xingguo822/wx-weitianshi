@@ -1,4 +1,4 @@
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <view class="content">
     <view class="howTo">“如何寻找项目的潜在投资者？”</view>

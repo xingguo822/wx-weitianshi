@@ -6,11 +6,11 @@ Page({
     type_id: 2,
     count: 0,
     nonet: true,
-    jiandi: false
+    atBottom:false
   },
-  onLoad() {
-    let that = this;
-    app.netWorkChange(that);
+  onLoad:function(){
+    let that=this;
+    app.netWorkChange(that)
     app.initPage(that);
     var user_id = wx.getStorageSync('user_id');
     //获取加我为人脉的用户信息
@@ -18,7 +18,7 @@ Page({
       wx.showLoading({
         title: 'loading',
         mask: true,
-      });
+      })
       wx.request({
         url: url_common + '/api/message/cardMessage',
         data: {
@@ -27,17 +27,17 @@ Page({
           page: 1
         },
         method: 'POST',
-        success(res) {
+        success: function (res) {
           wx.hideLoading();
           that.setData({
             contacts: res.data.data,
             count: res.data.count
-          });
+          })
         }
-      });
+      })
     }
   },
-  onShow() {
+  onShow: function () {
     var user_id = this.data.user_id;
     //向后台发送信息取消红点
     wx.request({
@@ -47,7 +47,7 @@ Page({
         type_id: 2
       },
       method: "POST",
-    });
+    })
   },
   // 项目推送
   projectPush(e) {
@@ -59,29 +59,29 @@ Page({
   contactsAddSuccessFunc(res, added_user_id, num) {
     let that = this;
     var contacts = this.data.contacts;
-    app.log("contacts", contacts);
+    app.log(that,"contacts",contacts);
     if (res.data.status_code == 2000000) {
       //更改投资人和FA列表中该人的加人脉按钮的字段
       if (contacts) {
         contacts.forEach(x => {
           if (x.user_id == added_user_id) {
-            x.follow_status = num;
+            x.follow_status = num
           }
-        });
+        })
         that.setData({
           contacts: contacts
-        });
+        })
       }
     } else {
-      app.errorHide(that, res.data.error_Msg, 3000);
+      app.errorHide(that, res.data.error_Msg, 3000)
     }
   },
   // 申请加人脉
   contactsAdd(e) {
     let added_user_id = e.currentTarget.dataset.id;
     let that = this;
-    app.operationModel('contactsAdd', this, added_user_id, function (res) {
-      app.log('申请添加人脉完成', res);
+    app.operationModel('contactsAdd', added_user_id, function (res) {
+      app.log(that,'申请添加人脉完成', res);
       that.contactsAddSuccessFunc(res, added_user_id, 2);
     });
   },
@@ -89,17 +89,17 @@ Page({
   contactsAddDirect(e) {
     let added_user_id = e.currentTarget.dataset.id;
     let that = this;
-    app.operationModel('contactsAddDirect', this, added_user_id, function (res) {
-      app.log('直接添加人脉完成', res);
+    app.operationModel('contactsAddDirect', added_user_id, function (res) {
+      app.log(that,'直接添加人脉完成', res)
       that.contactsAddSuccessFunc(res, added_user_id, 1);
     });
   },
   //添加人脉
-  addPerson(e) {
+  addPerson: function (e) {
     var that = this;
     var user_id = wx.getStorageSync('user_id');
     var apply_user_id = e.currentTarget.dataset.followedid;
-    // var follow_status = e.currentTarget.dataset.follow_status;
+    var follow_status = e.currentTarget.dataset.follow_status;
     var contacts = this.data.contacts;
     wx.request({
       url: url + '/api/user/handleApplyFollowUser',
@@ -108,26 +108,27 @@ Page({
         apply_user_id: apply_user_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         //将状态改为"已互为人脉"
         contacts.forEach((x) => {
           if (x.user_id == apply_user_id) {
-            x.follow_status = 1;
+            x.follow_status = 1
           }
-        });
+        })
         that.setData({
           contacts: contacts
-        });
+        })
       }
-    });
+    })
   },
   // 用户详情
-  userDetail(e) {
-    var id = e.currentTarget.dataset.id;
-    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
+  userDetail: function (e) {
+    var id = e.currentTarget.dataset.id
+    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id)
   },
   //我的名片
-  myCard() {
+  myCard: function () {
+    var that = this;
     var user_id = this.data.user_id;
     //获取用户信息
     wx.request({
@@ -138,43 +139,47 @@ Page({
         view_id: user_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         if (res.data.status_code == 2000000) {
           wx.showModal({
             titel: "友情提示",
             content: "分享名片功能需要在个人页面点击去交换按钮实现",
             showCancel: false,
-            success(res) {
+            success: function (res) {
               if (res.confirm == true) {
-                app.href('/pages/my/myCard/myCard')
+                app.href('/pages/my/my/my')
               }
             }
-          });
+          })
         } else {
           wx.showModal({
             title: "友情提示",
             content: "交换名片之前,请先完善自己的名片",
-            success(res) {
+            success: function (res) {
               if (res.confirm == true) {
-                app.href('/pages/my/cardEdit/cardEdit');
+                app.href('/pages/my/cardEdit/cardEdit')
               }
             }
-          });
+          })
         }
       },
-      fail(res) {
+      fail: function (res) {
         wx.showToast({
           title: "对不起没有获取到您的个人信息"
-        });
+        })
       },
-    });
+    })
+  },
+  // 绑定名片
+  bindUserInfo: function () {
+    app.infoJump()
   },
   // 一键拨号
-  telephone(e) {
+  telephone: function (e) {
     var telephone = e.currentTarget.dataset.telephone;
     wx.makePhoneCall({
       phoneNumber: telephone,
-    });
+    })
   },
   // 加载更多
   loadMore() {
@@ -188,12 +193,12 @@ Page({
         type_id: 2,
         page: currentPage
       },
-    };
-    app.loadMore(that, request, "contacts");
+    }
+    app.loadMore(that, request, "contacts")
     if (this.data.page_end == true) {
       that.setData({
-        jiandi: true
-      });
+        atBottom: true
+      })
     }
   },
   // 重新加载
@@ -206,6 +211,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-}); 
+}) 

@@ -1,5 +1,5 @@
 /* pages/userDetail/userDetail.wxss */
-@import "/pages/my/myCard/myCard.wxss";
+@import "/pages/my/my/my.wxss";
 
 .floatBtn {
   position: fixed;

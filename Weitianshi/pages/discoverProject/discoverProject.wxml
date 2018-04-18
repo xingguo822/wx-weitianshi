@@ -1,16 +1,16 @@
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <!--错误提示  -->
 <view class="error" wx:if="{{error=='1'}}">{{error_text}}</view>
 <view wx:if="{{nonet}}">
   <view style='margin-top:100rpx;'>
     <view class="searchBox" bindtap='searchMore'>
-      <view class="searchSth flex">
+      <view class="seachSth flex">
         <icon type="search" size="14" class="search_icon1"></icon>
         <label> 搜索项目、投资机构、投资人、FA</label>
       </view>
     </view>
-    <scroll-view style="height:1108rpx;" scroll-y="true" bindscrolltolower='loadMore' scroll-top="scrollTop">
+    <scroll-view style="height:1108rpx;" scroll-y="true" bindscrolltolower='loadMore'>
       <!--banner轮播  -->
       <swiper class='banner' autoplay='true' current='{{bannerIndex}}' interval='4000' duration='500' circular='true' indicator-dots='true' indicator-active-color='#ffffff' indicator-color='rgba(255,255, 255, .3)'>
         <block wx:for="{{imgUrls}}" wx:key='item'>
@@ -21,21 +21,18 @@
       </swiper>
 
       <view class='jumpBox flex'>
-        <template is="jumpBlock" data="{{text:'投资机构',tapName:'jumpOrg',src:'/img/icon-touzijigou@2x.png',countShow:count.investment}}"></template>
-        <template is="jumpBlock" data="{{text:'投资人',tapName:'jumpInvestor',src:'/img/icon-touziren@2x.png',countShow:count.investor}}"></template>
-        <template is="jumpBlock" data="{{text:'融资顾问',tapName:'jumpFinancingAdvisor',src:'/img/icon-FA@2x.png',countShow:count.fa}}"></template>
-        <template is="jumpBlock" data="{{text:'潜在投资方',tapName:'potentialInvestor',src:'/img/icon-qianzai@2x.png',countShow:count.match}}"></template>
+        <template is="jumpBlock" data="{{text:'投资机构',tapName:'jumpOrg',src:'/img/icon-touzijigou@2x.png'}}"></template>
+        <template is="jumpBlock" data="{{text:'投资人',tapName:'jumpInvestor',src:'/img/icon-touziren@2x.png'}}"></template>
+        <template is="jumpBlock" data="{{text:'融资顾问',tapName:'jumpFinancingAdvisor',src:'/img/icon-FA@2x.png'}}"></template>
+        <template is="jumpBlock" data="{{text:'潜在投资方',tapName:'potentialInvestor',src:'/img/icon-qianzai@2x.png'}}"></template>
       </view>
 
-      <!-- <view class="selectProject flex">
+      <view class="selectProject flex">
         <label style="width:26rpx;height:2rpx;background:#333;margin-right:8rpx"></label>
         微天使FA精选项目
         <label style="width:26rpx;height:2rpx;background:#333;margin-left:8rpx;"></label>
-      </view> -->
-      <view class="projectColumn">
-      
       </view>
-      <view class='clickMore'>查看更多(400)</view>
+
       <block wx:for="{{slectProject}}" wx:key="{{index}}">
         <view class="selectProjectBox" data-project="{{item.project_id}}" hover-class='t-hoverColor' catchtap="projectDetail">
           <view class="describle" wx:if="{{item.pro_intro != ''}}">
@@ -82,8 +79,9 @@
           </view>
         </view>
       </block>
+
       <template is="theBottom" wx:if="{{atBottom == true}}"></template>
-      <view class="t-highBox"></view>
+      <view class='whiteSpace'></view>
     </scroll-view>
   </view>
 
@@ -93,23 +91,18 @@
       <view class="t-btnToAccreditation" hover-class='t-hoverColor' bindtap="toCreateProject">马上创建</view>
     </view>
   </view>
+
   <template name="jumpBlock">
     <view class="jumpTo" bindtap='{{tapName}}' hover-class='t-hoverColor'>
       <image class='jumpImage' src='{{src}}'></image>
-      <view class="countShowNum" wx:if="{{countShow <= 999}}">{{countShow}}</view>
-      <view class="countShowNum" wx:if="{{countShow > 999}}">999+</view>
       <view class='jumpToContent'>{{text}}</view>
     </view>
   </template>
 </view>
 
+
 <view class="b1" hidden="{{!showLoading}}">
   <view class="t_image">
     <image class="t_image1" src="{{loadingGif}}"></image>
   </view>
-</view>
-
-<!--筛选图标  -->
-<view class="search_img" bindtap='tagFilter' bindtouchstart='filterStart' bindtouchend='filterEnd'>
-  <image src="{{search_img}}"></image>
 </view>

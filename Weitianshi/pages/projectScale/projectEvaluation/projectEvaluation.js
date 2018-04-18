@@ -3,7 +3,7 @@ var rqj = require('../../Template/Template.js');
 var app = getApp();
 var url = app.globalData.url;
 var url_common = app.globalData.url_common;
-import * as ShareModel from '../../../utils/model/shareModel';
+import * as ShareModel from '../../../utils/shareModel';
 Page({
   data: {
     disabled: false,
@@ -21,7 +21,7 @@ Page({
     buttonOneText: '提交',
     nonet: true
   },
-  onLoad(options) {
+  onLoad: function (options) {
     this.setData({
       project_id: options.project_id,
       user_id: options.user_id,
@@ -30,7 +30,7 @@ Page({
     let that = this;
     app.netWorkChange(that);
   },
-  onShow() {
+  onShow: function () {
     let that = this;
     this.history();
 
@@ -46,8 +46,8 @@ Page({
         project_id: that.data.project_id,
         competition_id: that.data.competition_id,
       },
-      success(res) {
-        app.log('input填写', res);
+      success: function (res) {
+        app.log(that,'input填写', res);
         let score_list1 = res.data.data.list;
         // 历史消息接口没有这个最大值字段 需要人为添加到数组
         let view_id = [];
@@ -92,8 +92,8 @@ Page({
         competition_id: that.data.competition_id,
       },
 
-      success(res) {
-        app.log('历史', res);
+      success: function (res) {
+        app.log(that,'历史', res);
         let list1 = res.data.data.score_list;
         let remark = res.data.data.remark;
         let competition_name = res.data.data.competition_name;
@@ -149,7 +149,7 @@ Page({
     });
   },
   // 描述
-  leaveMessage(e) {
+  leaveMessage: function (e) {
     let leaveMessage = e.detail.value;
     let leaveMessage_length = e.detail.value.length;
     let that = this;
@@ -162,7 +162,7 @@ Page({
     }
   },
   // 相加取值
-  totalNum(e) {
+  totalNum: function (e) {
     let that = this;
     let score = that.data.score;
     let score_list = that.data.score_list;
@@ -188,7 +188,7 @@ Page({
     // console.log(that.data.score, that.data.totalNum1);
   },
   // 提交
-  submit() {
+  submit: function () {
     let that = this;
     let score = that.data.score;
     let score_list = that.data.score_list;

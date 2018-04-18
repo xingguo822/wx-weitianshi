@@ -2,7 +2,7 @@
 <import src="/pages/Template/Template.wxml" />
 
 
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <scroll-view style='heigt:3000rpx;' scroll-y='true'>
     <!--投资机构类型，标签  -->

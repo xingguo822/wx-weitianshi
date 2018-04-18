@@ -1,5 +1,6 @@
-var app = getApp();
+var app = getApp()
 var url = app.globalData.url;
+var url_common = app.globalData.url_common;
 Page({
   data: {
     joinedWarband: [],
@@ -14,13 +15,13 @@ Page({
   onLoad(options) {
     let that = this;
     app.initPage(that);
-    app.netWorkChange(that);
+    app.netWorkChange(that)
     wx.showLoading({
       title: 'loading',
       mask: true,
-    });
+    })
     that.getInfo('', 1);
-    app.netWorkChange(that);
+    app.netWorkChange(that)
   },
   onShow() {
   },
@@ -31,20 +32,20 @@ Page({
     let timer = this.data.timer;
     //防止多次请求进行延时处理
     if (timer) {
-      clearTimeout(timer);
+      clearTimeout(timer)
     }
     timer = setTimeout(x => {
       wx.showLoading({
         title: 'loading',
         mask: true
-      });
-      this.getInfo(str, 1);
-    }, 1500);
+      })
+      this.getInfo(str, 1)
+    }, 1500)
     this.setData({
       timer: timer,
       str: str
-    });
-    app.initPage(that);
+    })
+    app.initPage(that)
   },
   //所有战队勾选框
   checkbox1(e) {
@@ -54,25 +55,25 @@ Page({
     let joinedWarband = this.data.joinedWarband;
     let warband = this.data.warband;
     let offsetTop = e.currentTarget.offsetTop;
-    app.log("team", team);
+    app.log(that, "team", team);
     this.setData({
       scrollTop: offsetTop - 92
-    });
+    })
     if (team.check == false) {
       warband[index].check = true;
-      joinedWarband.push(team);
+      joinedWarband.push(team)
     } else {
       warband[index].check = false;
       joinedWarband.forEach((x, index) => {
         if (x.team_id === team.team_id) {
-          joinedWarband.splice(index, 1);
+          joinedWarband.splice(index, 1)
         }
-      });
+      })
     }
     this.setData({
       warband: warband,
       joinedWarband: joinedWarband
-    });
+    })
   },
   //加入战队勾选框
   checkbox2(e) {
@@ -82,19 +83,19 @@ Page({
     //去除joinedWarband内数据
     joinedWarband.forEach((x, index) => {
       if (x.team_id === teams.team_id) {
-        joinedWarband.splice(index, 1);
+        joinedWarband.splice(index, 1)
       }
-    });
+    })
     //去除warband里勾号
     warband.forEach(x => {
       if (x.team_id === teams.team_id) {
         x.check = false;
       }
-    });
+    })
     this.setData({
       joinedWarband: joinedWarband,
       warband: warband
-    });
+    })
   },
   //上拉加载
   loadMore() {
@@ -112,29 +113,29 @@ Page({
           page: currentPage,
           user_id: wx.getStorageSync('user_id') || 0
         }
-      };
+      }
       //调用通用加载函数
       app.loadMore2(that, request, res => {
         let teams = res.data.data.teams;
-        let page_end = res.data.data.page_end;
+        let page_end = res.data.data.page_end
         //给新内容打上正确的勾选标签
         teams.forEach(x => {
           x.check = false;
-        });
+        })
         teams.forEach(x => {
           joinedWarband.forEach(y => {
             if (x.team_id == y.team_id) {
               x.check = true;
             }
-          });
-        });
-        let newWarband = warband.concat(teams);
+          })
+        })
+        let newWarband = warband.concat(teams)
         that.setData({
           warband: newWarband,
           page_end: page_end,
           requestCheck: true
-        });
-        app.log("warBand",that.data.warband);
+        })
+        app.log(that,"warBand",that.data.warband);
       });
     }
   },
@@ -157,7 +158,7 @@ Page({
           let teams = thisData.teams;
           teams.forEach(x => {
             x.check = false;
-          });
+          })
           // 给已经加入的战队重新挂上check=true属性
           if (joinedWarband && teams && joinedWarband.length != 0) {
             teams.forEach(x => {
@@ -165,28 +166,28 @@ Page({
                 if (x.team_id === y.team_id) {
                   x.check = true;
                 }
-              });
-            });
+              })
+            })
           }
           //控制底部按钮组
           if (that.data.str == '') {
             that.setData({
               btnType: 1
-            });
+            })
           } else {
             that.setData({
               btnType: 2
-            });
+            })
           }
           that.setData({
             warband: teams,
             page_end: thisData.page_end
-          });
+          })
         } else {
-          app.errorHide(that, res, 3000);
+          app.errorHide(that, res, 3000)
         }
       }
-    });
+    })
   },
   //确定
   certain() {
@@ -195,20 +196,20 @@ Page({
     let user_id = wx.getStorageSync('user_id');
     let parameter = [];
     if (joinedWarband.length === 0) {
-      app.errorHide(that, '请选择战队', 3000);
+      app.errorHide(that, '请选择战队', 3000)
     } else {
       joinedWarband.forEach(x => {
         let arr = [];
         arr.push(user_id);
         arr.push(x.team_id);
-        parameter.push(arr);
-      });
-      app.log("joinedWarband",joinedWarband);
-      app.log("parameter",parameter);
+        parameter.push(arr)
+      })
+      app.log(that,"joinedWarband",joinedWarband)
+      app.log(that,"parameter",parameter);
       wx.showLoading({
         title: 'loading',
         mask: true
-      });
+      })
       wx.request({
         url: url + '/api/team/join',
         method: 'POST',
@@ -216,27 +217,27 @@ Page({
           teams: parameter
         },
         success(res) {
-          wx.hideLoading();
+          wx.hideLoading()
           if (res.data.status_code === 2000000) {
-            app.href('/pages/contactsActivty/activtyRegister/activtyRegister');
+            app.href('/pages/contactsActivty/activtyRegister/activtyRegister')
           } else {
-            app.errorHide(that, res.data.error_msg, 3000);
+            app.errorHide(that, res.data.error_msg, 3000)
           }
         }
-      });
+      })
     }
   },
   //创建战队
   createWarband() {
-    app.href('/pages/contactsActivty/createWarband/createWarband');
+    app.href('/pages/contactsActivty/createWarband/createWarband')
   },
   //保存
   save() {
     this.setData({
       str: '',
       btnType: 1
-    });
-    this.getInfo('', 1);
+    })
+    this.getInfo('', 1)
   },
   // 重新加载
   refresh() {
@@ -248,6 +249,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

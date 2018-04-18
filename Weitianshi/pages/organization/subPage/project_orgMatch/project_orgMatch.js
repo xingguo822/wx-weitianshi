@@ -2,20 +2,39 @@
 let app = getApp();
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as ShareModel from '../../../../utils/model/shareModel';
+import * as ShareModel from '../../../../utils/shareModel';
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
     project_id: '',
     nonet: true
   },
-  onLoad(options) {
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
     this.setData({
       project_id: options.project_id,
     });
     let that = this;
     app.netWorkChange(that)
   },
-  onShow() {
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     let that = this;
     that.setData({
       newPage: '',
@@ -28,7 +47,7 @@ Page({
     this.loadMore();
   },
   //下拉刷新
-  onPullDownRefresh() {
+  onPullDownRefresh: function () {
     
   },
   loadMore() {
@@ -43,7 +62,7 @@ Page({
       },
     }
     app.loadMore2(that, request, res => {
-      app.log("机构版买家图谱", res)
+      app.log(that,"机构版买家图谱", res)
       let newPage = res.data.data;
       let list = res.data.data.investment_list;
       let page_end = res.data.data.page_end;
@@ -64,11 +83,29 @@ Page({
     })
   },
   // 跳转详情页
-  institutionalDetails1(e) {
+  institutionalDetails1: function (e) {
     let thisData = e.currentTarget.dataset;
     app.href('/pages/organization/org_detail/org_detail?investment_id=' + thisData.id)
   },
-  onShareAppMessage() {
+  /**
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
     let that = this;
     return ShareModel.match1(that);
   },

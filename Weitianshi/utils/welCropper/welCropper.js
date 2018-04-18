@@ -250,7 +250,7 @@ var init = function (W, H) {
     if (src) {
       wx.getImageInfo({
         src: src,
-        success(res) {
+        success: function (res) {
           var w = res.width, h = res.height
 
           that.loadImage(src, w, h, false)
@@ -397,7 +397,7 @@ var init = function (W, H) {
         destWidth: w,
         destHeight: h,
         canvasId: 'originalCanvas',
-        success(res) {
+        success: function (res) {
           let tempFilePath = res.tempFilePath
 
           wx.hideLoading()

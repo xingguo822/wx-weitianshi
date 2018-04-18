@@ -145,7 +145,7 @@
       <!-- <view wx:if="{{button_type != 1}}"> -->
       <view class="lockRenzheng" bindtap="toAccreditation" wx:if="{{status == 5 && button_type == 3}}">立即认证</view>
       <!--申请中  -->
-      <view wx:if="{{button_type == 0}}"></view>
+      <view  wx:if="{{button_type == 0}}"></view>
       <!-- 重新申请 -->
       <view class="lockRenzheng1" bindtap="toAccreditation" wx:if="{{status == 0 ||status ==3}}" hover-class='t-other-button-hover'>立即认证</view>
       <!-- <image class="lock" src="/img/img-suo2@2x.png"></image>
@@ -259,6 +259,3 @@
 </button>
 <!--没有更多-->
 <view class="error" wx:if="{{error=='1'}}">{{error_text}}</view>
-
-<!--认证弹框  -->
-<template is="authenModel" data="{{status, group_id, authenModelBox}}" />

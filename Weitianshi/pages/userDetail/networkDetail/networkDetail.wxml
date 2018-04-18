@@ -1,5 +1,4 @@
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
 <view id="my">
 
   <!--我的名片-->

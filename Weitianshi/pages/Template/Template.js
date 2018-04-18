@@ -55,8 +55,8 @@ function loadMore(projectCheck, url, that, api, page, parameter, user_id, page_e
             page: page,
           },
           method: 'POST',
-          success(res) {
-            app.log("资源需求匹配的分页加载接口",res);
+          success: function (res) {
+            app.log(that,"资源需求匹配的分页加载接口",res);
             that.callback(res, that);
           }
         });
@@ -88,7 +88,7 @@ function userNeed(that) {
         user_id: user_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         var investor = res.data.data;
         var industry = investor.industry_tag;
         for (var i = 0; i < industry.length; i++) {
@@ -133,14 +133,14 @@ function addNetWork(that, follow_user_id, followed_user_id) {
       followed_user_id: followed_user_id
     },
     method: 'POST',
-    success(res) {
+    success: function (res) {
       if (res.data.status_code == 2000000) {
         wx.showModal({
           title: "提示",
           content: "添加人脉成功",
           showCancel: false,
           confirmText: "到人脉库",
-          success(res) {
+          success: function (res) {
             app.href('/pages/discoverInvest/discoverInvest');
           }
         });
@@ -150,13 +150,13 @@ function addNetWork(that, follow_user_id, followed_user_id) {
           content: "您已经添加过此人脉",
           showCancel: false,
           confirmText: "到人脉库",
-          success() {
+          success: function () {
             app.href('/pages/discoverInvest/discoverInvest');
           }
         });
       }
     },
-    fail(res) {
+    fail: function (res) {
       wx.showModal({
         title: "错误提示",
         content: "添加人脉失败" + res

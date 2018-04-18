@@ -1,4 +1,4 @@
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <view id='tagFilter'>
     <block wx:for='{{filterList}}' wx:key='item.name'>

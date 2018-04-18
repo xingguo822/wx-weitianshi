@@ -1,6 +1,6 @@
 <import src="/pages/Template/Template.wxml"></import>
 
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <view id="myProject">
     <view class="card">

@@ -1,17 +1,18 @@
 var app = getApp();
+var url = app.globalData.url;
 var url_common = app.globalData.url_common;
 Page({
   data: {
     buttonOneText: '保存',
     nonet: true
   },
-  onLoad(options) {
+  onLoad: function (options) {
     var that = this;
     var user_id = wx.getStorageSync('user_id');
     that.setData({
       user_id: user_id,
-    });
-    app.netWorkChange(that);
+    })
+    app.netWorkChange(that)
     //获取用户信息
     wx.request({
       url: url_common + '/api/user/getUserAllInfo',
@@ -21,7 +22,7 @@ Page({
         view_id: user_id
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
         that.setData({
           user_info: res.data.user_info,
           name: res.data.user_info.user_real_name,
@@ -30,30 +31,30 @@ Page({
           company: res.data.user_info.user_company_name,
           describe: res.data.user_info.user_intro,
           companybrand: res.data.user_info.user_brand,
-        });
+        })
       },
-      fail(res) {
+      fail: function (res) {
       },
-    });
+    })
   },
   //姓名
-  nameEdit(e) {
+  nameEdit: function (e) {
     var that = this;
     var name = e.detail.value;
     that.setData({
       name: name
-    });
+    })
   },
   //手机号码
-  mobileEdit(e) {
+  mobileEdit: function (e) {
     var that = this;
     var mobile = e.detail.value;
     that.setData({
       mobile: mobile
-    });
+    })
   },
   //公司
-  companyEdit(e) {
+  companyEdit: function (e) {
     var that = this;
     var company = e.detail.value;
     wx.request({
@@ -62,44 +63,44 @@ Page({
         com_name: company
       },
       method: 'POST',
-      success(res) {
+      success: function (res) {
       }
-    });
+    })
     that.setData({
       company: company
-    });
+    })
   },
   //职位
-  careerEdit(e) {
+  careerEdit: function (e) {
     var that = this;
     var career = e.detail.value;
     that.setData({
       career: career
-    });
+    })
   },
   //邮箱
-  eMailEdit(e) {
+  eMailEdit: function (e) {
     var that = this;
     var eMail = e.detail.value;
     that.setData({
       eMail: eMail
-    });
+    })
   },
   //描述
-  describeEdit(e) {
+  describeEdit: function (e) {
     var that = this;
     var describe = e.detail.value;
     that.setData({
       describe: describe
-    });
+    })
   },
   //品牌
-  brandEdit(e) {
+  brandEdit: function (e) {
     var that = this;
     var companybrand = e.detail.value;
     that.setData({
       companybrand: companybrand
-    });
+    })
   },
   //头像
   headPic() {
@@ -107,7 +108,7 @@ Page({
     app.headPic(that);
   },
   //确定
-  public() {
+  public: function () {
     var that = this;
     var name = this.data.name.trim();
     var company = this.data.company.trim();
@@ -119,11 +120,11 @@ Page({
     var image_id = this.data.image_id;
     // 修复bug临时使用(公司,职位,姓名改为非必填)
     if (name == '') {
-      app.errorHide(that, "姓名不能为空", 1500);
+      app.errorHide(that, "姓名不能为空", 1500)
     } else if (company == '') {
-      app.errorHide(that, "公司不能为空", 1500);
+      app.errorHide(that, "公司不能为空", 1500)
     } else if (career == '') {
-      app.errorHide(that, "职位不能为空", 1500);
+      app.errorHide(that, "职位不能为空", 1500)
     } else {
       let submitData = {
         url: url_common + '/api/user/updateUser',
@@ -137,11 +138,11 @@ Page({
           user_brand: companybrand,
           user_avatar: image_id
         },
-      };
+      }
       app.buttonSubmit(that, submitData, that.data.buttonOneText, res => {
-        app.errorHide(that,'名片修改成功' ,1000);
+        app.errorHide(that,'名片修改成功' ,1000)
         setTimeout(x => {
-          app.href('/pages/my/my/my')
+          app.href('/pages/my/myNew/myNew')
         }, 1000)
       })
     }
@@ -156,6 +157,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

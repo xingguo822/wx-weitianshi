@@ -11,7 +11,7 @@ Page({
     scale_id: "",
     nonet: true
   },
-  onLoad() {
+  onLoad: function () {
     var that = this;
     let scale = wx.getStorageSync("scale");
     app.netWorkChange(that)
@@ -42,12 +42,12 @@ Page({
     })
   },
   //下拉刷新
-  onPullDownRefresh() {
+  onPullDownRefresh: function () {
     wx.stopPullDownRefresh()
   },
 
   //点击确定
-  certain() {
+  certain: function () {
     var that = this;
     let tran_scale = this.data.tran_scale;
     // 传值给myProject
