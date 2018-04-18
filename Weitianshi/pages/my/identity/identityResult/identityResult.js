@@ -7,7 +7,7 @@ Page({
     nonet: true
   },
 
-  onLoad: function (options) {
+  onLoad(options) {
     // let group_id = options.group_id;
     let user_id = wx.getStorageSync('user_id');
     let type = options.type;
@@ -21,7 +21,7 @@ Page({
         user_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         // 0:未认证1:待审核 2 审核通过 3审核未通过
         let status = res.data.status;
         let group_title = res.data.group.group_title;
@@ -39,11 +39,11 @@ Page({
     // }
   },
 
-  onShow: function () {
+  onShow() {
 
   },
   // 留言
-  leaveMessage: function (e) {
+  leaveMessage(e) {
     let leaveMessage = e.detail.value;
     let leaveMessage_length = e.detail.value.length;
     let that = this;
@@ -56,7 +56,7 @@ Page({
     }
   },
   // 点击确定返回原页面
-  btnYes: function (options) {
+  btnYes(options) {
     let that=this;
     let leaveMessage = this.data.leaveMessage;
     // let type = this.data.type;
@@ -71,7 +71,7 @@ Page({
         message_board: leaveMessage
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let statusCode = res.data.status_code;
         if (statusCode == 2000000) {
           var pages = getCurrentPages();
@@ -86,7 +86,7 @@ Page({
     });
   },
   //重新认证页面点击返回
-  reaccreditationYes: function () {
+  reaccreditationYes() {
     let leaveMessage = this.data.leaveMessage;
     let type = this.data.type;
     let user_id = wx.getStorageSync('user_id');
@@ -101,7 +101,7 @@ Page({
         message_board: leaveMessage
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let statusCode = res.data.status_code;
         if (statusCode == 2000000) {
           wx.navigateBack({
@@ -112,7 +112,7 @@ Page({
     });
   },
   // 重新认证的
-  reaccreditation: function () {
+  reaccreditation() {
     let user_id = wx.getStorageSync('user_id');
     let authenticate_id = this.data.authenticate_id;
     let group_id = this.data.group_id;

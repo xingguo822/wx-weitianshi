@@ -201,7 +201,7 @@
   height: auto;
 }
 
-.seachSth {
+.searchSth {
   width: 684rpx;
   border-radius: 92rpx;
   background: #fff;
@@ -314,9 +314,9 @@
   margin-bottom: 20rpx;
 }
 
-/* .otherInfo {
+.otherInfo {
   margin-bottom: 44rpx;
-} */
+}
 
 .allProjectDetail {
   font-size: 26rpx;
@@ -498,7 +498,27 @@
   position: absolute;
   top: 40rpx;
   left: 116rpx;
-  font-size:20rpx;
+  font-size: 20rpx;
   line-height: 28rpx;
   color: #666;
+}
+
+.allProjectDetail {
+  margin-bottom: 0;
+}
+
+.projectColumn {
+  height: 162rpx;
+  width: 100%;
+  background: blue;
+  margin-top: 36rpx;
+}
+
+.clickMore {
+  height: 98rpx;
+  width: 100%;
+  font-size: 24rpx;
+  color: #666;
+  line-height: 98rpx;
+  text-align: center;
 }

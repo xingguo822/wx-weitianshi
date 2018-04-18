@@ -838,7 +838,7 @@ textarea {
 .t-applyMyProject .t-careerCompany {
   margin-left: 128rpx;
   margin-bottom: 56rpx;
-  max-width:408rpx;
+  max-width:552rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

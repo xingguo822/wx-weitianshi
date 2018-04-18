@@ -65,8 +65,7 @@
           </view>
         </block>
         <template is="hasNothing" data="{{emptyNumber:pushToList}}"></template>
-        <!-- <template is="isEmpty" data="{{emptyNumber:pushToList}}"></template> -->
-        <template is="theBottom" wx:if="{{atBottom == true}}"></template>
+        <template is="theBottom"  wx:if="{{atBottom == true}}"></template>
       </scroll-view>
     </swiper-item>
     <!--我推送的项目 -->

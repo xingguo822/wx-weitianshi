@@ -10,7 +10,7 @@ function projectApply(that, pro_id, callBack) {
         user_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == 2000000) {
           // 0:未认证1:待审核 2 审核通过 3审核未通过
           let status = res.data.status;
@@ -23,7 +23,7 @@ function projectApply(that, pro_id, callBack) {
               content: '认证的投资人,买方FA才可申请查看项目',
               confirmText: "去认证",
               confirmColor: "#333333",
-              success: function (res) {
+              success(res) {
                 if (res.confirm) {
                   app.href('/pages/my/identity/indentity/indentity');
                 }
@@ -35,7 +35,7 @@ function projectApply(that, pro_id, callBack) {
               content: '您的身份正在审核中,只有投资人和买方FA才可申请查看项目',
               confirmColor: "#333333;",
               showCancel: false,
-              success: function () {
+              success() {
               }
             });
           } else if (status == 2) {
@@ -48,7 +48,7 @@ function projectApply(that, pro_id, callBack) {
                   content: '您的身份是卖方FA,只有投资人和买方FA才可申请查看项目',
                   confirmColor: "#333333;",
                   showCancel: false,
-                  success: function () {
+                  success() {
                   }
                 })
               } else if (group_id == 3) {
@@ -57,7 +57,7 @@ function projectApply(that, pro_id, callBack) {
                   content: '您的身份是创业者,只有投资人和买方FA才可申请查看项目',
                   confirmColor: "#333333;",
                   showCancel: false,
-                  success: function () {
+                  success() {
                   }
                 })
 
@@ -67,7 +67,7 @@ function projectApply(that, pro_id, callBack) {
                   content: '您的身份是投资机构,只有投资人和买方FA才可申请查看项目',
                   confirmColor: "#333333;",
                   showCancel: false,
-                  success: function (res) {
+                  success(res) {
                   }
                 })
               } else if (group_id == 7) {
@@ -76,7 +76,7 @@ function projectApply(that, pro_id, callBack) {
                   content: '您的身份是政府、事业单位、公益组织,只有投资人和买方FA才可申请查看项目',
                   confirmColor: "#333333;",
                   showCancel: false,
-                  success: function (res) {
+                  success(res) {
                   }
                 })
               } else if (group_id == 8) {
@@ -85,7 +85,7 @@ function projectApply(that, pro_id, callBack) {
                   content: '您的身份是其他,只有投资人和买方FA才可申请查看项目',
                   confirmColor: "#333333;",
                   showCancel: false,
-                  success: function (res) {
+                  success(res) {
                   }
                 })
               }
@@ -97,7 +97,7 @@ function projectApply(that, pro_id, callBack) {
               confirmColor: "#333333;",
               confirmText: "重新认证",
               showCancel: false,
-              success: function (res) {
+              success(res) {
                 app.href('/pages/my/identity/indentity/indentity?group_id=' + group_id)
               }
             })
@@ -130,7 +130,7 @@ function projectOneKeyPush(that, pushTo_user_id, pushed_project_id, callback) {
           pushed_project: pushed_project_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           let statusCode = res.data.status_code;
           if (statusCode == 2000000) {
             wx.showToast({
@@ -168,7 +168,7 @@ function projectPush(that, pushTo_user_id) {
         page: 1
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let dataList = res.data.data;
         if (dataList.length == 0){
           app.href('/pages/myProject/publishProject/publishProject?enterance=pushProject&&pushTo_user_id='+ pushTo_user_id);
@@ -195,7 +195,7 @@ function contactsAdd(that,added_user_id, callBack) {
         applied_user_id: added_user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (callBack) {
           callBack(res)
         }
@@ -217,7 +217,7 @@ function contactsAddDirect(that,added_user_id, callBack) {
         apply_user_id: added_user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (callBack) {
           callBack(res)
         }
@@ -268,7 +268,7 @@ function projectApplyDirect(pro_id, callBack) {
       project_id: pro_id
     },
     method: 'POST',
-    success: function (res) {
+    success(res) {
       let statusCode = res.data.status_code;
       if (res.data.status_code == 2000000) {
         wx.showToast({

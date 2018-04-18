@@ -5,7 +5,7 @@ Page({
     buttonOneText: '保存',
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     var that = this;
     var user_id = wx.getStorageSync('user_id');
     that.setData({
@@ -21,7 +21,7 @@ Page({
         view_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         that.setData({
           user_info: res.data.user_info,
           name: res.data.user_info.user_real_name,
@@ -32,12 +32,12 @@ Page({
           companybrand: res.data.user_info.user_brand,
         });
       },
-      fail: function (res) {
+      fail(res) {
       },
     });
   },
   //姓名
-  nameEdit: function (e) {
+  nameEdit(e) {
     var that = this;
     var name = e.detail.value;
     that.setData({
@@ -45,7 +45,7 @@ Page({
     });
   },
   //手机号码
-  mobileEdit: function (e) {
+  mobileEdit(e) {
     var that = this;
     var mobile = e.detail.value;
     that.setData({
@@ -53,7 +53,7 @@ Page({
     });
   },
   //公司
-  companyEdit: function (e) {
+  companyEdit(e) {
     var that = this;
     var company = e.detail.value;
     wx.request({
@@ -62,7 +62,7 @@ Page({
         com_name: company
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
       }
     });
     that.setData({
@@ -70,7 +70,7 @@ Page({
     });
   },
   //职位
-  careerEdit: function (e) {
+  careerEdit(e) {
     var that = this;
     var career = e.detail.value;
     that.setData({
@@ -78,7 +78,7 @@ Page({
     });
   },
   //邮箱
-  eMailEdit: function (e) {
+  eMailEdit(e) {
     var that = this;
     var eMail = e.detail.value;
     that.setData({
@@ -86,7 +86,7 @@ Page({
     });
   },
   //描述
-  describeEdit: function (e) {
+  describeEdit(e) {
     var that = this;
     var describe = e.detail.value;
     that.setData({
@@ -94,7 +94,7 @@ Page({
     });
   },
   //品牌
-  brandEdit: function (e) {
+  brandEdit(e) {
     var that = this;
     var companybrand = e.detail.value;
     that.setData({
@@ -107,7 +107,7 @@ Page({
     app.headPic(that);
   },
   //确定
-  public: function () {
+  public() {
     var that = this;
     var name = this.data.name.trim();
     var company = this.data.company.trim();

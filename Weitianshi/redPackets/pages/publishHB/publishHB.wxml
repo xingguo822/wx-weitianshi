@@ -2,7 +2,7 @@
 <image src="{{imgUrls}}" class="imgBg"></image>
 <view class="redInfo">
   <view class="bagTitle">红包标题</view>
-  <input class="bagName"  bindinput="redBagName" maxlength='100' placeholder='如：发红包换名片，扩展人脉不再难'></input>
+  <input class="bagName" value='{{title}}' bindinput="redBagName" maxlength='100'></input>
   <view class="flex">
     <view class="bagLeft">
       <view class="bagTitle">红包金额</view>

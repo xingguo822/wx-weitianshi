@@ -7,11 +7,11 @@ Page({
     nonet: true,
     show:false
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this; 
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     this.investment();
   },
   onPullDownRefresh() {
@@ -41,15 +41,15 @@ Page({
     });
   },
   // 搜索跳转
-  allSearch: function () {
+  allSearch() {
     app.href('/pages/organization/org_search/org_search');
   },
   //跳转热门领域全部
-  toGoIndustry: function () {
+  toGoIndustry() {
     app.href('/pages/organization/subPage/list_industry/list_industry');
   },
   //投资机构全部
-  toGoInvestment: function () {
+  toGoInvestment() {
     app.href('/pages/organization/org_library/org_library');
   },
   //投资机构跳转
@@ -80,7 +80,7 @@ Page({
     }, 1500);
   },
   //分享
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     return ShareModel.institutionalInvestShare();
   },
 });

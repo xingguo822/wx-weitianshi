@@ -25,7 +25,7 @@
   </view>
   <template wx:else is="topBlock"></template>
   <!--我的名片-->
-  <template is="userInfo" data="{{user:user,count:count,text:'加他为人脉',show:0,IdentificationShow:0,playTime:1,blue:blue,button_type}}"></template>
+  <template is="userInfo" data="{{user:user,count:count,text:'加他为人脉',show:0,IdentificationShow:0,playTime:1}}"></template>
     <view style='background:white'>
     <view class="contactIcon flex">
       <view class="littleBox">

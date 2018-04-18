@@ -30,10 +30,8 @@
       </view>
       <view class="personCompany flex">
         <image class='bottomPic' src='/img/icon-T@2x.png'></image>
-        <view class="personTelephone flex" wx:if="{{user.user_mobile}}">
-          <label data-telephone="{{user.user_mobile}}" id="{{blue == -1?'mobileStyle':''}}" catchtap="telephone">{{user.user_mobile}}</label>
-          <label data-telephone="{{user.user_mobile}}" id="{{blue == -1?'hold':''}}" catchtap="phoneNumTap" data-name="{{user.user_real_name}}" data-position="{{user.user_company_career}}" data-email="{{user.user_email}}" data-company="{{user.user_company_name}}"
-            wx:if="{{blue == -1}}">保存到通讯录</label>
+        <view class="personTelephone" wx:if="{{user.user_mobile}}">
+          <label data-telephone="{{user.user_mobile}}" id="{{blue==-1?'mobileStyle':''}}" catchtap="telephone">{{user.user_mobile}}</label>
         </view>
         <view wx:if="{{!user.user_mobile}}" class="personEmail">暂未透露</view>
       </view>
@@ -627,7 +625,7 @@
       <view class='flex dropFlex' scroll-y='true'>
         <block wx:for='{{SearchInit.tab}}' wx:key='{{item.label}}'>
           <template wx:if='{{item.type==1}}' is='searchDropItem' data='{{SearchInit,item,label:item.label,itemId:item.itemId,itemName:item.itemName,longCheckBox:item.longCheckBox,index}}'></template>
-          <template wx:if='{{item.type==2}}' is='searchDropItem3' data='{{linkDataShow,SearchInit,item,label:item.label,itemId:item.itemId,itemName:item.itemName,longCheckBox:item.longCheckBox,index,page:item.page}}'></template>
+          <template wx:if='{{item.type==2}}' is='searchDropItem2' data='{{linkDataShow,SearchInit,item,label:item.label,itemId:item.itemId,itemName:item.itemName,longCheckBox:item.longCheckBox,index,page:item.page}}'></template>
         </block>
       </view>
       <!--重置确定  -->
@@ -641,46 +639,21 @@
   </view>
 </template>
 
-<!--筛选下拉框(单个)  type1-->
+<!--筛选下拉框(单个式)  type1-->
 <template name='searchDropItem'>
+  <!--全部按钮  -->
+  <button hidden='{{SearchInit.currentIndex!=index}}' class='checkbox {{item1.check==true?"checkOne":""}} {{longCheckBox==true?"longCheckBox":""}}' data-str='{{label}}' data-itemIdStr='{{itemId}}' bindtap='tagsCheckAll'>
+    全部
+  </button>
   <block wx:for='{{SearchInit[label]}}' wx:for-item='item1' wx:for-index='index1' wx:key='item1[itemId]'>
-    <view hidden='{{SearchInit.currentIndex!=index}}' class='checkbox {{item1.check==true?"checkOne":""}} {{longCheckBox==true?"longCheckBox":""}}' data-str='{{label}}' data-itemIdStr='{{itemId}}' data-item="{{item1}}" data-index="{{index1}}" bindtap='tagsCheck'>
+    <button hidden='{{SearchInit.currentIndex!=index}}' class='checkbox {{item1.check==true?"checkOne":""}} {{longCheckBox==true?"longCheckBox":""}}' data-str='{{label}}' data-itemIdStr='{{itemId}}' data-item="{{item1}}" data-index="{{index1}}" bindtap='tagsCheck'>
       {{item1[itemName]}}
-    </view>
+    </button>
   </block>
 </template>
 
-<!--筛选下拉框(单个)  type2 -->
+<!--筛选下拉框(联动式)  type2 -->
 <template name='searchDropItem2'>
-  <view id="linkedDrop" class="flex" hidden='{{SearchInit.currentIndex!=index}}'>
-    <!--一级标签  -->
-    <scroll-view scroll-y="true" class="frame_province">
-      <view>
-        <block wx:for="{{SearchInit[label]}}" wx:for-index='idx' wx:key="{{item[itemId]}}">
-          <view class="province" bindtap="firstLinkCheck" data-label='{{label}}' data-tabIndex='{{index}}' data-firstIndex="{{idx}}" data-id='{{item[itemId]}}' style="background:{{SearchInit[label][idx].check==true?'white':''}}">
-            {{item[itemName]}}
-          </view>
-        </block>
-      </view>
-    </scroll-view>
-    <!--二级标签  -->
-    <scroll-view scroll-y="true" class="frame_city">
-      <view style='height:100%;'>
-        <view class="city" data-label='{{label}}' data-firstIndex='{{page}}' data-page='{{page}}' style="background:{{backgroundcity[idx2]==1?'#ccc':''}}" bindtap='linkCheckAll'>全部</view>
-        <block wx:for="{{SearchInit.label_industry[page].child}}" wx:for-item='item2' wx:for-index='idx2' wx:key="{{item2[itemId]}}">
-          <!--page代表一级联动的index,idx2代表二级联动的index  -->
-          <view class="city" bindtap="tagsCheck" data-firstIndex='{{page}}' data-secondIndex='{{idx2}}' data-str='{{label}}' data-itemIdStr='{{itemId}}' data-item="{{item2}}" data-index="{{idx2}}" wx:key="{{item2[itemId]}}" style="background:{{backgroundcity[idx2]==1?'#ccc':''}}">
-            {{item2[itemName]}}
-            <image wx:if='{{item2.check == true}}' class='gouhao' src='/img/icon-gou@2x.png'></image>
-          </view>
-        </block>
-      </view>
-    </scroll-view>
-  </view>
-</template>
-
-<!--筛选下拉框(单个)  type3 -->
-<template name='searchDropItem3'>
   <view id="linkedDrop" class="flex" hidden='{{SearchInit.currentIndex != index}}'>
     <!--一级标签  -->
     <scroll-view scroll-y="true" class="frame_province">
@@ -831,7 +804,7 @@
         <view class="t-userCompany1" wx:if="{{item.investor_company}}">·{{item.investor_company}}</view>
       </view>
       <view class='t-people flex' wx:if='{{item.user_id != user_id}}'>
-        <view class='t-cardBottomItem t-add flex' wx:if='{{item.follow_status==0 && item.user_id != 0}}' hover-class='t-hoverColor' hover-stop-propagation='true' data-id='{{item.user_id}}' catchtap='contactsAdd'>
+        <view class='t-cardBottomItem t-add flex' wx:if='{{item.follow_status==0}}' hover-class='t-hoverColor' hover-stop-propagation='true' data-id='{{item.user_id}}' catchtap='contactsAdd'>
           <view class="t-addFri flex">
             <image class="t-addFriend" src="/img/icon-jia@2x.png"></image>
             <view>好友</view>
@@ -884,10 +857,31 @@
       <label class="t-historyNum">{{item.view_project_count}}</label>
       个项目</view>
     <view class="t-line"></view>
-    <view class='t-cardBottomItem1 flex' hover-class='t-hoverColor' hover-stop-propagation='true' data-id='{{item.user_id}}' catchtap='projectPush' wx:if="{{item.user_id != 0}}">
+    <view class='t-cardBottomItem1 flex' hover-class='t-hoverColor' hover-stop-propagation='true' data-id='{{item.user_id}}' catchtap='projectPush'>
       <image class='t-itemPic' src='/img/icon-tijiao@2x.png'></image>
       <span>提交项目</span>
     </view>
+    <!-- <view class='t-cardBottomItem flex'>
+      <image class='t-itemPic' src='/img/icon-tuisongxiangmu@2x.png'></image>
+      <span>已推送</span>
+    </view> -->
+    <!-- <view class='t-cardBottomItem flex' wx:if='{{item.follow_status==0}}' hover-class='t-hoverColor' hover-stop-propagation='true' data-id='{{item.user_id}}' catchtap='contactsAdd'>
+      <image class='t-itemPic' src='/img/icon-jiarenmai@2x.png'></image>
+      <view>加人脉</view>
+    </view>
+    <view class='t-cardBottomItem flex' wx:if='{{item.follow_status==1}}'>
+      <image class='t-itemPic' src='/img/icon-huweirenmai@2x.png'></image>
+      <view style='color:#999;'>已为人脉</view>
+    </view>
+    <view class='t-cardBottomItem flex' wx:if='{{item.follow_status==2}}'>
+      <image class='t-itemPic' src='/img/icon-daiyanzheng@3x.png'></image>
+      <view style='color:#999;'>待验证</view>
+    </view>
+    <view class='t-cardBottomItem flex' wx:if='{{item.follow_status==3}}' data-id='{{item.user_id}}' catchtap='contactsAddDirect'>
+      <image class='t-itemPic' src='/img/icon-jiarenmai@2x.png'></image>
+      <view>加人脉</view>
+    </view> -->
+
   </view>
   <view class='t-cardBottom flex' wx:if='{{item.user_id==user_id}}'></view>
 </template>
@@ -969,6 +963,26 @@
       <image class='t-itemPic' src='/img/icon-tijiao@2x.png'></image>
       <span>提交项目</span>
     </view>
+    <!-- <view class='t-cardBottomItem flex'>
+      <image class='t-itemPic' src='/img/icon-tuisongxiangmu@2x.png'></image>
+      <span>已提交</span>
+    </view>
+    <view class='t-cardBottomItem flex' wx:if='{{item.follow_status==0}}' hover-class='t-hoverColor' hover-stop-propagation='true' data-id='{{item.user_id}}' catchtap='contactsAdd'>
+      <image class='t-itemPic' src='/img/icon-jiarenmai@2x.png'></image>
+      <view>加人脉</view>
+    </view>
+    <view class='t-cardBottomItem flex' wx:if='{{item.follow_status==1}}'>
+      <image class='t-itemPic' src='/img/icon-huweirenmai@2x.png'></image>
+      <view style='color:#999;'>已为人脉</view>
+    </view>
+    <view class='t-cardBottomItem flex' wx:if='{{item.follow_status==2}}'>
+      <image class='t-itemPic' src='/img/icon-daiyanzheng@3x.png'></image>
+      <view style='color:#999;'>待验证</view>
+    </view>
+    <view class='t-cardBottomItem flex' wx:if='{{item.follow_status==3}}' data-id='{{item.user_id}}' catchtap='contactsAddDirect'>
+      <image class='t-itemPic' src='/img/icon-jiarenmai@2x.png'></image>
+      <view>加人脉</view>
+    </view> -->
   </view>
   <view class='t-cardBottom flex' wx:if='{{item.user_id==user_id}}'></view>
 </template>
@@ -1355,12 +1369,16 @@
         <image src="{{item.investor_logo_url}}" class="t-userPic" wx:if="{{item.investor_logo_url}}"></image>
         <view class="t-userName">{{item.investor_name}}</view>
         <view class="t-userPart flex" wx:if="{{item.authentication[0].group_title}}">
+          <!-- <image src="/img/icon-renzheng@2x.png" class="t-renzheng"></image>
+          <view class="t-userPart1">{{item.authentication[0].group_title}}</view> -->
           <image class="t-renzheng" wx:if="{{item.authentication[0].group_title=='投资方'}}" src="/img/img-touziren@2x.png"></image>
           <image class="t-renzheng" wx:if="{{item.authentication[0].group_title=='买方FA'}}" src="/img/img-maifang1@2x.png"></image>
           <image class="t-renzheng" wx:if="{{item.authentication[0].group_title=='卖方FA'}}" src="/img/img-maifang2@2x.png"></image>
           <image class="t-renzheng" wx:if="{{item.authentication[0].group_title=='创业者'}}" src="/img/img-chuangyezhe1@2x.png"></image>
         </view>
+        <!-- <view class="t-record">{{item.active_status}}</view> -->
         <view class="t-user_text" wx:if="{{item.investor_logo_text}}">{{item.investor_logo_text}}</view>
+
       </view>
       <view class="t-careerCompany flex">
         <view class="t-userPosition t-carCom">{{item.investor_career}}</view>
@@ -1450,6 +1468,16 @@
   </view>
 </template>
 
+<!--网络状态  -->
+<!-- <template name="network">
+  <scroll-view scroll-y style="height:1108rpx;">
+    <view style="position:relative">
+      <image class="N-netWorkImg" src="/img/img-duanwang.png"></image>
+      <view class="N-text">网络不给力</view>
+      <view class="N-refresh" bindtap='refresh'>刷新试试</view>
+    </view>
+  </scroll-view>
+</template> -->
 
 <!--开红包  -->
 <template name="openHB">
@@ -1696,4 +1724,54 @@
       </view>
     </view>
   </block>
+</template>
+
+
+<!------------------------大数据部分---------------------------------------  -->
+<!--大数据项目  -->
+<template name='bigDataProject'>
+  <view class='newProjectBox' data-id="{{item.project_ori_id}}" catchtap='newProject'>
+    <view class="boxTop flex">
+      <image class="belongTo" src='/img/img-weitianshi@2x(1).png' wx:if="{{item.wts_project_id != 0}}"></image>
+      <image class="npLeft" src='{{item.project_logo}}' wx:if="{{item.project_logo}}"></image>
+      <image class="npLeft" src='/img/img-logo@2x.png' wx:if="{{!item.project_logo}}"></image>
+      <view class="npRight">
+        <view class="npRightTitle">{{item.project_name}}</view>
+        <view class="npRightInfo">{{item.project_intro}}</view>
+        <view class="npRightOther flex">
+          <block wx:for="{{item.industry_list}}" wx:key="{{index}}" wx:for-item='industryList'>
+            <label>{{industryList.industry_name}}
+              <label wx:if="{{index != item.industry_list.length-1}}">·
+                <text decode="true" space="true">&nbsp;</text>
+              </label>
+            </label>
+          </block>
+        </view>
+      </view>
+    </view>
+    <view class="projectSpecial  flex">
+      <block wx:for="{{item.special_list}}" wx:key="{{index}}" wx:for-item='specialList'>
+        <view class="otherProjectBox">
+          <label class='otherProject'>{{specialList.special_name}}</label>
+        </view>
+      </block>
+    </view>
+    <block wx:for="{{item.events_list}}" wx:key="{{index}}" wx:for-item='eventList' wx:if="{{type == 1}}">
+      <view class="boxBottom flex">
+        <view class="boxBottomLeft">
+          <view class="boxBottomTime">{{eventList.finance_time}}</view>
+          <view class="boxBottomScale">{{eventList.stage_name}}</view>
+        </view>
+        <image src="/img/img-dianx.png" class="boxDot"></image>
+        <view class="boxBottomRight">
+          <view class="boxBottomRightMoney">{{eventList.finance_money}}</view>
+          <block wx:for="{{eventList.investment_list}}" wx:key="{{index}}" wx:for-item='investList'>
+            <view class="boxBottomContent">{{investList.investment_name}}
+              <label wx:if="{{investList.project_lead}}">【{{investList.project_lead}}】</label>
+            </view>
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
 </template>

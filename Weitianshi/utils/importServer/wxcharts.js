@@ -63,26 +63,26 @@ function assign(target, varArgs) {
 }
 
 var util = {
-    toFixed: function toFixed(num, limit) {
+    toFixedtoFixed(num, limit) {
         limit = limit || 2;
         if (this.isFloat(num)) {
             num = num.toFixed(limit);
         }
         return num;
     },
-    isFloat: function isFloat(num) {
+    isFloatisFloat(num) {
         return num % 1 !== 0;
     },
-    approximatelyEqual: function approximatelyEqual(num1, num2) {
+    approximatelyEqualapproximatelyEqual(num1, num2) {
         return Math.abs(num1 - num2) < 1e-10;
     },
-    isSameSign: function isSameSign(num1, num2) {
+    isSameSignisSameSign(num1, num2) {
         return Math.abs(num1) === num1 && Math.abs(num2) === num2 || Math.abs(num1) !== num1 && Math.abs(num2) !== num2;
     },
-    isSameXCoordinateArea: function isSameXCoordinateArea(p1, p2) {
+    isSameXCoordinateAreaisSameXCoordinateArea(p1, p2) {
         return this.isSameSign(p1.x, p2.x);
     },
-    isCollision: function isCollision(obj1, obj2) {
+    isCollisionisCollision(obj1, obj2) {
         obj1.end = {};
         obj1.end.x = obj1.start.x + obj1.width;
         obj1.end.y = obj1.start.y - obj1.height;
@@ -1583,15 +1583,15 @@ function drawCanvas(opts, context) {
 }
 
 var Timing = {
-    easeIn: function easeIn(pos) {
+    easeIneaseIn(pos) {
         return Math.pow(pos, 3);
     },
 
-    easeOut: function easeOut(pos) {
+    easeOuteaseOut(pos) {
         return Math.pow(pos - 1, 3) + 1;
     },
 
-    easeInOut: function easeInOut(pos) {
+    easeInOuteaseInOut(pos) {
         if ((pos /= 0.5) < 1) {
             return 0.5 * Math.pow(pos, 3);
         } else {
@@ -1599,7 +1599,7 @@ var Timing = {
         }
     },
 
-    linear: function linear(pos) {
+    linearlinear(pos) {
         return pos;
     }
 };
@@ -1695,7 +1695,7 @@ function drawCharts(type, opts, config, context) {
             this.animationInstance = new Animation({
                 timing: 'easeIn',
                 duration: duration,
-                onProcess: function onProcess(process) {
+                onProcessonProcess(process) {
                     drawYAxis(series, opts, config, context);
                     drawXAxis(categories, opts, config, context);
 
@@ -1708,7 +1708,7 @@ function drawCharts(type, opts, config, context) {
                     drawLegend(opts.series, opts, config, context);
                     drawCanvas(opts, context);
                 },
-                onAnimationFinish: function onAnimationFinish() {
+                onAnimationFinishonAnimationFinish() {
                     _this.event.trigger('renderComplete');
                 }
             });
@@ -1717,14 +1717,14 @@ function drawCharts(type, opts, config, context) {
             this.animationInstance = new Animation({
                 timing: 'easeIn',
                 duration: duration,
-                onProcess: function onProcess(process) {
+                onProcessonProcess(process) {
                     drawYAxis(series, opts, config, context);
                     drawXAxis(categories, opts, config, context);
                     _this.chartData.xAxisPoints = drawColumnDataPoints(series, opts, config, context, process);
                     drawLegend(opts.series, opts, config, context);
                     drawCanvas(opts, context);
                 },
-                onAnimationFinish: function onAnimationFinish() {
+                onAnimationFinishonAnimationFinish() {
                     _this.event.trigger('renderComplete');
                 }
             });
@@ -1733,7 +1733,7 @@ function drawCharts(type, opts, config, context) {
             this.animationInstance = new Animation({
                 timing: 'easeIn',
                 duration: duration,
-                onProcess: function onProcess(process) {
+                onProcessonProcess(process) {
                     drawYAxis(series, opts, config, context);
                     drawXAxis(categories, opts, config, context);
 
@@ -1746,7 +1746,7 @@ function drawCharts(type, opts, config, context) {
                     drawLegend(opts.series, opts, config, context);
                     drawCanvas(opts, context);
                 },
-                onAnimationFinish: function onAnimationFinish() {
+                onAnimationFinishonAnimationFinish() {
                     _this.event.trigger('renderComplete');
                 }
             });
@@ -1756,12 +1756,12 @@ function drawCharts(type, opts, config, context) {
             this.animationInstance = new Animation({
                 timing: 'easeInOut',
                 duration: duration,
-                onProcess: function onProcess(process) {
+                onProcessonProcess(process) {
                     _this.chartData.pieData = drawPieDataPoints(series, opts, config, context, process);
                     drawLegend(opts.series, opts, config, context);
                     drawCanvas(opts, context);
                 },
-                onAnimationFinish: function onAnimationFinish() {
+                onAnimationFinishonAnimationFinish() {
                     _this.event.trigger('renderComplete');
                 }
             });
@@ -1770,12 +1770,12 @@ function drawCharts(type, opts, config, context) {
             this.animationInstance = new Animation({
                 timing: 'easeInOut',
                 duration: duration,
-                onProcess: function onProcess(process) {
+                onProcessonProcess(process) {
                     _this.chartData.radarData = drawRadarDataPoints(series, opts, config, context, process);
                     drawLegend(opts.series, opts, config, context);
                     drawCanvas(opts, context);
                 },
-                onAnimationFinish: function onAnimationFinish() {
+                onAnimationFinishonAnimationFinish() {
                     _this.event.trigger('renderComplete');
                 }
             });

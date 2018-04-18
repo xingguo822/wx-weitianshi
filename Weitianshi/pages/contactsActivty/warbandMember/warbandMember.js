@@ -8,7 +8,7 @@ Page({
   data: {
 
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let team_id = options.team_id;
     let that = this;
     app.netWorkChange(that);
@@ -17,7 +17,7 @@ Page({
     });
   },
 
-  onShow: function () {
+  onShow() {
     let that = this;
     app.netWorkChange(that);
     let team_id = this.data.team_id;
@@ -31,7 +31,7 @@ Page({
         page: 1
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let follow_status = res.data.data.follow_status;
         let warMemberList = res.data.data.members;
         let team_name = res.data.data.team_name;
@@ -75,7 +75,7 @@ Page({
     app.initPage(that);
   },
   //加载更多
-  loadMore: function () {
+  loadMore() {
     //请求上拉加载接口所需要的参数
     let that = this;
     let user_id = wx.getStorageSync('user_id');
@@ -104,7 +104,7 @@ Page({
     });
   },
   //跳转用户详情
-  goTo: function (e) {
+  goTo(e) {
     let id = e.currentTarget.dataset.id;
     let user_id = wx.getStorageSync('user_id');
     if (user_id == id) {
@@ -114,7 +114,7 @@ Page({
     }
   },
   //添加人脉
-  addPerson: function (e) {
+  addPerson(e) {
     let user_id = wx.getStorageSync('user_id');
     let warMemberList = this.data.warMemberList;
     let that = this;
@@ -130,7 +130,7 @@ Page({
             applied_user_id: applied_user_id
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             warMemberList.forEach((x) => {
               if (x.user_id == applied_user_id) {
                 x.follow_status = 2;
@@ -149,7 +149,7 @@ Page({
             apply_user_id: applied_user_id
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             //将状态改为"已互为人脉
             warMemberList.forEach((x) => {
               if (x.user_id == applied_user_id) {
@@ -165,12 +165,12 @@ Page({
     })
   },
   //分享页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     let that = this;
     return ShareModel.warbandMemberShare(that);
   },
   //加入战队
-  addWar: function (e) {
+  addWar(e) {
     // let xxx = e.currentTarget.dataset.url;
     let user_id = wx.getStorageSync('user_id');
     let team_id = this.data.team_id;
@@ -191,7 +191,7 @@ Page({
           teams: parameter
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           if (res.data.status_code == 2000000) {
             that.setData({
               follow_status: 1

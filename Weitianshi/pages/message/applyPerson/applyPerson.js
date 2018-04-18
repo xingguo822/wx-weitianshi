@@ -6,7 +6,7 @@ Page({
     nonet: true
   },
 
-  onLoad: function (options) {
+  onLoad(options) {
     let project_id = options.id;
     let that = this;
     that.setData({
@@ -14,7 +14,7 @@ Page({
     });
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let project_id = this.data.project_id;
     let that = this;
@@ -29,7 +29,7 @@ Page({
         project_id: project_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         wx.hideLoading();
         let contentList = res.data.data;
         let count = res.data.count;
@@ -48,7 +48,7 @@ Page({
         project_id: project_id
       },
       method: "POST",
-      success: function (res) {
+      success(res) {
       }
     });
 
@@ -58,7 +58,7 @@ Page({
       page_end: false
     });
   },
-  moreForApply: function () {
+  moreForApply() {
     //请求上拉加载接口所需要的参数
     var that = this;
     var user_id = wx.getStorageSync('user_id');
@@ -75,7 +75,7 @@ Page({
     app.loadMore(that, request, "contentList");
   },
   // 点击跳转
-  projectDetail: function (e) {
+  projectDetail(e) {
     // 获取我自己的项目id
     // 获取当前点击的项目id
     var id = e.currentTarget.dataset.project;
@@ -86,7 +86,7 @@ Page({
         project_id: id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         var userId = res.data.user_id;
         var user = wx.getStorageSync('user_id');
         if (userId == user) {
@@ -98,7 +98,7 @@ Page({
     });
   },
   // 点击同意或者拒绝
-  btn: function (e) {
+  btn(e) {
     let contentList = this.data.contentList;
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let that = this;
@@ -113,7 +113,7 @@ Page({
         status: status
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let statusCode = res.data.status_code;
         if (statusCode == 2000000) {
           if (status == 1) {

@@ -25,7 +25,7 @@ Page({
     buttonOneText:'发布',
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     var user_id = wx.getStorageSync('user_id');
     var that = this;
     app.netWorkChange(that);
@@ -41,7 +41,7 @@ Page({
         user_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         var thisData = res.data.data;
         let tran_industry = thisData.industry_tag;
         let tran_scale = thisData.scale_tag;
@@ -73,7 +73,7 @@ Page({
     });
   },
   //页面显示
-  onShow: function () {
+  onShow() {
     var that = this;
     var y_describe = wx.getStorageSync('y_describe');
     var tran_industry = wx.getStorageSync('tran_industry');
@@ -89,19 +89,19 @@ Page({
     });
   },
   //给所有添加checked属性
-  for: function (name) {
+  for(name) {
     for (var i = 0; i < name.length; i++) {
       name[i].checked = false;
     }
   },
 
   //下拉刷新
-  onPullDownRefresh: function () {
+  onPullDownRefresh() {
     wx.stopPullDownRefresh();
   },
 
   //文本框输入
-  bindTextAreaBlur: function (e) {
+  bindTextAreaBlur(e) {
     var that = this;
     wx.setStorageSync('y_describe', e.detail.value);
     that.setData({
@@ -111,7 +111,7 @@ Page({
 
 
   //期望融资
-  expect: function (e) {
+  expect(e) {
     var picker = 1;
     this.setData({
       expect_index: e.detail.value,
@@ -122,7 +122,7 @@ Page({
 
 
   //点击发布
-  public: function () {
+  public() {
     save = !save;
     var that = this;
     var theData = that.data;
@@ -218,7 +218,7 @@ Page({
     }
   },
 
-  onUnload: function () {
+  onUnload() {
     app.initTran();
   },
   // 重新加载

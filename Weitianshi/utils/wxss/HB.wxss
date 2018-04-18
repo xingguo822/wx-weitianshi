@@ -113,7 +113,7 @@
 }
 
 .aline {
-  /* opacity: 0.2; */
+  opacity: 0.2;
   background: #fff;
   width: 686rpx;
   height: 1rpx;

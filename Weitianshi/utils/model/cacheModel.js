@@ -6,7 +6,7 @@ function getCache() {
   wx.request({
     url: url_common + '/api/category/getProjectCategory',
     method: 'POST',
-    success: function (res) {
+    success(res) {
       console.log('getProjectCategory', res.data.data)
       let thisData = res.data.data;
       thisData.area.forEach((x) => { x.check = false })

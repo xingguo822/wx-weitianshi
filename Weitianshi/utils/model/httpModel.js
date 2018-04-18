@@ -67,7 +67,7 @@ export function http(data, that,callBack) {
       data: data.data,
       method: data.method,
       header: data.header || { 'Content-Type': 'application/json' },
-      complete: function (res) {
+      complete(res) {
         // 请求完成，释放记录的key，可以发起下次请求了
         removeRequestKey(ajaxKey)
         let statusCode = res.statusCode;

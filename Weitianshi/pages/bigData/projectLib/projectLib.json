@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "项目库",
+  "usingComponents": {
+    "toTopIcon": "/component/toTopIcon/toTopIcon"
+  }
+} 

@@ -7,11 +7,11 @@ Page({
     status: false,
     activtyDetail: app.globalData.picUrl.activtyDetail
   },
-  onLoad: function () {
+  onLoad() {
     let that = this;
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     let that = this;
     app.loginPage(function (user_id) {
       wx.request({
@@ -20,7 +20,7 @@ Page({
           user_id: user_id,
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           app.log('res', res);
           let status = res.data.data.button_type;
           let activtyData = res.data.data;
@@ -33,11 +33,11 @@ Page({
     });
   },
 
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     return ShareModel.activtyShare();
   },
   //报名
-  enroll: function (e) {
+  enroll(e) {
     let that = this;
     let xxx = e.currentTarget.dataset.url;
     let user_id = wx.getStorageSync('user_id');

@@ -9,19 +9,6 @@ page {
   height: 100%;
 }
 
-#hold {
-  width: 40%;
-  color: #009eff;
-  font-size: 24rpx;
-}
-
-#mobileStyle {
-  color: #009eff;
-  text-decoration: underline;
-  width: 40%;
-  margin-right: 16rpx;
-}
-
 .user_info {
   margin: 40rpx 32rpx;
   background: white;

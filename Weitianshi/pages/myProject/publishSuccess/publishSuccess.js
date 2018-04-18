@@ -6,7 +6,7 @@ Page({
     imgUrls: app.globalData.picUrl.project_success,
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let projectId = options.projectId;
     this.setData({
       type: options.type,
@@ -15,7 +15,7 @@ Page({
     let that = this;
     app.netWorkChange(that);
   },
-  btnYes: function () {
+  btnYes() {
     let type = this.data.type;
     if (type == 8) {
       wx.navigateBack({

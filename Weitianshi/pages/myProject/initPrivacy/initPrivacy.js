@@ -21,7 +21,7 @@ Page({
     nonet: true
   },
 
-  onLoad: function (options) {
+  onLoad(options) {
     let user_id = wx.getStorageSync('user_id');
     let that = this;
     // options.project存在为编辑项目;不存在为创建项目
@@ -36,7 +36,7 @@ Page({
           project_id: options.project
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           that.setData({
             open_status: res.data.data.open_status,
             power_share_status: res.data.data.power_share_status,
@@ -71,49 +71,49 @@ Page({
     app.netWorkChange(that);
   },
   //公开项目
-  switchChange1: function (e) {
+  switchChange1(e) {
     let open_status = e.detail.value;
     this.setData({
       open_status: open_status
     });
   },
   //分享项目
-  switchChange2: function (e) {
+  switchChange2(e) {
     let power_share_status = e.detail.value;
     this.setData({
       power_share_status: power_share_status
     });
   },
   //认证
-  switchChange3: function (e) {
+  switchChange3(e) {
     let power_investor_status = e.detail.value;
     this.setData({
       power_investor_status: power_investor_status
     });
   },
   //隐藏
-  switchChange4: function (e) {
+  switchChange4(e) {
     let company_open_status = e.detail.value;
     this.setData({
       company_open_status: company_open_status
     });
   },
   //白名单公司
-  whiteCompany: function (e) {
+  whiteCompany(e) {
     let white_company = e.detail.value;
     this.setData({
       white_company: white_company
     });
   },
   //白名单用户
-  whiteUser: function (e) {
+  whiteUser(e) {
     let white_user = e.detail.value;
     this.setData({
       white_user: white_user
     });
   },
   //黑名单机构
-  blackCompany: function (e) {
+  blackCompany(e) {
     let black_company = e.detail.value;
     let that = this;
     that.setData({
@@ -121,7 +121,7 @@ Page({
     });
   },
   //黑名单用户
-  blackUser: function (e) {
+  blackUser(e) {
     let black_user = e.detail.value;
     let that = this;
     that.setData({
@@ -129,7 +129,7 @@ Page({
     });
   },
   //保存私密性设置
-  saveInitPrivacy: function () {
+  saveInitPrivacy() {
     console.log(1);
     var that = this;
     let project_id = this.data.project_id;

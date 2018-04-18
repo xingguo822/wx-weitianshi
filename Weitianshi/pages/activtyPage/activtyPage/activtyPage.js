@@ -20,13 +20,13 @@ Page({
     this.setData({
       activtyPagePic: app.globalData.picUrl[str]
     });
-    let title = [0, 'app下载', '一英里', '租葛亮', '微天使招募合伙人', '发红包扩人脉'];
+    let title = [0, '发红包扩人脉', '中国FA行业联盟成立大会', '微天使招募合伙人', '中国FA榜评选活动', '投募投资年度合作伙伴'];
     wx.setNavigationBarTitle({
       title: title[index],
     }),
       app.netWorkChange(that);
     rp.makeSureHB.call(this)
-    if (index == 5) {
+    if (index == 1) {
       this.setData({
         buttonStyle: true
       })

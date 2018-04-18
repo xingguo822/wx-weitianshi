@@ -9,7 +9,7 @@ Page({
     modalBox: 0,
     nonet: true
   },
-  onLoad:function(){
+  onLoad(){
     let that=this;
     this.getMyProject();
     app.initPage(that);
@@ -37,7 +37,7 @@ Page({
         type: 'match'
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         wx.hideLoading();
         let myProject = res.data.data;
         // 拼接industryArry和otherTag用于展示
@@ -109,7 +109,7 @@ Page({
     });
   },
   //发布融资项目
-  publicBtn: function () {
+  publicBtn() {
     CreateProject.toCreateProject.call(this);
   },
   //一键推送
@@ -118,17 +118,17 @@ Page({
     app.href('/pages/myProject/projectDetail/projectDetail?id=' + id + "&&currentTab=" + 1);
   },
   // 浏览
-  viewProject: function (e) {
+  viewProject(e) {
     let project_id = e.currentTarget.dataset.proid;
     app.href('/pages/message/viewProjectUser/viewProjectUser?project_id=' + project_id);
   },
   //申请查看
-  applyPerson: function (e) {
+  applyPerson(e) {
     let proid = e.currentTarget.dataset.proid;
     app.href('/pages/message/applyPerson/applyPerson?id=' + proid);
   },
   //约谈
-  hasMeeting: function (e) {
+  hasMeeting(e) {
     let projectId = e.currentTarget.dataset.proid;
     app.href('/pages/message/contactProject/projectList/projectList?id=' + projectId);
   },
@@ -172,7 +172,7 @@ Page({
 
   //----------------------创建项目引导------------------------------------------------ 
   // 跳转创建项目页面
-  toCreateProject: function () {
+  toCreateProject() {
     CreateProject.toCreateProject.call(this);
   },
   // 在电脑上创建
@@ -180,7 +180,7 @@ Page({
     CreateProject.createProjectPc();
   },
   //去电脑上传
-  toPc: function () {
+  toPc() {
     app.checkUserInfo(this, res => {
       this.setData({
         modalBox: 1
@@ -188,7 +188,7 @@ Page({
     })
   },
   //关闭模态框
-  closeModal: function () {
+  closeModal() {
     this.setData({
       modalBox: 0
     });

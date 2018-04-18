@@ -1,7 +1,7 @@
 var app = getApp();
 Page({
   data: {},
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     app.netWorkChange(that);
     let type = options.type;
@@ -31,9 +31,9 @@ Page({
       });
     }
   },
-  onShow: function () { },
+  onShow() { },
   //战队名
-  warNameEdit: function (e) {
+  warNameEdit(e) {
     let team_name = e.detail.value;
     let team_nameLength = e.detail.value.length;
     let that = this;
@@ -46,7 +46,7 @@ Page({
     }
   },
   //创始人信息填写
-  createPersonEdit: function (e) {
+  createPersonEdit(e) {
     let that=this;
     let team_founder = e.detail.value;
     app.log('team_founder', team_founder);
@@ -59,7 +59,7 @@ Page({
       app.errorHide(that, "不能超过40个字", 100);
     }
   },
-  userNameEdit: function (e) {
+  userNameEdit(e) {
     let user_real_name = e.detail.value;
     let user_real_nameLength = e.detail.value.length;
     let that = this;
@@ -71,7 +71,7 @@ Page({
       app.errorHide(that, "不能超过20个字", 100);
     }
   },
-  companyEdit: function (e) {
+  companyEdit(e) {
     let user_company_name = e.detail.value;
     let user_company_nameLength = e.detail.value.length;
     let that = this;
@@ -83,7 +83,7 @@ Page({
       app.errorHide(that, "不能超过40个字", 100);
     }
   },
-  brandEdit: function (e) {
+  brandEdit(e) {
     let user_brand = e.detail.value;
     let user_brandLength = e.detail.value.length;
     let that = this;
@@ -95,7 +95,7 @@ Page({
       app.errorHide(that, "不能超过40个字", 100);
     }
   },
-  positionEdit: function (e) {
+  positionEdit(e) {
     let user_company_career = e.detail.value;
     let user_company_careerLength = e.detail.value.length;
     let that = this;
@@ -108,7 +108,7 @@ Page({
     }
   },
   //保存
-  save: function () {
+  save() {
     let that=this;
     let type = this.data.type;
     let team_name = this.data.team_name;

@@ -32,7 +32,7 @@ export class redPackets {
             package: res.data.data.package,
             signType: res.data.data.signType,
             paySign: res.data.data.paySign,
-            complete: function (response) {
+            complete(response) {
               if (response.errMsg == 'requestPayment:ok') {
                 app.formIdSubmit(prepay_id);
                 wx.redirectTo({

@@ -6,7 +6,7 @@ Page({
   data: {
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     this.setData({
       index: options.index,
       id: options.project_id,
@@ -18,7 +18,7 @@ Page({
     let that = this;
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     //  投资人数据
     let that = this;
     let id = this.data.id;
@@ -40,7 +40,7 @@ Page({
         share_id: share_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         console.log('projectDetail', res);
         let project = res.data.data;
         that.setData({
@@ -65,7 +65,7 @@ Page({
 
 
   //下拉刷新
-  onPullDownRefresh: function () {
+  onPullDownRefresh() {
     wx.stopPullDownRefresh();
   },
   // 重新加载

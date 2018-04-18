@@ -45,7 +45,7 @@ Page({
           user_id: user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           app.log('身份状态获取', res);
           // 0:未认证1:待审核 2 审核通过 3审核未通过
           let status = res.data.status;
@@ -62,16 +62,17 @@ Page({
       });
       that.faList();
     });
-    this.setData({
-      requestCheck: true,
-      currentPage: 1,
-      page_end: false
-    });
   },
   onShow() {
     if (!this.data.firstTime) {
       this.faList();
     }
+    this.setData({
+      requestCheck: true,
+      currentPage: 1,
+      page_end: false
+    });
+    // this.faList();
   },
 
 
@@ -79,6 +80,7 @@ Page({
   onPullDownRefresh() {
     //请求FA列表
     this.faList();
+
   },
 
   //FA列表信息
@@ -97,7 +99,7 @@ Page({
         filter: this.data.searchData
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == '2000000') {
           app.log('FA列表', res.data.data);
           wx.hideLoading();
@@ -121,7 +123,7 @@ Page({
     });
   },
   // 用户详情
-  userDetail: function (e) {
+  userDetail(e) {
     let id = e.currentTarget.dataset.id;
     var user_id = wx.getStorageSync("user_id");//用戶id
     if (id == user_id) {
@@ -131,7 +133,7 @@ Page({
     }
   },
   // 上拉加载
-  loadMore: function () {
+  loadMore() {
     //请求上拉加载接口所需要的参数
     let that = this;
     let user_id = this.data.user_id;
@@ -157,7 +159,7 @@ Page({
 
   },
   // 分享当前页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     return ShareModel.FAShare();
   },
   // 项目推送
@@ -220,7 +222,7 @@ Page({
     let user_id = this.data.user_id;
     let str;
     str = 'faList';
-    app.href('/pages/search/search3/search3?user_id=' + user_id + '&&entrance=' + str);
+    app.href('/pages/search/contactProjectSearch/contactProjectSearch?user_id=' + user_id + '&&entrance=' + str);
   },
   //  跳转到项目店铺筛选页面
   tagFilter() {
@@ -228,7 +230,7 @@ Page({
   },
   //---------------------------我的人脉--------------------------------------------------------------
   // 一键拨号
-  telephone: function (e) {
+  telephone(e) {
     let telephone = e.currentTarget.dataset.telephone;
     wx.makePhoneCall({
       phoneNumber: telephone,
@@ -236,7 +238,7 @@ Page({
   },
   // -----------------------------------立即认证
   // 立即认证
-  toAccreditation: function () {
+  toAccreditation() {
     let status = this.data.status;
     let user_id = wx.getStorageSync('user_id');
     app.checkUserInfo(this, res => {
@@ -251,14 +253,14 @@ Page({
           confirmColor: "#333333;",
           confirmText: "重新认证",
           showCancel: false,
-          success: function (res) {
+          success(res) {
             wx.request({
               url: url_common + '/api/user/getUserGroupByStatus',
               data: {
                 user_id: user_id
               },
               method: 'POST',
-              success: function (res) {
+              success(res) {
                 let group_id = res.data.group.group_id;
                 app.href('/pages/my/identity/indentity/indentity?group_id=' + group_id);
               }
@@ -268,7 +270,7 @@ Page({
       }
     })
   },
-  onUnload: function () {
+  onUnload() {
     app.initTran();
   },
   // 重新加载

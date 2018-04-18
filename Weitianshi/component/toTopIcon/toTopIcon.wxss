@@ -1,0 +1,14 @@
+.toTopIcon{
+  width: 106rpx;
+  height: 106rpx;
+  display: flex;
+  position: absolute;
+  right: 30rpx;
+  bottom: 120rpx;
+}
+.toTopImg{
+  width: 60rpx;
+  height: 60rpx;
+  align-items: center;
+  justify-content: center;
+}

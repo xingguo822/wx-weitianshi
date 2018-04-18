@@ -1,0 +1,34 @@
+/* pages/bigData/projectLib/projectLib.wxss */
+@import '../index/index.wxss';
+page{
+  height: 100%;
+  overflow: hidden;
+}
+scroll-view{
+  height: 1030rpx;
+  width: 686rpx;
+  padding:0 32rpx;
+}
+/*----------------筛选--------------------------------  */
+.search_icon{
+  display: none;
+}
+#newSearch2 .search_search2 {
+  width: 608rpx;
+}
+#newSearch2 .screen{
+  position: static;
+}
+#newSearch2 .search_word {
+  display: none;
+}
+.dropDown{
+  top: 176rpx;
+}
+.t-modal {
+  top: 176rpx;
+}
+.search_icon1{
+  padding-top: 10rpx;
+  margin: 0;
+} 

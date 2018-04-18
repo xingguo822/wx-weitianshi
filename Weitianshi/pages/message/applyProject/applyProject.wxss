@@ -45,7 +45,7 @@ page {
   margin-top: 344rpx;
   width: 252rpx;
   height: 190rpx;
-} 
+}
 
 .browseMeTitle {
   margin: 32rpx;

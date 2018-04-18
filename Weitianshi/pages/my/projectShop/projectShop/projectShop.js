@@ -42,7 +42,7 @@ Page({
         eventName: '_toIndex',
         picUrl: '/img/icon-fenxiang@2x.png',
         text: "首页",
-        func: function () {
+        func() {
         }
       },
       {
@@ -65,7 +65,7 @@ Page({
     nonet: true,
     atBottom: false,
   },
-  onLoad: function (options) {
+  onLoad(options) {
     wx.showLoading({
       title: 'loading',
       mask: true,
@@ -125,7 +125,7 @@ Page({
     });
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     if (!this.data.firstTime) {
       this._getUserInfo();
       this.setData({
@@ -146,7 +146,7 @@ Page({
         filter: this.data.searchData
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let myProject = res.data.data;
         app.log( "myProject", myProject);
         wx.hideLoading();
@@ -168,7 +168,7 @@ Page({
         user_id: this.data.user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let userInfo = res.data.user_info;
         let user_name = userInfo.user_real_name;
         let shop_name = userInfo.shop_name;
@@ -237,7 +237,7 @@ Page({
         filter: this.data.searchData
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         app.log('getMyProjectList', res);
         wx.hideLoading();
         if (res.data.data.length == 0) {
@@ -305,7 +305,7 @@ Page({
 
   },
   // 项目详情
-  detail: function (e) {
+  detail(e) {
     let thisData = e.currentTarget.dataset;
     let id = thisData.id;
     let index = thisData.index;
@@ -319,25 +319,25 @@ Page({
     }
   },
   // 新增项目
-  editDetail: function (e) {
+  editDetail(e) {
     this._identity('/pages/myProject/publishProject/publishProject?type=8', 1);
   },
   //  推送项目
-  pushProject: function () {
+  pushProject() {
     let pushId = this.data.user_id;
     this._identity('/pages/myProject/pushTo/pushTo?pushId=' + pushId, 2);
   },
   //  跳转到我的店铺
-  toMyShop: function () {
+  toMyShop() {
     this._identity('/pages/my/projectShop/projectShop/projectShop', 2);
   },
   // 店铺装修
-  decorate: function () {
+  decorate() {
     let user_id = this.data.userInfo.user_id;
     app.href('/pages/my/projectShop/shopEdit/shopEdit?user_id=' + user_id);
   },
   // 选中项目
-  clickProject: function (e) {
+  clickProject(e) {
     let that = this;
     let user_id = this.data.user_id;
     let myProject = this.data.myProject;
@@ -350,7 +350,7 @@ Page({
         user_id: user_id
       },
       method: "POST",
-      success: function (res) {
+      success(res) {
         if (res.data.status_code = 200000) {
           myProject.forEach((x) => {
             if (x.project_id == project_id && is_top == 0) {
@@ -369,23 +369,23 @@ Page({
     });
   },
   //  展开
-  allPoint: function () {
+  allPoint() {
     this.setData({
       isChecked: false
     });
   },
   //  收起
-  noPoint: function () {
+  noPoint() {
     this.setData({
       isChecked: true
     });
   },
   //  更多精选项目
-  moreProject: function () {
+  moreProject() {
     app.href('/pages/discoverProject/discoverProject');
   },
   //  跳转用户详情
-  toPersonDetail: function () {
+  toPersonDetail() {
     let user_id = this.data.user_id;
     let currentUser = wx.getStorageSync('user_id');
     if (user_id != currentUser) {
@@ -397,7 +397,7 @@ Page({
     app.href('/pages/my/projectShop/tagFilter/tagFilter');
   },
   //  身份验证
-  _identity: function (targetUrl, num) {
+  _identity(targetUrl, num) {
     let user_id = wx.getStorageSync('user_id');
     app.checkUserInfo(this, res => {
       let complete = res.data.is_complete;
@@ -412,7 +412,7 @@ Page({
   },
   // -----------------------分享------------------------------------------
   //  分享页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     let that = this;
     return ShareModel.projectShopShare(that);
   },

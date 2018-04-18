@@ -108,7 +108,7 @@ Page({
         project_id: id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let ownerId = res.data.user_id;
         //获取user_id
         app.loginPage(function (user_id) {
@@ -148,7 +148,7 @@ Page({
         project_id: id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let ownerId = res.data.user_id;
         //获取user_id
         app.loginPage(function (user_id) {
@@ -188,7 +188,7 @@ Page({
         project_id: id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         console.log('projectDetail', res);
         wx.hideLoading();
         let brandList = res.data.data.brand;
@@ -415,7 +415,7 @@ Page({
         company_name: company_name
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let nothing = res.data.data;
         if (nothing == 0) {
           that.setData({
@@ -445,7 +445,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               let projectDetailsList = res.data.data;
               if (projectDetailsList.length != 0) {
                 let projectDetailsOne = projectDetailsList[0];
@@ -471,7 +471,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               // 变更信息
               let brandInfoList = res.data.data.brand;
               let companyChangeList = res.data.data.company_change;
@@ -501,7 +501,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               let teamList = res.data.data;
               teamList.forEach((x, index) => {
                 teamList[index].team_member_name = x.team_member_name;
@@ -518,7 +518,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               let historyFinance = res.data.data;
               historyFinance.forEach((x, index) => {
                 historyFinance[index].history_financing_money = x.history_financing_money;
@@ -538,7 +538,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               let mileStone = res.data.data;
               mileStone.forEach((x, index) => {
                 mileStone[index].milestone_event = x.milestone_event;
@@ -556,7 +556,7 @@ Page({
               com_id: com_id
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               let newsList = res.data.data;
               newsList.forEach((x, index) => {
                 newsList[index].project_news_label = x.project_news_label;
@@ -577,7 +577,7 @@ Page({
               project_id: that.data.id,
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               let competeList = res.data.data;
               let projectLabelList = [];
               let projectArray = [];
@@ -610,7 +610,7 @@ Page({
         project_id: id,
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         console.log(res);
         wx.hideLoading();
         let investor2 = res.data.data;
@@ -639,7 +639,7 @@ Page({
         project_id: id,
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         wx.hideLoading();
         let investment_list = res.data.data.investment_list;
         console.log(investment_list, "投资机构");
@@ -749,21 +749,21 @@ Page({
     app.href('/pages/myProject/maintainProject/maintainProject?pro_id=' + id);
   },
   //分享当前页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     let that = this;
     return ShareModel.myProjectDetailShare(that);
   },
   //跳转到我的页面
-  toMy: function () {
+  toMy() {
     app.href('/pages/my/my/my')
   },
   //更新数据
-  updateData: function () {
+  updateData() {
     let simulationData = this.createSimulationData();
     let series = [{
       name: '成交量1',
       data: simulationData.data,
-      format: function (val, name) {
+      format(val, name) {
         return val.toFixed(2) + '万';
       }
     }];
@@ -773,7 +773,7 @@ Page({
     });
   },
   //查看全部
-  checkMore: function (e) {
+  checkMore(e) {
     let id = e.target.dataset.id;
     if (id == 1) {
       this.setData({
@@ -800,7 +800,7 @@ Page({
     }
   },
   // 折叠
-  noCheckMore: function (e) {
+  noCheckMore(e) {
     let id = e.target.dataset.id;
     if (id == 1) {
       this.setData({
@@ -827,22 +827,22 @@ Page({
     }
   },
   // 浏览
-  viewProject: function (e) {
+  viewProject(e) {
     let project_id = this.data.id;
     app.href('/pages/message/viewProjectUser/viewProjectUser?project_id=' + project_id);
   },
   // 完善公司信息
-  writeCompanyName: function () {
+  writeCompanyName() {
     let that = this;
     let user_id = wx.getStorageSync('user_id');
     let companyName = that.data.pro_company_name;
-    app.href('/pages/search/search1/search1?company=' + companyName + '&&type=8' + '&&user_id=' + user_id);
+    app.href('/pages/search/companySearch/companySearch?company=' + companyName + '&&type=8' + '&&user_id=' + user_id);
     that.setData({
       nothing: 1
     });
   },
   // 查看bp
-  sendBp: function () {
+  sendBp() {
     let that = this;
     let user_id = wx.getStorageSync("user_id");
     app.checkUserInfo(this, res => {
@@ -862,7 +862,7 @@ Page({
     })
   }, 
   //商业计划书
-  businessBook: function () {
+  businessBook() {
     let BPath = this.data.BPath;
     let user_id = wx.getStorageSync('user_id');
     let project_id = this.data.id;
@@ -871,7 +871,7 @@ Page({
       if (BPath) {
         wx.showActionSheet({
           itemList: ['直接预览', '发送到邮箱'],
-          success: function (res) {
+          success(res) {
             console.log(res.tapIndex);
             if (res.tapIndex == 1) {
               app.checkUserInfo(this, res => {
@@ -892,18 +892,18 @@ Page({
             } else if (res.tapIndex == 0) {
               wx.downloadFile({
                 url: BPath,
-                success: function (res) {
+                success(res) {
                   console.log(res);
                   var filePath = res.tempFilePath;
                   console.log(res);
                   wx.openDocument({
                     filePath: filePath,
-                    success: function (res) {
+                    success(res) {
                       console.log(res);
                       wx.hideLoading();
                       console.log('打开文档成功');
                     },
-                    fail: function (res) {
+                    fail(res) {
                       console.log('fail');
                       console.log(res);
                     },
@@ -912,7 +912,7 @@ Page({
               });
             }
           },
-          fail: function (res) {
+          fail(res) {
             console.log(res.errMsg);
           }
         });
@@ -925,7 +925,7 @@ Page({
     })
   },
   // 更改邮箱
-  writeBpEmail: function (e) {
+  writeBpEmail(e) {
     let userEmail = e.detail.value;
     if (userEmail) {
       this.setData({
@@ -940,7 +940,7 @@ Page({
     }
   },
   // 发送
-  bpModalSure: function (e) {
+  bpModalSure(e) {
     let that = this;
     let index = e.currentTarget.dataset.index;
     let sendPc = that.data.sendPc;
@@ -959,7 +959,7 @@ Page({
             user_email: userEmail
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             that.setData({
               userEmail: userEmail
             });
@@ -973,7 +973,7 @@ Page({
                   email: userEmail
                 },
                 method: 'POST',
-                success: function (res) {
+                success(res) {
                 }
               });
               that.setData({
@@ -994,7 +994,7 @@ Page({
     }
   },
   // 取消
-  bpModalCancel: function (options) {
+  bpModalCancel(options) {
     let index = options.currentTarget.dataset.index;
     let that = this;
     let sendPc = that.data.sendPc;
@@ -1009,7 +1009,7 @@ Page({
     }
   },
   // 项目详情-里程碑 查看全部
-  moreInfo: function (e) {
+  moreInfo(e) {
     let id = e.target.dataset.id;
     let that = this;
     if (id == 3) {
@@ -1031,7 +1031,7 @@ Page({
       });
     }
   },
-  noMoreInfo: function (e) {
+  noMoreInfo(e) {
     let id = e.target.dataset.id;
     let that = this;
     if (id == 3) {
@@ -1053,7 +1053,7 @@ Page({
     }
   },
   // 项目详情中的显示全部
-  allBrightPoint: function (e) {
+  allBrightPoint(e) {
     let check = e.currentTarget.dataset.check;
     if (check == 0) {
       this.setData({
@@ -1080,7 +1080,7 @@ Page({
       });
     }
   },
-  noBrightPoint: function (e) {
+  noBrightPoint(e) {
     let check = e.currentTarget.dataset.check;
     if (check == 0) {
       this.setData({
@@ -1109,22 +1109,22 @@ Page({
     }
   },
   //项目详情页面,申请查看跳转列表
-  applyPerson: function (e) {
+  applyPerson(e) {
     let proid = e.target.dataset.proid;
     app.href('/pages/message/applyPerson/applyPerson?id=' + proid);
   },
   //私密设置
-  initPrivacy: function () {
+  initPrivacy() {
     let project = this.data.id;
     app.href('/pages/myProject/initPrivacy/initPrivacy?project=' + project);
   },
   //约谈
-  hasMeeting: function () {
+  hasMeeting() {
     let project_id = this.data.id;
     app.href('/pages/message/contactProject/projectList/projectList?id=' + project_id);
   },
   //推送项目
-  pushProject: function (e) {
+  pushProject(e) {
     console.log(e);
     let that = this;
     let user_id = wx.getStorageSync('user_id');
@@ -1154,13 +1154,13 @@ Page({
     });
   },
   //删除项目
-  deleteProject: function () {
+  deleteProject() {
     let project_id = this.data.id;
     let user_id = wx.getStorageSync('user_id');
     wx.showModal({
       title: '提示',
       content: '确认删除项目?',
-      success: function (res) {
+      success(res) {
         if (res.confirm) {
           wx.request({
             url: url_common + '/api/project/deleteProject',
@@ -1169,7 +1169,7 @@ Page({
               project_id: project_id
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               if (res.data.status_code = 2000000) {
                 app.redirectTo('/pages/my/projectShop/projectShop/projectShop');
               } else {
@@ -1185,7 +1185,7 @@ Page({
 
   },
   //匹配推荐删除
-  deletePerson: function (e) {
+  deletePerson(e) {
     let investor_id = e.currentTarget.dataset.investor;
     let project_id = this.data.id;
     let investor2 = this.data.investor2;
@@ -1200,7 +1200,7 @@ Page({
         investor_id: investor_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code = 2000000) {
           investor2.forEach((x) => {
             if (x.investor_id == investor_id) {
@@ -1225,20 +1225,20 @@ Page({
     app.shareJump(index);
   },
   // 机构版买家图谱跳转
-  toMap: function () {
+  toMap() {
     app.href('/pages/organization/subPage/project_orgMatch/project_orgMatch?project_id=' + this.data.id);
   },
   // 进入潜在投资方
-  potential: function () {
+  potential() {
     let that = this;
     that.setData({ currentTab: 1 });
   },
-  onKey: function () {
+  onKey() {
     let that = this;
     that.setData({ currentTab: 2 });
   },
   // 买家图谱
-  matchButt: function () {
+  matchButt() {
     let that = this;
     that.setData({
       matchBut: true,
@@ -1246,7 +1246,7 @@ Page({
     });
   },
   // 机构版买家图谱
-  matchButt1: function () {
+  matchButt1() {
     let that = this;
     that.setData({
       matchBut1: true,
@@ -1254,34 +1254,34 @@ Page({
     });
   },
   // 跳转到首页
-  moreProject: function () {
+  moreProject() {
     app.href('/pages/discoverProject/discoverProject');
   },
   //跳转到历史融资
-  toHistory: function () {
+  toHistory() {
     let user_id = wx.getStorageSync('user_id');
     let id = this.data.id;
     app.href('/pages/myProject/historyFiance/historyFiance?user_id=' + user_id + '&&project_id=' + id);
   },
   //跳转到核心团队
-  toTeam: function () {
+  toTeam() {
     let user_id = wx.getStorageSync('user_id');
     let id = this.data.id;
     app.href('/pages/myProject/proTeam/proTeam?user_id=' + user_id + '&&project_id=' + id);
   },
   //跳转到产品
-  toBrand: function () {
+  toBrand() {
     let user_id = wx.getStorageSync('user_id');
     let id = this.data.id;
     app.href('/pages/myProject/proBrand/proBrand?user_id=' + user_id + '&&project_id=' + id);
   },
   //跳转到里程碑
-  mileStone: function () {
+  mileStone() {
     let user_id = wx.getStorageSync('user_id');
     let id = this.data.id;
     app.href('/pages/myProject/proMilestone/proMilestone?user_id=' + user_id + '&&project_id=' + id);
   },
-  contactTap: function () {
+  contactTap() {
     let that = this;
     that.setData({
       bindContact: true

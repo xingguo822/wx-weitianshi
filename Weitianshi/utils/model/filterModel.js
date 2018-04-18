@@ -38,7 +38,6 @@ let data = {
   stageArr: [],
   scaleArr: [],
   hotCityArr: [],
-  // label_industryArr: [],
   label_areaArr: [],
   label_styleArr: [],
   label_typeArr: [],
@@ -47,12 +46,12 @@ let data = {
   stage: wx.getStorageSync('stage'),
   scale: wx.getStorageSync('scale'),
   hotCity: wx.getStorageSync('hotCity'),
-  // label_industry: label_industry || wx.getStorageSync('label_industry'),
   label_area: wx.getStorageSync('label_area'),
   label_style: wx.getStorageSync('label_style'),
   label_type: wx.getStorageSync('label_type'),
-  label_time: wx.getStorageSync('label_time')
+  label_time: wx.getStorageSync('label_time'),
 }
+// 联动式筛选(label_industry)
 let _label_industry = []
 let _linkDataShow = {
   selectData: [],
@@ -66,7 +65,7 @@ function getCache() {
   wx.request({
     url: url_common + '/api/category/getProjectCategory',
     method: 'POST',
-    success: function (res) {
+    success(res) {
       let thisData = res.data.data;
       thisData.area.forEach((x) => { x.check = false })
       thisData.industry.forEach((x) => { x.check = false })
@@ -191,7 +190,6 @@ function move(e, that) {
   let label = e.currentTarget.dataset.label;
   let currentIndex = SearchInit.currentIndex;
   let linkDataShow = that.data.linkDataShow;
-
   // 清除未保存的选中标签
   if (label == 'label_industry') {
     linkDataShow = Object.assign({}, _linkDataShow);
@@ -328,9 +326,8 @@ function tagsCheck(e, that) {
   let str = e.currentTarget.dataset.str;
   let itemIdStr = e.currentTarget.dataset.itemidstr;
   let SearchInit = that.data.SearchInit;
-  let itemStr = str;
   let itemArrStr = str + 'Arr';
-  let item = SearchInit[itemStr];
+  let item = SearchInit[str];
   let itemArr = SearchInit[itemArrStr];
   let target = e.currentTarget.dataset.item;
   let index = e.currentTarget.dataset.index;
@@ -383,6 +380,31 @@ function tagsCheck(e, that) {
   that.setData({
     SearchInit: SearchInit
   })
+}
+// 单项式标签全选
+function tagsCheckAll(that, e) {
+  let str = e.currentTarget.dataset.str;
+  let itemIdStr = e.currentTarget.dataset.itemidstr;
+  let SearchInit = that.data.SearchInit;
+  let itemArrStr = str + 'Arr';
+  let item = SearchInit[str];
+  let itemArr = SearchInit[itemArrStr];
+  // 未全选时,点全部全选,否则取消全选
+  if (itemArr.length != item.length) {
+    // 清空已选中项，选中所有项，并填入已选中项
+    itemArr = [];
+    item.forEach(x => {
+      x.check = true;
+      itemArr.push(x)
+    });
+    SearchInit[itemArrStr] = itemArr;
+    that.setData({
+      SearchInit
+    })
+  } else {
+    console.log(1)
+    this.reset(that)
+  }
 }
 // 筛选重置 
 function reset(that) {
@@ -490,7 +512,7 @@ function searchCertain(that) {
       filter: searchData
     },
     method: 'POST',
-    success: function (res) {
+    success(res) {
       this.initData(that);
       let SerachInit = that.data.SearchInit;
       SearchInit.currentInit = 99;
@@ -569,7 +591,7 @@ function modal(that) {
 function searchSth(that, str, callBack) {
   let user_id = that.data.user_id;
   if (!callBack) {
-    app.href('/pages/search/search3/search3?user_id=' + user_id + '&&entrance=' + str)
+    app.href('/pages/search/contactProjectSearch/contactProjectSearch?user_id=' + user_id + '&&entrance=' + str)
   } else {
     callBack()
   }
@@ -750,7 +772,7 @@ function page_tagsCheck(e, that) {
 function page_reset(that) {
   let filterList = that.data.filterList;
   filterList.forEach((x, index) => {
-    x.arry.forEach((y, idx) => { 
+    x.arry.forEach((y, idx) => {
       y.check = false
     })
   })
@@ -777,13 +799,13 @@ function page_certain(that) {
   })
   app.log(searchData, filterList)
   app.log("tagFilterSearchData", searchData)
-  if(SearchInit){
+  if (SearchInit) {
     SearchInit.searchData = searchData;
     prePage.setData({
       SearchInit,
       firstTime: false
     })
-  }else{
+  } else {
     prePage.setData({
       searchData,
       firstTime: false
@@ -806,6 +828,7 @@ export {
   initData,
   initItem,
   tagsCheck,
+  tagsCheckAll,
   reset,
   allReset,
   itemReset,

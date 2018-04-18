@@ -7,7 +7,7 @@ Page({
     tran_industry: '',
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     // 0:发布融资项目  1:发布投资需求或者身份认证编辑 2:维护我的项目 3:发布投资案例
     let that = this;
     app.netWorkChange(that)
@@ -40,7 +40,7 @@ Page({
   },
 
   //下拉刷新
-  onPullDownRefresh: function () {
+  onPullDownRefresh() {
     wx.stopPullDownRefresh()
   },
 

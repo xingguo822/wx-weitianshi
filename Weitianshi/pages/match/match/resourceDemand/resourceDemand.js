@@ -14,7 +14,7 @@ Page({
     buttonOneText: '发布',
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     var that = this;
     app.netWorkChange(that);
     var current = options.current;//current=1:从my页面跳转过来的
@@ -26,7 +26,7 @@ Page({
       url: app.globalData.url_common + '/api/category/getResourceCategory',
       data: {},
       method: 'POST',
-      success: function (res) {
+      success(res) {
         //判断用户是否填写过资源需求
         var res_find = wx.getStorageSync("resource_find");//寻求的资源
         var res_give = wx.getStorageSync("resource_give"); //可提供的资源
@@ -86,17 +86,17 @@ Page({
           describe: describe
         });
       },
-      fail: function (res) {
+      fail(res) {
       },
     });
 
   },
   //下拉刷新
-  onPullDownRefresh: function () {
+  onPullDownRefresh() {
     wx.stopPullDownRefresh();
   },
   //传值部份可提供资源
-  checkboxChange: function (e) {
+  checkboxChange(e) {
     var that = this;
     var thisData = e.currentTarget.dataset;
     var e_index = thisData.index;//数组下标
@@ -129,7 +129,7 @@ Page({
     });
   },
   //传值部份2寻求资源
-  checkboxChange2: function (e) {
+  checkboxChange2(e) {
     var that = this;
     var thisData = e.currentTarget.dataset;
     var e_index = thisData.index;
@@ -163,21 +163,21 @@ Page({
     });
   },
   //具体描述
-  bindTextAreaBlur: function (e) {
+  bindTextAreaBlur(e) {
     var describe = e.detail.value;
     this.setData({
       describe: describe
     });
   },
   //可提供资源自定义添加
-  offerAdd: function () {
+  offerAdd() {
     wx.showModal({
       title: "自定义标签",
       content: "<input type='text' placehold='helloWorld'/>"
     });
   },
   //点击确定
-  publish: function () {
+  publish() {
     var that = this;
     var enchange = this.data.enchange;
     var enchangeValue = this.data.enchangeValue;

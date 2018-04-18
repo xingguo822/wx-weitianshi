@@ -1,0 +1,32 @@
+<!--核心成员  -->
+<view class="companyCorePerson" wx:if="{{projectInfo.member_list.total_num != 0}}">
+  <view class="flex title" bindtap="coreMember">
+    <view class="detailTitle">核心成员</view>
+    <view class="allNumber" wx:if="{{projectInfo.member_list.total_num > 3}}">全部
+      <label>（{{projectInfo.member_list.total_num}}）</label>
+    </view>
+  </view>
+  <block wx:for="{{projectInfo.member_list.list}}" wx:key="{{index}}">
+    <view class="corePersonBox flex" data-user="{{item.member_id}}" catchtap='userDetail'>
+      <image class="corePersonImage" src="{{item.member_avatar}}" wx:if="{{item.member_avatar != ''}}"></image>
+      <view class="corePersonNoImage" wx:if="{{!item.member_avatar}}">{{item.member_avatar_text}}</view>
+      <view>
+        <view class="corePersonInfo flex">
+          <view class='corePersonName' wx:if="{{item.member_name}}">{{item.member_name}}</view>
+          <view class='corePersonPosition' wx:if="{{item.member_position}}">{{item.member_position}}</view>
+        </view>
+        <view class='flex corePersonPercent title'>
+          <view wx:if="{{item.hold_rate}}">持股比例:
+            <label class="realPercent">{{item.hold_rate}}</label>
+          </view>
+          <view>拥有公司:
+            <label class="realPercent">{{item.company_num}}家</label>
+          </view>
+        </view>
+        <view class="corePersonIntro" wx:if="{{item.member_introduce}}">
+          {{item.member_introduce}}
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

@@ -7,7 +7,7 @@ Page({
     jiandi: false,
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     var user_id = wx.getStorageSync('user_id');
     app.initPage(that);
@@ -60,7 +60,7 @@ Page({
     });
   },
   // 添加人脉
-  addNetWork: function (e) {
+  addNetWork(e) {
     var that = this;
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     var followed_user_id = e.target.dataset.followedid;//当前用户的user_id
@@ -76,7 +76,7 @@ Page({
           applied_user_id: followed_user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           if (res.data.status_code == 2000000) {
             //将状态设为"未验证"
             contacts.forEach((x) => {
@@ -89,7 +89,7 @@ Page({
             });
           }
         },
-        fail: function (res) {
+        fail(res) {
           wx.showModal({
             title: "错误提示",
             content: "添加人脉失败" + res
@@ -106,7 +106,7 @@ Page({
           apply_user_id: followed_user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           if (res.data.status_code == 2000000) {
             //将状态设为"未验证"
             contacts.forEach((x) => {
@@ -123,19 +123,19 @@ Page({
     }
   },
   // 一键拨号
-  telephone: function (e) {
+  telephone(e) {
     let telephone = e.currentTarget.dataset.telephone;
     wx.makePhoneCall({
       phoneNumber: telephone,
     });
   },
   // 用户详情
-  userDetail: function (e) {
+  userDetail(e) {
     var id = e.currentTarget.dataset.id;
     app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
   },
   //下拉加载
-  loadMore: function () {
+  loadMore() {
     var that = this;
     var user_id = this.data.user_id;
     var currentPage = this.data.currentPage;
@@ -157,7 +157,7 @@ Page({
     }
   },
   //列表加载
-  browseMe: function (user_id) {
+  browseMe(user_id) {
     let that = this;
     wx.showLoading({
       title: 'loading',
@@ -171,7 +171,7 @@ Page({
         type_id: 3
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         wx.hideLoading();
         var contacts = res.data.data;
         var count = res.data.count;
@@ -191,7 +191,7 @@ Page({
         type_id: 3
       },
       method: "POST",
-      success: function (res) {
+      success(res) {
       }
     });
   },

@@ -8,7 +8,7 @@ Page({
     nonet: true,
     jiandi: false
   },
-  onLoad: function () {
+  onLoad() {
     let that = this;
     app.netWorkChange(that);
     app.initPage(that);
@@ -27,7 +27,7 @@ Page({
           page: 1
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           wx.hideLoading();
           that.setData({
             contacts: res.data.data,
@@ -37,7 +37,7 @@ Page({
       });
     }
   },
-  onShow: function () {
+  onShow() {
     var user_id = this.data.user_id;
     //向后台发送信息取消红点
     wx.request({
@@ -95,7 +95,7 @@ Page({
     });
   },
   //添加人脉
-  addPerson: function (e) {
+  addPerson(e) {
     var that = this;
     var user_id = wx.getStorageSync('user_id');
     var apply_user_id = e.currentTarget.dataset.followedid;
@@ -108,7 +108,7 @@ Page({
         apply_user_id: apply_user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         //将状态改为"已互为人脉"
         contacts.forEach((x) => {
           if (x.user_id == apply_user_id) {
@@ -122,12 +122,12 @@ Page({
     });
   },
   // 用户详情
-  userDetail: function (e) {
+  userDetail(e) {
     var id = e.currentTarget.dataset.id;
     app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
   },
   //我的名片
-  myCard: function () {
+  myCard() {
     var user_id = this.data.user_id;
     //获取用户信息
     wx.request({
@@ -138,13 +138,13 @@ Page({
         view_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == 2000000) {
           wx.showModal({
             titel: "友情提示",
             content: "分享名片功能需要在个人页面点击去交换按钮实现",
             showCancel: false,
-            success: function (res) {
+            success(res) {
               if (res.confirm == true) {
                 app.href('/pages/my/myCard/myCard')
               }
@@ -154,7 +154,7 @@ Page({
           wx.showModal({
             title: "友情提示",
             content: "交换名片之前,请先完善自己的名片",
-            success: function (res) {
+            success(res) {
               if (res.confirm == true) {
                 app.href('/pages/my/cardEdit/cardEdit');
               }
@@ -162,7 +162,7 @@ Page({
           });
         }
       },
-      fail: function (res) {
+      fail(res) {
         wx.showToast({
           title: "对不起没有获取到您的个人信息"
         });
@@ -170,7 +170,7 @@ Page({
     });
   },
   // 一键拨号
-  telephone: function (e) {
+  telephone(e) {
     var telephone = e.currentTarget.dataset.telephone;
     wx.makePhoneCall({
       phoneNumber: telephone,

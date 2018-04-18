@@ -11,7 +11,7 @@ Page({
     nonet: true,
     number: 0,
     money: 0,
-    title: "如：发红包换名片，扩展人脉不再难",
+    title: "恭喜发财，投资名片换起来！",
     showButton: true,
     bindContact: false
   },

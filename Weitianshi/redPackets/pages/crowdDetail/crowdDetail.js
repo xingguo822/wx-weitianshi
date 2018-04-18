@@ -9,7 +9,7 @@ Page({
     packetover: app.globalData.picUrl.packetover,
     imgUrls: app.globalData.picUrl.meifaguo,
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let groupId = options.groupId;
     this.setData({
       groupId: groupId

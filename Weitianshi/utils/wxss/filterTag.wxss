@@ -18,7 +18,6 @@
 .content {
   flex-wrap: wrap;
   flex-direction: row;
-  color: #333;
 }
 
 .tag {

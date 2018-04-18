@@ -9,7 +9,7 @@ Page({
     error_text: "",
     nonet: true
   },
-  onLoad: function () {
+  onLoad() {
     var that = this;
     app.netWorkChange(that)
     var stage = wx.getStorageSync('stage');
@@ -31,11 +31,11 @@ Page({
   },
 
   //下拉刷新
-  onPullDownRefresh: function () {
+  onPullDownRefresh() {
     wx.stopPullDownRefresh()
   },
   //传值部份可提供资源
-  checkboxChange: function (e) {
+  checkboxChange(e) {
     let that = this;
     let stage = this.data.stage;
     let tranArr = this.data.tran_stage;
@@ -48,7 +48,7 @@ Page({
 
 
   //点击确定
-  certain: function () {
+  certain() {
     var that = this;
     var tran_stage = this.data.tran_stage;
     //传值给myProject

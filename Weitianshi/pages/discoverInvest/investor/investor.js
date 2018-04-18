@@ -24,7 +24,7 @@ Page({
       wx.request({
         url: url_common + '/api/category/getProjectCategory',
         method: 'POST',
-        success: function (res) {
+        success(res) {
           // console.log('getProjectCategory',res)
           let thisData = res.data.data;
           thisData.area.forEach((x) => { x.check = false; });
@@ -69,7 +69,7 @@ Page({
           user_id: user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           app.log('身份状态获取', res);
           // 0:未认证1:待审核 2 审核通过 3审核未通过
           let status = res.data.status;
@@ -86,7 +86,7 @@ Page({
       });
     });
   },
-  onShow: function () {
+  onShow() {
     this.investorList();
   },
 
@@ -106,7 +106,7 @@ Page({
         filter: this.data.SearchInit.searchData
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == '2000000') {
           app.log('投资人列表', res.data.data);
           wx.hideLoading();
@@ -194,7 +194,7 @@ Page({
   },
 
   // 上拉加载
-  loadMore: function () {
+  loadMore() {
     //请求上拉加载接口所需要的参数
     let that = this;
     let user_id = this.data.user_id;
@@ -266,7 +266,7 @@ Page({
     }
   },
   // 用户详情
-  userDetail: function (e) {
+  userDetail(e) {
     let id = e.currentTarget.dataset.id;
     var user_id = wx.getStorageSync("user_id");//用戶id
     if (id == user_id) {
@@ -276,7 +276,7 @@ Page({
     }
   },
   // 立即认证
-  toAccreditation: function () {
+  toAccreditation() {
     let status = this.data.status;
     let user_id = wx.getStorageSync('user_id');
     app.checkUserInfo(this, res => {
@@ -291,14 +291,14 @@ Page({
           confirmColor: "#333333;",
           confirmText: "重新认证",
           showCancel: false,
-          success: function (res) {
+          success(res) {
             wx.request({
               url: url_common + '/api/user/getUserGroupByStatus',
               data: {
                 user_id: user_id
               },
               method: 'POST',
-              success: function (res) {
+              success(res) {
                 let group_id = res.data.group.group_id;
                 app.href('/pages/my/identity/indentity/indentity?group_id=' + group_id);
               }

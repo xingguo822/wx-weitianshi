@@ -29,11 +29,11 @@ Page({
     ],
     status: 0
   },
-  onLoad:function(){
+  onLoad(){
     let that=this;
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     var that = this;
     var user_id = wx.getStorageSync('user_id');
     var messageList = this.data.messageList;
@@ -46,7 +46,7 @@ Page({
           user_id: user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           var list = res.data.data;
           list.forEach((x, index) => {
             messageList[index].message_name = x.message_name;
@@ -68,11 +68,11 @@ Page({
     }
   },
   // 跳转到人脉申请页面
-  beAddedContacts: function () {
+  beAddedContacts() {
     app.href('/pages/message/beAddedContacts/beAddedContacts');
   },
   // 项目申请跳转
-  projectApply: function (e) {
+  projectApply(e) {
     let type = e.currentTarget.dataset.type;
     let group_id = this.data.group_id;
     app.delayDeal(x=>{
@@ -84,7 +84,7 @@ Page({
     });
   },
   // 项目推送
-  projectPush: function (e) {
+  projectPush(e) {
     let type = e.currentTarget.dataset.type;
     let group_id = this.data.group_id;
     if (group_id) {

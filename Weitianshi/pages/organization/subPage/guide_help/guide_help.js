@@ -72,12 +72,12 @@ Page({
     nonet: true
   },
 
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     app.netWorkChange(that)
   },
 
-  onShow: function () {
+  onShow() {
 
   },
   // 重新加载

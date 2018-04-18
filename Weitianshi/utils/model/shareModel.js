@@ -22,7 +22,7 @@ function myProjectDetailShare(that) {
   let share_id = wx.getStorageSync('user_id');
   console.log(share_id);
   return {
-    title: '精选融资项目，可约谈排会',
+    title: '【融资项目】打开连接点击：申请查看或联系发布方|微天使-互联网化FA平台',
     path: '/pages/projectDetail/projectDetail?id=' + id + "&&share_id=" + share_id,
   }
 }
@@ -35,7 +35,7 @@ function projectDetailShare(that) {
   let path = '/pages/projectDetail/projectDetail?id=' + id + "&&share_id=" + share_id;
   let title = pro_intro;
   return {
-    title: '精选融资项目，可约谈排会',
+    title: '【融资项目】打开连接点击：申请查看或联系发布方|微天使-互联网化FA平台',
     path: path,
   }
   return shareProjectPage(id, title, share_id)
@@ -43,7 +43,7 @@ function projectDetailShare(that) {
 //投资机构首页和列表分享
 function institutionalInvestShare(){
   return {
-    title: '3W+投资机构投资偏好分析',
+    title: '您可以在微天使查询30000+投资机构的投资偏好、历史投资记录',
     path: '/pages/discoverInvest/institutionalInvest/institutionalInvest'
   }
 }
@@ -57,18 +57,18 @@ function discoverProjectShare() {
 //找投资分享
 function discoverInvestShare() {
   return {
-    title: '5W+投资人加好友换名片',
-    path: '/pages/discover/discoverPerson/discoverPerson'
+    title: '您可以与5000+认证投资人互加好友、交换电话号码',
+    path: '/pages/discoverInvest/discoverInvest'
   }
 }
 //FA融资顾问分享
 function FAShare(){
   return {
-    title: '2K+融资顾问协助项目融资',
+    title: '您可以找2000+FA融资顾问协助您融资项目',
     path: '/pages/discover/financingAdvisor/financingAdvisor'
   }
 }
-//项目库分享
+//机构库分享
 function projectListShare() {
   return {
     title: '来微天使找优质人脉',
@@ -76,13 +76,10 @@ function projectListShare() {
   }
 }
 // 机构详情分享
-function orgDetail(that) {
-  let investment_id = that.data.investment_id;
-  let org_name = that.data.org_name;
-  let org_number = that.data.org_number;
+function orgDetail() {
   return {
-    title:"已收录" +  org_name + org_number + "个投资案例",
-    path: '/pages/organization/org_detail/org_detail?investment_id=' + investment_id
+    title: '机构详情',
+    path: '/pages/organization/org_detail/org_detail'
   }
 }
 // 机构版买家图谱分享
@@ -149,7 +146,7 @@ function topPlayerShare(e) {
       title: name + '正在参与2017首届中国双创机构人气品牌百强评选，加我人脉,助我夺冠!',
       path: '/pages/userDetail/networkDetail/networkDetail?id=' + id,
       imageUrl: app.globalData.picUrl.activtyShare,
-      success: function (res) {
+      success(res) {
         console.log('分享成功', res)
       },
     }
@@ -158,7 +155,7 @@ function topPlayerShare(e) {
       title: name + '正在参与2017首届中国双创机构人气品牌百强评选，邀您加战队，助我夺冠!',
       path: '/pages/contactsActivty/warbandMember/warbandMember?team_id=' + id + '&&team_name=' + name,
       imageUrl: app.globalData.picUrl.activtyShare,
-      success: function (res) {
+      success(res) {
         console.log('分享成功', res)
       },
     }
@@ -175,7 +172,7 @@ function warbandMemberShare(that) {
     title: team_name + '正在参与2017首届中国双创机构人气品牌百强评选，邀您加战队，助我夺冠!',
     path: '/pages/contactsActivty/warbandMember/warbandMember?team_id=' + team_id + '&team_name=' + team_name,
     imageUrl: app.globalData.picUrl.activtyShare,
-    success: function (res) {
+    success(res) {
       console.log('分享成功', res)
     },
   }
@@ -189,7 +186,7 @@ function redPacketsShare(name, num, unique_id) {
   let path = "/pages/my/sharePage/sharePage?user_id=" + user_id + "&&share_id=" + share_id + '&&is_redPackets=' + true + '&&unique_id=' + unique_id;
   console.log(path)
   let json = {
-    title: name + '发了' + num + '元现金红包，抢红包、换名片，秒入零钱包',
+    title: name + '发了' + num + '元现金红包，给您拜年了，抢红包、换名片，秒入零钱包',
     path: path,
     success: (res) => {
       _this.shareLog(res, path, unique_id);
@@ -203,10 +200,11 @@ function sharePage(user_id, share_id, name) {
   let _this = this;
   let path = "/pages/my/sharePage/sharePage?user_id=" + user_id + "&&share_id=" + share_id;
   let json = {
-    title: '加好友，手机号存入通讯录',
+    title: '【换】' + name + '的投资名片--项目融资交易、资源对接的智动匹配神器',
     path: path,
     success: (res) => {
       console.log(path)
+      // _this.shareLog(res, path);
     }
   }
   return json
@@ -229,7 +227,7 @@ function shareLog(res, path, unique_id) {
         if (shareTicket) {
           wx.getShareInfo({
             shareTicket: shareTicket,
-            success: function (res) {
+            success(res) {
               let encryptedData = res.encryptedData;
               let iv = res.iv;
               //发送请求到后台
@@ -271,16 +269,6 @@ function shareLog(res, path, unique_id) {
   });
 }
 
-//分享活动
-function shareActivity(that){
-  let activity_id = that.data.activity_id; 
-  let name = that.data.name;
-  return {
-    title: name,
-    path: '/activitySignIn/pages/activityProjectInfo/activityProjectInfo?activity_id=' + activity_id
-  }
-}
-
 /* --------------------------------------------------------------------- */
 export {
   match1,
@@ -302,7 +290,6 @@ export {
   warbandMemberShare,
   projectListShare,
   redPacketsShare,
-  shareLog,
-  shareActivity
+  shareLog
 }
 

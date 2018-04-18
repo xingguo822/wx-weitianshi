@@ -13,11 +13,11 @@ Page({
     buttonOneText: '添加案例',
     nonet: true
   },
-  onLoad: function () {
+  onLoad() {
     let that = this;
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     var that = this;
     var user_id = wx.getStorageSync('user_id');
     this.setData({
@@ -43,14 +43,14 @@ Page({
     })
   },
   //编辑案例
-  detail: function (e) {
+  detail(e) {
     var index = e.currentTarget.dataset.index;
     let case_id = e.currentTarget.dataset.id;
     app.href('../investCaseEdit/investCaseEdit?index=' + index + '&&case_id=' + case_id);
   },
 
   // 按钮一号
-  buttonOne: function () {
+  buttonOne() {
     app.href('/pages/my/investCaseEdit/investCaseEdit');
   },
   // 重新加载

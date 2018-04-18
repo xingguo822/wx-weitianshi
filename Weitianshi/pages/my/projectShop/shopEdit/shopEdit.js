@@ -6,7 +6,7 @@ Page({
   data: {
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     let user_id = options.user_id;
     this.setData({
@@ -14,7 +14,7 @@ Page({
     });
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     let user_id = this.data.user_id;
     let that = this;
     //返回上一页时启动onShow;
@@ -27,7 +27,7 @@ Page({
         user_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let userInfo = res.data.user_info;
         that.setData({
           userInfo: userInfo
@@ -36,14 +36,14 @@ Page({
     });
   },
   //上传图片
-  upLoadPic: function () {
+  upLoadPic() {
     let that = this;
     let user_id = this.data.user_id;
     wx.chooseImage({
       count: 1, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
+      success(res) {
         var tempFilePaths = res.tempFilePaths;
         let avatar = tempFilePaths[0];
         let size = res.tempFiles[0].size;
@@ -59,7 +59,7 @@ Page({
             formData: {
               user_id: user_id,
             },
-            success: function (res) {
+            success(res) {
               if (res.statusCode == 200) {
                 wx.hideLoading();
                 let data = JSON.parse(res.data);
@@ -80,7 +80,7 @@ Page({
     });
   },
   //店铺名称
-  shopNameEdit: function (e) {
+  shopNameEdit(e) {
     let shop_name = e.detail.value;
     let that = this;
     that.setData({
@@ -88,7 +88,7 @@ Page({
     });
   },
   //店铺描述
-  shopDescrible: function (e) {
+  shopDescrible(e) {
     let user_intro = e.detail.value;
     let that = this;
     that.setData({
@@ -96,7 +96,7 @@ Page({
     });
   },
   //保存
-  save: function () {
+  save() {
     let that=this;
     let user_id = wx.getStorageSync('user_id');
     let shop_name = this.data.shop_name;
@@ -113,7 +113,7 @@ Page({
         user_intro: user_intro
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == 2000000) {
           wx.navigateBack({
             delta: 1

@@ -7,7 +7,7 @@ Page({
   data: {
     name: '',
     telephone: '',
-    checkCode: '', 
+    checkCode: '',
     checking: "0",//获取验证码请求是否发送
     time: "0",//获取验证码按钮是否可点
     loading: "0",//加载动画控制
