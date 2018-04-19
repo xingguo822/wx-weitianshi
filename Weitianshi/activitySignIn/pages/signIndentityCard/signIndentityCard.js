@@ -89,7 +89,7 @@ Page({
     let id = e.currentTarget.dataset.id
     var user_id = wx.getStorageSync("user_id");//用戶id
     if (id == user_id) {
-      app.href('/pages/my/myNew/myNew');
+      app.href('/pages/my/my/my');
     } else {
       app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id)
     }
@@ -98,7 +98,7 @@ Page({
   contactsAddDirect(e) {
     let added_user_id = e.currentTarget.dataset.id;
     let that = this;
-    app.operationModel('contactsAddDirect', added_user_id, function (res) {
+    app.operationModel('contactsAddDirect', that,added_user_id, function (res) {
       console.log('直接添加人脉完成', res)
       that.contactsAddSuccessFunc(res, added_user_id, 1);
     });
@@ -106,7 +106,7 @@ Page({
   // 加好友
   contactsAdd(e) {
     let id = e.currentTarget.dataset.id;
-    app.operationModel('contactsAdd', id, res => {
+    app.operationModel('contactsAdd',this, id, res => {
       console.log(res)
       let investorList = this.data.investorList;
       this.contactsAddSuccessFunc(res, id, 2);

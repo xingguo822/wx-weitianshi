@@ -1,9 +1,0 @@
-<view wx:if="{{!nonet}}">
-<scroll-view scroll-y style="height:1108rpx;">
-  <view style="position:relative">
-    <image class="N-netWorkImg" src="/img/img-duanwang.png"></image>
-    <view class="N-text">网络不给力</view>
-    <view class="N-refresh" bindtap='refresh'>刷新试试</view>
-  </view>
-</scroll-view>
-</view>
