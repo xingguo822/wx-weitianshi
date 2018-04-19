@@ -3,27 +3,25 @@ var url = app.globalData.url;
 var url_common = app.globalData.url_common;
 import * as ShareModel from '../../../utils/model/shareModel';
 let RG = require('../../../utils/model/register.js');
-let register = new RG.register();
+let register = new RG.register(); 
 let RP = require('../../../utils/model/redPackets.js');
 let rp = new RP.redPackets();
-Page({
+Page({ 
   data: {
     modalBox: 0,
     modal: 0,
     nonet: true,
     sendHB: app.globalData.picUrl.sendHB,
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     app.netWorkChange(that);
     rp.makeSureHB.call(this)
   },
 
-  onShow: function () {
+  onShow() {
     var that = this;
-    let user_id = wx.getStorageSync("user_id")
     app.loginPage(function (user_id) {
-      console.log(user_id)
       that.setData({
         user_id: user_id,
       });
@@ -41,7 +39,7 @@ Page({
             view_id: user_id,
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             app.log('myInfo', res);
             wx.hideLoading();
             var user = res.data.data.user;
@@ -61,7 +59,7 @@ Page({
               user_company_name: user_company_name
             });
           },
-          fail: function (res) {
+          fail(res) {
           },
         });
         // 获得我的身份状态
@@ -71,7 +69,7 @@ Page({
             user_id: user_id
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
 
             // 0:未认证1:待审核 2 审核通过 3审核未通过
             let status = res.data.status;
@@ -88,19 +86,19 @@ Page({
         });
       }
     });
-  },
+  }, 
   //登录
   entry() {
-    app.checkUserInfo(this, res => { })
+    app.checkUserInfo(this, res => {})
   },
   //进入我的名片
-  toMyCard: function () {
-    app.checkUserInfo(this, res => {
+  toMyCard() {
+    app.checkUserInfo(this, res => { 
       app.href('/pages/my/myCard/myCard');
     })
   },
   //人气
-  popularity: function () {
+  popularity() {
     app.href('/pages/message/browseMe/browseMe');
   },
   //头像编辑
@@ -108,15 +106,15 @@ Page({
     app.href('/pages/my/cardEdit/cardEdit');
   },
   //加我为人脉
-  attention: function () {
+  attention() {
     app.href('/pages/message/beAddedContacts/beAddedContacts');
   },
   //潜在项目
-  pushTo: function () {
+  pushTo() {
     app.href('/pages/message/potentialProject/potentialProject');
   },
   //身份验证
-  identity: function (e) {
+  identity(e) {
     let status = this.data.status;
     var user_id = wx.getStorageSync('user_id');
     // 0未认证 1待审核 2 认证成功 3 拒绝
@@ -133,33 +131,33 @@ Page({
       } else if (status == 3) {
         app.href('/pages/my/identity/identityResult/identityResult?type=' + 3);
       }
-    })
+     })  
   },
   //项目店铺
-  projectShop: function () {
+  projectShop() {
     app.checkUserInfo(this, res => {
       app.href('/pages/my/projectShop/projectShop/projectShop')
     })
   },
   //约谈的项目
-  contactProject: function () {
+  contactProject() {
     app.checkUserInfo(this, res => {
       app.href('/pages/message/contactProject/userList/userList')
     })
   },
   //收藏的项目
-  collectProject: function () {
+  collectProject() {
     // app.href('/pages/message/collectProject/collectProject')
     let that = this;
     app.errorHide(that, "收藏项目近期开放", 3000);
   },
   //分享页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     let that = this;
     return ShareModel.myCardShare(that);
   },
   // 查税号
-  searchIdentification: function (e) {
+  searchIdentification(e) {
     var that = this;
     var user_id = this.data.user_id;
     var modal = this.data.modal;
@@ -172,7 +170,7 @@ Page({
         com_name: com_name
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         app.log("taxNum", res);
         let data = res.data;
         if (data.status_code == 460004) {
@@ -199,31 +197,31 @@ Page({
     });
   },
   //完善公司信息
-  writeInformation: function () {
+  writeInformation() {
     app.href('/pages/my/cardEdit/cardEdit');
     this.setData({
       modalBox: 0
     });
   },
   //确定或稍后再试
-  laterOn: function () {
+  laterOn() {
     app.href('/pages/my/my/my');
     this.setData({
       modalBox: 0
     });
   },
   //复制税号
-  copyNum: function () {
+  copyNum() {
     let num = this.data.tax_member;
     wx.setClipboardData({
       data: num,
-      success: function (res) {
+      success(res) {
         wx.showToast({
           title: '复制成功',
           icon: 'success'
         });
         wx.getClipboardData({
-          success: function (res) {
+          success(res) {
           }
         });
       }
@@ -237,14 +235,14 @@ Page({
     });
   },
   // 二维码分享按钮
-  shareSth: function (e) {
+  shareSth(e) {
     app.checkUserInfo(this, res => {
       var QR_id = e.currentTarget.dataset.clickid;
       wx.setStorageSync('QR_id', QR_id);
       app.href('/pages/my/qrCode/qrCode');
     })
   },
-  myFri: function () {
+  myFri() {
     app.checkUserInfo(this, res => {
       app.href('/pages/discover/myFriend/myFriend');
     })
@@ -272,7 +270,7 @@ Page({
   sendedBag(e) {
     app.checkUserInfo(this, res => {
       app.href('/redPackets/pages/myHB/myHB')
-
+    
     })
   },
 
@@ -285,13 +283,7 @@ Page({
     register.telephoneRegister.call(this);
   },
   // 关闭绑定方式选择弹框
-  closeRegisterModal() {
+  closeRegisterModal(){
     register.closeRegisterModal.call(this);
-  },
-  activity() {
-    app.checkUserInfo(this, res => {
-      app.href("/pages/my/activityList/activityList")
-    })
   }
-
 });

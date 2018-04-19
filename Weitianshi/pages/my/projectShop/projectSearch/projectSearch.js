@@ -7,7 +7,7 @@ Page({
     empty: 0,
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     let user_id = options.user_id;
     this.setData({
@@ -15,7 +15,7 @@ Page({
     });
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     let user_id = this.data.user_id;
     let  that = this;
     //返回上一页时启动onShow;
@@ -30,7 +30,7 @@ Page({
     });
   },
   //查找项目
-  searchSth: function (e) {
+  searchSth(e) {
     var that = this;
     let user_id = this.data.user_id;
     let currentUser = wx.getStorageSync('user_id');
@@ -69,7 +69,7 @@ Page({
           }
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           var myProject = res.data.data;
           var page_end = res.data.page_end;
           that.setData({
@@ -89,13 +89,13 @@ Page({
     }
   },
   // 取消
-  searchEsc: function () {
+  searchEsc() {
     wx.navigateBack({
       delta: 1
     });
   },
   //点击进入项目详情
-  detail: function (e) {
+  detail(e) {
     let that=this;
     let id = e.currentTarget.dataset.id;
     let user_id = this.data.user_id;
@@ -110,7 +110,7 @@ Page({
   },
   // 选中项目
 
-  clickProject: function (e) {
+  clickProject(e) {
     let that = this;
     let user_id = this.data.user_id;
     let myProject = this.data.myProject;
@@ -123,7 +123,7 @@ Page({
         user_id: user_id
       },
       method: "POST",
-      success: function (res) {
+      success(res) {
         if (res.data.status_code = 200000) {
           myProject.forEach((x) => {
             if (x.project_id == project_id && is_top == 0) {
@@ -142,7 +142,7 @@ Page({
     });
   },
   //上拉加载
-  myPublicProject: function () {
+  myPublicProject() {
     //请求上拉加载接口所需要的参数
     var that = this;
     var user_id = this.data.user_id;

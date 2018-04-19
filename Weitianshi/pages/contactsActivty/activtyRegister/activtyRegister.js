@@ -12,7 +12,7 @@ Page({
       user_company_career: '',
     },
   },
-  onLoad: function (options) {
+  onLoad(options) {
     var that = this;
     var user_id = wx.getStorageSync('user_id');
     app.netWorkChange(that);
@@ -30,7 +30,7 @@ Page({
         view_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         wx.hideLoading();
         let user_info = res.data.user_info;
         app.log('用户信息', user_info);
@@ -41,7 +41,7 @@ Page({
       },
     });
   },
-  onShow: function () {
+  onShow() {
 
   },
   //头像
@@ -50,7 +50,7 @@ Page({
     app.headPic(that);
   },
   //信息填写或更改
-  writeNewThing: function (e) {
+  writeNewThing(e) {
     let type = e.currentTarget.dataset.type;
     let user_real_name = this.data.user_info.user_real_name;
     let user_company_name = this.data.user_info.user_company_name;
@@ -100,7 +100,7 @@ Page({
           user_avatar: image_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           if (res.data.status_code == 2000000) {
             wx.showModal({
               title: '报名成功',
@@ -126,7 +126,7 @@ Page({
             });
           }
         },
-        fail: function (res) {
+        fail(res) {
           app.log('fail',res);
         },
       });

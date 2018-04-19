@@ -1,6 +1,4 @@
 <import src="/pages/Template/Template.wxml" />
-
-
 <include src='/utils/wxml/common' />
 <view wx:if="{{nonet}}">
   <!--筛选和搜索  -->

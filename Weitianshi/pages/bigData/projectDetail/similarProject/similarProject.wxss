@@ -1,0 +1,133 @@
+.companypPoint, .companypBook, .companyMainProject, .companyHistory,
+.companyCorePerson, .companyStone, .similarProject, .mediaReport {
+  padding: 0 32rpx;
+  background: #fff;
+  margin-bottom: 32rpx;
+}
+
+.detailTitle {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 42rpx;
+  text-align: left;
+  font-weight: bold;
+  padding: 32rpx 0;
+}
+
+.title {
+  justify-content: space-between;
+}
+
+.littleTitle {
+  font-size: 30rpx;
+  color: #333;
+  text-align: left;
+  line-height: 42rpx;
+  margin-bottom: 8rpx;
+}
+
+.allNumber {
+  font-size: 24rpx;
+  color: #3378e0;
+  text-align: right;
+  position: relative;
+  top: 36rpx;
+}
+
+.detailTitle {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 42rpx;
+  text-align: left;
+  font-weight: bold;
+  padding: 32rpx 0;
+}
+
+.mainProjectBox, .historyBox, .corePersonBox, .similarProjectBox,
+.mediaReportBox {
+  padding: 32rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.belongTo1 {
+  position: absolute;
+  top: 22rpx;
+  left: -18rpx;
+  width: 116rpx;
+  height: 36rpx;
+}
+
+.similarProjectBox {
+  padding: 40rpx 0;
+  position: relative;
+}
+
+.similarPic {
+  width: 104rpx;
+  height: 104rpx;
+  background: pink;
+  margin-right: 24rpx;
+}
+
+.similarProjectInro {
+  font-size: 30rpx;
+  color: #333;
+  text-align: left;
+  max-width: 240rpx;
+  line-height: 42rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 8rpx;
+}
+
+.similarScale {
+  border: 1rpx solid #c5a837;
+  border-radius: 68rpx;
+  color: #c5a837;
+}
+
+.similarInro {
+  font-size: 24rpx;
+  color: #666;
+  max-width: 558rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 8rpx;
+}
+
+.similarMain {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 16rpx;
+  max-width: 558rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.similarProjectBox:last-child {
+  border-bottom: none;
+}
+
+.projectSpecial {
+  word-break: break-all;
+  flex-wrap: wrap;
+  max-width: 556rpx;
+}
+
+.otherProjectBox {
+  margin-bottom: 14rpx;
+}
+
+.otherProject {
+  background: rgba(51, 120, 224, 0.10);
+  border-radius: 4rpx;
+  padding: 6rpx 12rpx 8rpx 12rpx;
+  margin-right: 24rpx;
+  font-size: 24rpx;
+  color: #3378e0;
+  margin-bottom: 8rpx;
+  /* white-space: nowrap; */
+}

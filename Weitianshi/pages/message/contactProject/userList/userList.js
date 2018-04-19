@@ -8,7 +8,7 @@ Page({
     jiandi : false
   },
 
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     app.netWorkChange(that);
     let user_id = wx.getStorageSync('user_id');//获取我的user_id
@@ -23,7 +23,7 @@ Page({
         page: 1
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         wx.hideLoading();
         let list = res.data.data;
         let count = res.data.data.count;
@@ -37,7 +37,7 @@ Page({
       }
     });
   },
-  onShow: function () {
+  onShow() {
     this.setData({
       requestCheck: true,
       currentPage: 1,
@@ -45,7 +45,7 @@ Page({
     });
   },
   //跳转项目详情
-  projectDetail: function (e) {
+  projectDetail(e) {
     let that=this;
     let project_id = e.currentTarget.dataset.project;
     app.log("project_id",project_id);
@@ -56,7 +56,7 @@ Page({
         project_id: project_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         var userId = res.data.user_id;
         var user = wx.getStorageSync('user_id');
         if (userId == user) {
@@ -68,7 +68,7 @@ Page({
     });
   },
   //下拉加载
-  loadMore: function () {
+  loadMore() {
     var that = this;
     let user_id = wx.getStorageSync('user_id');//获取我的user_id
     var currentPage = this.data.currentPage;

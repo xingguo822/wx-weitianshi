@@ -1,0 +1,191 @@
+.memberInfoBox {
+  margin: 0 42rpx 32rpx 40rpx;
+  background: #fff;
+  box-shadow: 0 0 12rpx 0 rgba(64, 88, 122, 0.10);
+  border-radius: 12rpx;
+  width: 604rpx;
+  height: 160rpx;
+  padding: 60rpx 32rpx;
+  position: fixed;
+}
+
+.memberNoPic {
+  width: 160rpx;
+  height: 160rpx;
+  background: #f0f0f0;
+  border-radius: 100%;
+  margin-right: 32rpx;
+  text-align: center;
+  line-height: 160rpx;
+}
+.memberPic {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 100%;
+  margin-right: 32rpx;
+  text-align: center;
+  line-height: 160rpx;
+}
+
+.memberUserName {
+  font-size: 36rpx;
+  color: #333;
+  margin-bottom: 22rpx;
+}
+
+.t-roundGroupContent {
+  max-width: 380rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*个人简介  */
+
+.memberPersonInfo, .memberPersonStart, .memberPersonWork, .memberPersonEdu {
+  padding: 0 32rpx;
+  background: #fff;
+  margin-bottom: 32rpx;
+}
+
+.title {
+  justify-content: space-between;
+}
+
+.detailTitle {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 42rpx;
+  text-align: left;
+  font-weight: bold;
+  padding: 32rpx 0;
+}
+
+.allNumber {
+  font-size: 24rpx;
+  color: #3378e0;
+  text-align: right;
+  position: relative;
+  top: 36rpx;
+}
+
+.memberPersonContent {
+  font-size: 28rpx;
+  color: #333;
+  line-height: 44rpx;
+  text-align: left;
+  padding-bottom: 32rpx;
+}
+
+.memberPersonTitle {
+  word-break: break-all;
+  flex-wrap: wrap;
+  max-width: 686rpx;
+}
+
+.mptBox {
+  margin-bottom: 32rpx;
+  margin-right: 30rpx;
+}
+
+.mptboxContent {
+  border: 1rpx solid #293b55;
+  border-radius: 56rpx;
+  font-size: 22rpx;
+  color: #293b55;
+  line-height: 32rpx;
+  text-align: center;
+  padding: 8rpx 16rpx;
+}
+
+/*创业经历  */
+
+.memberPersonBox {
+  padding: 32rpx 0;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+
+.mpSTime {
+  font-size: 26rpx;
+  color: #999;
+  line-height: 36rpx;
+  margin-bottom: 24rpx;
+}
+
+
+
+.mpSContentPic {
+  height: 104rpx;
+  width: 104rpx;
+  background: blue;
+  margin-right: 24rpx;
+}
+
+.mpSTitle {
+  font-size: 30rpx;
+  color: #333;
+  line-height: 42rpx;
+  margin-bottom: 10rpx;
+  max-width: 344rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mpsInfo {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 34rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  max-width: 506rpx;
+}
+
+.mpST {
+  border: 1rpx solid #293b55;
+  border-radius: 68rpx;
+  width: 118rpx;
+  height: 40rpx;
+  font-size: 22rpx;
+  color: #293b55;
+  text-align: center;
+  line-height: 40rpx;
+}
+
+.memberPersonBox:last-child {
+  border-bottom: none;
+}
+
+.case_pic {
+  width: 22rpx;
+  height: 22rpx;
+  position: relative;
+  left: 13rpx;
+  z-index: 5;
+}
+
+.mpWC {
+  font-size: 30rpx;
+  color: #666;
+  padding-bottom: 32rpx;
+  padding-left: 44rpx;
+  /* border-left: 1rpx solid #e6e6e6; */
+  position: relative;
+  top: -9rpx;
+}
+
+.mpWbox {
+  /* position: relative; */
+  margin-top: 32rpx;
+}
+
+.userIcon {
+  width: 12rpx;
+  height: 20rpx;
+  position: relative;
+  top: 14rpx;
+  right:-34rpx;
+}

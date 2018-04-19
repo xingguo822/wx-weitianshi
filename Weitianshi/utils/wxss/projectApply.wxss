@@ -40,7 +40,7 @@
 }
 
 .allIndustry {
-  background: #f5f5f5;
+  /* background: #f5f5f5; */
   border-radius: 4rpx;
   padding: 0 16rpx;
   height: 50rpx;

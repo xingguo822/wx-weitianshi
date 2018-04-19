@@ -1,0 +1,101 @@
+<view class="memberInfoBox flex">
+  <image class="memberPic" src="{{memberInfo.member_avatar}}" wx:if="{{memberInfo.member_avatar}}"></image>
+  <view class="memberNoPic" wx:if="{{!memberInfo.member_avatar}}">{{memberInfo.member_avatar_text}}</view>
+  <view class="memberUserBox">
+    <view class="memberUserName">{{memberInfo.member_name}}</view>
+    <view class="t-roundGroupPush flex">
+      <image class="t-roundGroupTitle" src="/img/icon-lunci@2x.png"></image>
+      <view class="t-roundGroupContent" wx:if="{{memberInfo.member_start_exp && memberInfo.member_introduce}}">
+        <label>{{memberInfo.member_start_exp}}</label> ·
+        <label>{{memberInfo.member_introduce}}</label>
+      </view>
+      <view class="t-roundGroupContent" wx:if="{{!memberInfo.member_start_exp && !memberInfo.member_introduce}}">暂未透露</view>
+    </view>
+    <view class="t-roundGroupPush flex">
+      <image class="t-roundGroupTitle" src="/img/icon-diqu-s@2x.png"></image>
+      <view class="t-roundGroupContent" wx:if="{{memberInfo.member_area && memberInfo.company_name}}">
+        <label>{{memberInfo.member_area}}</label> ·
+        <label>{{memberInfo.company_name}}</label>
+      </view>
+      <view class="t-roundGroupContent" wx:if="{{!memberInfo.company_name && !memberInfo.member_area}}">暂未透露</view>
+    </view>
+  </view>
+</view>
+<view style='height:312rpx;'></view>
+
+<!--个人简介  -->
+<view class='memberPersonInfo' wx:if="{{memberInfo.label_list.length != 0 && memberInfo.member_introduce}}">
+  <view class="flex title">
+    <view class="detailTitle">个人简介</view>
+  </view>
+  <view class="memberPersonTitle flex">
+    <block wx:for="{{memberInfo.label_list}}" wx:key="{{index}}">
+      <view class="mptBox">
+        <label class='mptboxContent'>{{item.name}}</label>
+      </view>
+    </block>
+  </view>
+  <view class="memberPersonContent">{{memberInfo.member_introduce}}</view>
+</view>
+
+<!--创业经历  -->
+<view class='memberPersonStart' wx:if="{{memberInfo.start_list.total_num != 0}}">
+  <view class="flex title">
+    <view class="detailTitle">创业经历</view>
+    <view class="allNumber">全部
+      <label>（{{memberInfo.start_list.total_num}}）</label>
+    </view>
+  </view>
+  <block wx:for="{{memberInfo.start_list.list}}" wx:key="{{index}}">
+    <view class="memberPersonBox">
+      <view class="mpSTime">{{item.project_date}}</view>
+      <view class="mpSContent flex">
+        <image class="mpSContentPic" src='/img/img-logo@2x.png' wx:if="{{!item.project_logo}}"></image>
+        <image src="{{item.project_logo}}" class="mpSContentPic" wx:if="{{item.project_logo}}"></image>
+        <view>
+          <view class="flex title">
+            <view class="mpSTitle">{{item.project_intro}}</view>
+            <view class="mpST">工具软件</view>
+          </view>
+          <view class='mpsInfo'>{{item.project_desc}}</view>
+        </view>
+        <image class='userIcon' src="/img/icon-jiantou3@2x.png"></image>
+      </view>
+    </view>
+  </block>
+</view>
+
+<!--工作经历  -->
+<view class='memberPersonWork' wx:if="{{memberInfo.work_list.length != 0}}">
+  <view class="flex title">
+    <view class="detailTitle">工作经历</view>
+    <view class="allNumber">全部
+      <label>（{{memberInfo.work_list.length}}）</label>
+    </view>
+  </view>
+  <block wx:for="{{memberInfo.work_list}}" wx:key="{{index}}">
+    <view class="mpWbox flex">
+      <image class="case_pic" src="/img/dot@3x.png"></image>
+      <view class="mpWC">
+        <label wx:if="{{item.work_exp_com}}">{{item.work_exp_com}}</label>
+        <label wx:if="{{item.work_exp_position}}">（{{item.work_exp_position}}）</label>
+      </view>
+    </view>
+  </block>
+</view>
+
+<!--教育经历  -->
+<view class='memberPersonEdu' wx:if="{{memberInfo.education_list.length != 0}}">
+  <view class="flex title">
+    <view class="detailTitle">教育经历</view>
+    <view class="allNumber">全部
+      <label>（{{memberInfo.education_list.length}}）</label>
+    </view>
+  </view>
+  <block wx:for="{{memberInfo.education_list}}" wx:key="{{index}}">
+    <view class="mpWbox flex">
+      <image class="case_pic" src="/img/dot@3x.png"></image>
+      <view class="mpWC">{{item.name}}</view>
+    </view>
+  </block>
+</view>

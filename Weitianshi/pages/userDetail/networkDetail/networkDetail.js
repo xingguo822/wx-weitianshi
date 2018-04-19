@@ -3,7 +3,7 @@ var url = app.globalData.url;
 var url_common = app.globalData.url_common;
 import * as ShareModel from '../../../utils/model/shareModel';
 let RG = require('../../../utils/model/register.js');
-let register = new RG.register();
+let register = new RG.register(); 
 Page({
   data: {
     bindContact: false,
@@ -18,7 +18,7 @@ Page({
     playTime: 1,
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     app.netWorkChange(that)
     wx.showLoading({
@@ -82,11 +82,11 @@ Page({
     })
   },
   //进入个人详情
-  userInfo: function () {
+  userInfo() {
     app.href("/pages/userDetail/networkDetail/networkDetail")
   },
   // 好友直接拨打电话
-  telephone: function (e) {
+  telephone(e) {
     var telephone = e.currentTarget.dataset.telephone;
     var tel = telephone.indexOf("****") * 1;
     if (tel == -1) {
@@ -103,7 +103,7 @@ Page({
     }
   },
   //添加人脉
-  addPerson: function (options) {
+  addPerson(options) {
     var that = this;
     var followed_user_id = this.data.user_id;//当前用户的
     let view_id = wx.getStorageSync('user_id');//获取我自己的user_id/查看者的id
@@ -120,7 +120,7 @@ Page({
             applied_user_id: followed_user_id
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             app.log("正常申请添加人脉")
             that.setData({
               button_type: 2
@@ -141,7 +141,7 @@ Page({
             apply_user_id: followed_user_id
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             app.log("同意申請")
             that.setData({
               button_type: 1
@@ -157,7 +157,7 @@ Page({
             followed_user_id: followed_user_id
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             that.setData({
               button_type: 1
             })
@@ -168,28 +168,28 @@ Page({
     })
   },
   // 二维码分享页面
-  shareSth: function (e) {
+  shareSth(e) {
     var QR_id = e.currentTarget.dataset.clickid;
     wx.setStorageSync('QR_id', QR_id)
     app.href('/pages/my/qrCode/qrCode')
   },
   //分享页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     let that = this;
     return ShareModel.networkDetailShare(that);
   },
   //项目融资
-  projectFinance: function () {
+  projectFinance() {
     var followed_user_id = this.data.user_id;
     app.href('/pages/my/projectShop/projectShop/projectShop?followed_user_id=' + followed_user_id)
   },
   //融资项目详情
-  financingDetail: function (e) {
+  financingDetail(e) {
     var id = e.currentTarget.dataset.id;
     app.href('/pages/projectDetail/projectDetail?id=' + id)
   },
   // 推送项目
-  pushProjectTo: function () {
+  pushProjectTo() {
     let push_id = this.data.user_id;
     let that = this;
     app.operationModel('projectPush', that, push_id)
@@ -199,16 +199,16 @@ Page({
     let index = e.currentTarget.dataset.index;
     app.shareJump(index);
   },
-  moreProject: function () {
+  moreProject() {
     app.href("/pages/discoverProject/discoverProject")
   },
   // 二维码分享按钮
-  shareSth: function (e) {
+  shareSth(e) {
     var QR_id = e.currentTarget.dataset.clickid;
     wx.setStorageSync('QR_id', QR_id)
     app.href('/pages/my/qrCode/qrCode')
   },
-  contactTap: function () {
+  contactTap() {
     let that = this;
     that.setData({
       bindContact: true
@@ -218,24 +218,6 @@ Page({
         bindContact: false
       });
     }, 10000)
-  },
-  // 长按号码响应函数  
-  phoneNumTap(e) {
-    let phoneNum = e.currentTarget.dataset.telephone;
-    let name = e.currentTarget.dataset.name;
-    let company = e.currentTarget.dataset.company;
-    let email = e.currentTarget.dataset.email;
-    let position = e.currentTarget.dataset.position;
-    var that = this;
-    // 提示呼叫号码还是将号码添加到手机通讯录  
-    // 添加到手机通讯录  
-    wx.addPhoneContact({
-      firstName: name,//联系人姓名  
-      mobilePhoneNumber: phoneNum,//联系人手机号  
-      organization: company,//公司
-      title: position,//职位
-      email: email
-    })
   },
   // 重新加载
   refresh() {

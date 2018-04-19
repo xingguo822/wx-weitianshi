@@ -27,7 +27,6 @@
       </block>
       <template is="theBottom" wx:if="{{jiandi==true}}"></template>
     </scroll-view>
-
+    <template is="isEmpty" data="{{emptyNumber:contacts}}"></template>
   </view>
-  <template is="isEmpty" data="{{emptyNumber:contacts}}"></template>
 </view>

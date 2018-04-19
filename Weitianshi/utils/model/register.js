@@ -10,7 +10,7 @@ export class register {
     let iv = e.detail.iv;
     let _this = this;
     wx.login({
-      success: function (login) {
+      success(login) {
         let code = login.code;
         app.httpPost({
           url: 'https://wx.weitianshi.cn/api/wx/returnWxOauthMobile',
@@ -86,7 +86,7 @@ export class register {
   personInfoRegister() {
     let _this = this;
     wx.login({
-      success: function (res) {
+      success(res) {
         let user_mobile = _this.data.telephone;
         let captcha = _this.data.checkCode;
         let code = res.code;
@@ -173,99 +173,6 @@ export class register {
         }
         let path = app.globalData.registerInitPage;
         app.href(path);
-      })
-    }
-  }
-  identityRegister(){
-    let that = this;
-    let activity_id = this.data.activity_id;
-    let name = this.data.name;
-    let telephone = this.data.telephone;
-    let company = this.data.company;
-    let position = this.data.position;
-    let user_brand = this.data.brand;
-    let user_email = this.data.email;
-    let user_wechat = this.data.weChat;
-    if (!name) {
-      app.errorHide(this, '姓名不能为空')
-    } else if (!company) {
-      app.errorHide(this, '公司不能为空')
-    } else if (!position) {
-      app.errorHide(this, '职位不能为空')
-    } else {
-      app.httpPost({
-        url: url_common + '/api/activity/apply',
-        data: {
-          "user_id": this.data.user_id,
-          "activity_id": activity_id,
-          "user_mobile": telephone,
-          "user_name": name,
-          "user_company_name": company,
-          "user_company_career": position,
-          "user_brand": user_brand,
-          "user_email": user_email,
-          "user_wechat": user_wechat
-        },
-      }, this).then(res => {
-      if (res.data.status_code === 2000000 || res.data.status_code === 20000) {
-        let apply_id = res.data.data.apply_id;
-        this.jumpto(this.data.user_id,apply_id);
-      } else {
-        app.errorHide(that, res.data.error_msg, 3000)
-      }
-      })
-    }
-  }
-  identityRegister2(){
-    let that = this;
-    let activity_id = this.data.activity_id;
-    let name = this.data.name;
-    let telephone = this.data.telephone;
-    let company = this.data.company;
-    let position = this.data.position;
-    let user_brand = this.data.brand;
-    let user_email = this.data.email;
-    let user_wechat = this.data.weChat;
-    let captcha = this.data.checkCode;
-    if (!name) {
-      app.errorHide(this, '姓名不能为空')
-    } else if (!telephone) {
-      app.errorHide(this, '电话不能为空')
-    } else if (!company) {
-      app.errorHide(this, '公司不能为空')
-    } else if (!position) {
-      app.errorHide(this, '职位不能为空')
-    } else if (!captcha) {
-      app.errorHide(this, '验证码不能为空')
-    } else {
-      app.httpPost({
-        url: url_common + '/api/activity/applyAndRegister',
-        data: {
-          "user_id": 0,
-          "activity_id": activity_id,
-          "user_mobile": telephone,
-          "user_name": name,
-          "user_company_name": company,
-          "user_company_career": position,
-          "user_brand": user_brand,
-          "user_email": user_email,
-          "user_wechat": user_wechat,
-          "captcha": captcha,
-          "open_session": wx.getStorageSync('open_session')
-        },
-      }, this).then(res => {
-        if (res.data.status_code === 2000000 || res.data.status_code === 20000) {
-          console.log(res)
-          let user_info = res.data.data.user;
-          let apply_id = res.data.data.apply_id;
-          wx.setStorageSync("user_id", res.data.data.user.user_id);
-          this.jumpto(user_info.user_id, apply_id);
-          that.setData({
-            user_info: user_info
-          })
-        } else {
-          app.errorHide(that, res.data.error_msg, 3000)
-        }
       })
     }
   }

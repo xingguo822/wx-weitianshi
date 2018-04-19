@@ -8,12 +8,12 @@ Page({
     nonet: true
   },
 
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     app.netWorkChange(that)
   },
 
-  onShow: function () {
+  onShow() {
     let that = this;
     app.httpPost({
       url: url_common + '/api/investment/fieldlist',

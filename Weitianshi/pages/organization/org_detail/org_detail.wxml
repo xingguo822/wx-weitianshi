@@ -9,7 +9,7 @@
     <view class="media11">
       <view class="inMedia">
         <view class="detailIntroduce flex">
-          <view class="detailLogo"> 
+          <view class="detailLogo">
             <view class="detailLogo1">
               <image src="{{info.investment_logo}}" wx:if="{{info.investment_logo}}" mode="aspectFit"></image>
               <image src="/img/warband-logo.png" wx:if="{{info.investment_logo==''}}"></image>

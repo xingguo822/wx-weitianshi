@@ -15,7 +15,7 @@ Page({
     enchangeId: [],
     nonet: true
   },
-  onLoad: function () {
+  onLoad() {
     var that = this;
     var that = this;
     app.netWorkChange(that)
@@ -36,15 +36,15 @@ Page({
       tran_hotCity: tran_hotCity
     });
   },
-  onShow: function () {
+  onShow() {
     // 页面显示
   },
   //下拉刷新
-  onPullDownRefresh: function () {
+  onPullDownRefresh() {
     wx.stopPullDownRefresh()
   },
   //传值部份可提供资源
-  checkboxChange: function (e) {
+  checkboxChange(e) {
     let that = this;
     let area = this.data.area
     let tranArr = this.data.tran_hotCity;
@@ -56,7 +56,7 @@ Page({
   },
 
   //点击确定
-  certain: function () {
+  certain() {
     var that = this;
     var index = this.data.index;
     let tran_hotCity = this.data.tran_hotCity;

@@ -37,7 +37,7 @@ Page({
     nonet: true
   },
 
-  onLoad: function (options) {
+  onLoad(options) {
     let old_group_id = options.group_id;
     let old_authenticate_id = options.authenticate_id;
     let that = this;
@@ -47,7 +47,7 @@ Page({
       data: {
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let groupIdentityList = res.data.data;
         var messageList = that.data.messageList;
         groupIdentityList.forEach((x, index) => {
@@ -65,11 +65,11 @@ Page({
     });
   },
 
-  onShow: function () {
+  onShow() {
 
   },
   // 跳转认证资料信息填写页面
-  toIdentityEdit: function (e) {
+  toIdentityEdit(e) {
     let user_id = wx.getStorageSync('user_id');
     let group_id = e.currentTarget.dataset.group;
     // 重新认证的时候，才会有old_group_id
@@ -84,7 +84,7 @@ Page({
           authenticate_id: old_authenticate_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           // isUpdate :0 未认证过 1:重新认证
           let isUpdate = res.data.is_update;
           var authenticate_id = res.data.authenticate_id;
@@ -103,7 +103,7 @@ Page({
           group_id: group_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           let authenticate_id = res.data.authenticate_id;
           let isUpdate = res.data.is_update;
           app.href('/pages/my/identity/identityEdit/identityEdit?group_id=' + group_id + '&&authenticate_id=' + authenticate_id + '&&isUpdate=' + isUpdate);

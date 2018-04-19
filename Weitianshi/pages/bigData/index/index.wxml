@@ -1,0 +1,49 @@
+<import src="/pages/Template/Template.wxml" />
+<view style='margin-top:100rpx;'>
+  <view class="searchBox" bindtap='searchMore'>
+    <view class="searchSth flex">
+      <icon type="search" size="14" class="search_icon1"></icon>
+      <label> 搜索项目、投资人、投资机构、创投人脉...</label>
+    </view>
+  </view>
+</view>
+<!--全网项目库  -->
+<view class='allNetProject'>
+  <view class="flex title">
+    <view class="detailTitle1">全网项目库</view>
+    <view class="allNumber" catchtap='allNetProject'>全部
+      <label>（12）</label>
+    </view>
+  </view>
+</view>
+
+<!--项目特色  -->
+<view class="projectSpecialy">
+  <view class="flex title">
+    <view class="detailTitle">项目特色</view>
+  </view>
+  <view class="blockIntro">* 机器人Angel深度挖掘项目特色</view>
+  <view class="flex projectSpecialBox">
+    <block wx:for="{{sourceData.special_list}}" wx:key="{{index}}">
+      <view class="projectSpecialBlock" data-style="{{item.special_id}}" hover-class='t-hoverColor' bindtap="toStyle">
+        <view class="projectSpecialTitle">{{item.special_name}}</view>
+        <view class="projectSpecialWord">
+          <label class="projectSpecialNum">{{item.project_num}}</label> 个项目</view>
+      </view>
+    </block>
+  </view>
+</view>
+
+<!--最新获投  -->
+<view class='newProject'>
+  <view class="flex title">
+    <view class="detailTitle">最新获投</view> 
+    <view class="allNumber" catchtap='allNewProject'>全部
+      <label>（{{sourceData.events_list.total_num}}）</label>
+    </view>
+  </view>
+  <view class="blockIntro noBottom">* 第一时间为您送达最近获得投资的项目</view>
+  <block wx:for="{{sourceData.events_list.list}}" wx:key="{{index}}">
+    <template is='bigDataProject' data='{{item,type:1}}'></template>
+  </block>
+</view>

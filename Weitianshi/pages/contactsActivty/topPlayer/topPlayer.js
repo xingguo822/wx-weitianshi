@@ -8,12 +8,12 @@ Page({
     timer: '',
     str: '',//搜索字段
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     app.netWorkChange(that);
   },
 
-  onShow: function () {
+  onShow() {
     let user_id = wx.getStorageSync('user_id');
     let that = this;
     //个人信息
@@ -23,7 +23,7 @@ Page({
         user_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let my_rank = res.data.data.my_rank;
         let rank_list = res.data.data.rank_list;
         that.setData({
@@ -45,13 +45,13 @@ Page({
     });
   },
   /*滑动切换tab*/
-  bindChange: function (e) {
+  bindChange(e) {
     let that = this;
     let current = e.detail.current;
     that.setData({ currentTab: e.detail.current });
   },
   /*点击tab切换*/
-  swichNav: function (e) {
+  swichNav(e) {
     let that = this;
     if (this.data.currentTab === e.target.dataset.current) {
       return false;
@@ -62,7 +62,7 @@ Page({
     }
   },
   //返回小程序
-  backTo: function () {
+  backTo() {
     app.href('/pages/discoverProject/discoverProject');
   },
   //搜索战队
@@ -124,7 +124,7 @@ Page({
         user_id: wx.getStorageSync('user_id')
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         app.log('战队排行', res);
         wx.hideLoading();
         let team_rank_list = res.data.data.rank_list;
@@ -135,12 +135,12 @@ Page({
     });
   },
   //扩展我的人脉
-  expandMyContacts: function () {
+  expandMyContacts() {
     let user_id = wx.getStorageSync('user_id');
     app.href('/pages/my/qrCode/qrCode?user_id=' + user_id + '&type=' + 1);
   },
   //个人加载更多
-  moreThing: function () {
+  moreThing() {
     let that = this;
     let user_id = wx.getStorageSync('user_id');
     // let currentPage = this.data.currentPage;
@@ -167,13 +167,13 @@ Page({
     });
   },
   //点击跳转战队人的列表
-  allPerson: function (e) {
+  allPerson(e) {
     let team_id = e.currentTarget.dataset.id;
     // let team_name = e.currentTarget.dataset.name;
     app.href('/pages/contactsActivty/warbandMember/warbandMember?team_id=' + team_id);
   },
   //跳转用户详情
-  goTo: function (e) {
+  goTo(e) {
     let id = e.currentTarget.dataset.applyid;
     let user_id = wx.getStorageSync('user_id');
     if (user_id == id) {
@@ -183,7 +183,7 @@ Page({
     }
   },
   //添加人脉
-  addPerson: function (e) {
+  addPerson(e) {
     let user_id = wx.getStorageSync('user_id');
     let applied_user_id = e.currentTarget.dataset.applyid;
     let follow_status = e.currentTarget.dataset.follow_status;
@@ -197,7 +197,7 @@ Page({
           applied_user_id: applied_user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           rank_list.forEach((x) => {
             if (x.user_id == applied_user_id) {
               x.follow_status = 2;
@@ -216,7 +216,7 @@ Page({
           apply_user_id: applied_user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           //将状态改为"已互为人脉
           rank_list.forEach((x) => {
             if (x.user_id == applied_user_id) {
@@ -231,7 +231,7 @@ Page({
     }
   },
   //添加战队
-  addTeam: function (e) {
+  addTeam(e) {
     let user_id = wx.getStorageSync('user_id');
     let team_id = e.currentTarget.dataset.team_id;
     let team_rank_list = this.data.team_rank_list;
@@ -248,7 +248,7 @@ Page({
         teams: parameter
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == 2000000) {
           team_rank_list.forEach((x) => {
             if (x.team_id == team_id) {
@@ -265,7 +265,7 @@ Page({
     });
   },
   //战队的加载更多
-  loadMore: function () {
+  loadMore() {
     //请求上拉加载接口所需要的参数
     let user_id = wx.getStorageSync("user_id");
     let that = this;
@@ -290,7 +290,7 @@ Page({
               page: this.data.teamCurrentPage
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               let newPage = res.data.data.rank_list;
               let page_end = res.data.page_end;
               for (let i = 0; i < newPage.length; i++) {

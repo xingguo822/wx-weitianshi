@@ -4,36 +4,17 @@ let url = app.globalData.url;
 let url_common = app.globalData.url_common;
 import * as ShareModel from '../../../../utils/model/shareModel';
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     nonet: true
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
+  onLoad(options) {
     this.setData({
       investment_id: options.investment_id,
     });
     let that = this;
     app.netWorkChange(that)
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
+  onShow() {
     let that = this;
     that.setData({
       requestCheck: true,

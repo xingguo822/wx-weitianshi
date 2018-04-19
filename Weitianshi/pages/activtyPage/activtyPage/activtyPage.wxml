@@ -13,5 +13,5 @@
       <image src="{{imgUrls2}}" class="btn1 floatBtn" wx:if="{{bindContact == false}}"></image>
       <image src="{{openHover2}}" class="btn1 floatBtn" wx:if="{{bindContact == true}}"></image>
     </button>
-  </form> 
+  </form>
 </view>

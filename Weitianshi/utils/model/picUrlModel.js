@@ -6,16 +6,16 @@ const picUrl = {
   page_explainActivty: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/20170904/activtyContent.jpg",
   page_matchInvestorEmpty: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/example.png",
   shareCommon: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/20170904/card_share_2.jpg",
-  banner_1: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/slide_banner_1.jpg",
-  banner_2: "https://cdn.weitianshi.cn/image/banner/banner-yyl.jpg",
-  banner_3: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/slide_banner_5.jpg",
-  banner_4: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/slide_banner_3.jpg",
-  banner_5: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/packet/packet-banner.jpg",
-  banner_jump1: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/download-ios.jpg",
-  // banner_jump2: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/download-ios.jpg",
-  banner_jump3: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/click_jump_5.jpg",
-  banner_jump4: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/click_jump_3.jpg",
-  banner_jump5: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/packet/packet-detail.jpg",
+  banner_1: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/packet/packet-banner.jpg",
+  banner_2: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/slide_banner_1.jpg",
+  banner_3: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/slide_banner_3.jpg",
+  banner_4: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/slide_banner_4.jpg",
+  banner_5: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/slide_banner_5.jpg",
+  banner_jump1: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/packet/packet-detail.jpg",
+  banner_jump2: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/download-ios.jpg",
+  banner_jump3: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/click_jump_3.jpg",
+  banner_jump4: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/click_jump_4.jpg",
+  banner_jump5: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/click_jump_5.jpg",
   band_identity: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/img-bangding%402x.jpg",
   push_success: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/img-tuisong%402x.jpg",
   project_success: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/img-chuangjian%402x.jpg",
@@ -44,8 +44,7 @@ const picUrl = {
   openHover: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/packet/btn-shengcheng-hover.png",
   openHover2: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/packet/btn-shengcheng2-hover.png",
   zhanfaHover: "https://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/packet/btn-zhuanfa-hover.png",
-  activityIntro: "https://cdn.weitianshi.cn/image/banner/activity-intro.png",
-  apply_bg:"https://cdn.weitianshi.cn/image/banner/apply-bg.png"
+
 }
 
 export {

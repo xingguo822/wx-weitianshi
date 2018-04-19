@@ -11,7 +11,7 @@ Page({
     linkDataShow: FilterModel._linkDataShow,
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     this.setData({
       investment_id: options.investment_id,
@@ -41,7 +41,7 @@ Page({
     });
     app.netWorkChange(that)
   },
-  onShow: function () {
+  onShow() {
     let that = this;
     that.setData({
       requestCheck: true,
@@ -155,7 +155,7 @@ Page({
         filter: this.data.SearchInit.searchData,
         investment_id: this.data.investment_id,
       },
-      success: function (res) {
+      success(res) {
         wx.hideLoading()
         let newPage = res.data.data;
         let list = res.data.data.project_list;

@@ -8,7 +8,7 @@ Page({
   data: {
 
   },
-  onLoad: function (options) {
+  onLoad(options) {
     app.getWxGroupInfo(options, res => {
       rp.otherGroupHB.call(this)
     })

@@ -5,7 +5,7 @@ Page({
     nonet: true,
     jiandi: false
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     let project_id = options.id;
     this.setData({
@@ -13,7 +13,7 @@ Page({
     });
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     let user_id = wx.getStorageSync('user_id');//获取我的user_id
     let project_id = this.data.project_id;
     let that = this;
@@ -26,7 +26,7 @@ Page({
         page: 1
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let projectMessage = res.data.data.project;
         let metList = res.data.data.messages;
         let count = res.data.data.count;
@@ -45,7 +45,7 @@ Page({
             project_id: project_id
           },
           method: "POST",
-          success: function (res) {
+          success(res) {
           }
         });
       }
@@ -56,7 +56,7 @@ Page({
       page_end: false
     });
   },
-  loadMore: function () {
+  loadMore() {
     var that = this;
     let user_id = wx.getStorageSync('user_id');//获取我的user_id
     let project_id = this.data.project_id;
@@ -88,12 +88,12 @@ Page({
     });
   },
   //点击跳转到用户详情
-  personDetail: function (e) {
+  personDetail(e) {
     var id = e.currentTarget.dataset.id;
     app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
   },
   //推送项目
-  pushProject:function(e){
+  pushProject(e){
     let that = this;
     let user_id = wx.getStorageSync('user_id');
     let pushed_user_id = e.currentTarget.dataset.id;
@@ -170,7 +170,7 @@ Page({
     }, 1500);
   },
   // 一键拨号
-  telephone: function (e) {
+  telephone(e) {
     let telephone = e.currentTarget.dataset.telephone;
     wx.makePhoneCall({
       phoneNumber: telephone,

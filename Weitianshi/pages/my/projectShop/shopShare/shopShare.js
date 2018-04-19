@@ -7,7 +7,7 @@ Page({
   data:{
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     let user_id = options.user_id;
     let share_id = wx.getStorageSync('user_id');
@@ -17,7 +17,7 @@ Page({
     });
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     let user_id = this.data.user_id;
     let  share_id = this.data.share_id;
     let  that = this;
@@ -31,7 +31,7 @@ Page({
         "type" : 2
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let net = res.data;
         let access_token = net.qrcode;
         that.setData({
@@ -39,17 +39,17 @@ Page({
         });
         let filPath = wx.setStorageSync('access_token', access_token);
       },
-      fail: function (res) {
+      fail(res) {
       }
     });
   },
   //保存小程序码
-  savePic: function () {
+  savePic() {
     let that=this;
     let filePath = wx.getStorageSync('access_token');
     wx.getImageInfo({
       src: filePath,
-      success: function (res) {
+      success(res) {
         let picPath = res.path;
         wx.getSetting({
           success(res) {
@@ -59,13 +59,13 @@ Page({
                 success() {
                   wx.saveImageToPhotosAlbum({
                     filePath: picPath,
-                    success: function (res) {
+                    success(res) {
                       wx.showToast({
                         title: '保存图片成功',
                         icon: 'success'
                       });
                     },
-                    fail: function (res) {
+                    fail(res) {
                       app.log("filePath",filePath);
                     }
                   });
@@ -79,12 +79,12 @@ Page({
   },
 
   //分享页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     let that = this;
     return ShareModel.projectShopShare(that);
   },
   //取消分享
-  cancelShare: function () {
+  cancelShare() {
     this.setData({
       modal: 0
     });
@@ -98,7 +98,7 @@ Page({
         user_id: this.data.user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         console.log(res);
         let userInfo = res.data.user_info;
         let user_name = userInfo.user_real_name;

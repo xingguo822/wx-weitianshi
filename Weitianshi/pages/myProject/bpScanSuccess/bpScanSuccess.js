@@ -3,14 +3,14 @@ Page({
   data: {
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
 
   },
-  route: function () {
+  route() {
     wx.navigateBack({
       delta: 2  // 回退前 delta(默认为1) 页面
     });

@@ -36,7 +36,6 @@ Page({
     // let searchData = that.data.searchData;
     app.initPage(that);
     app.netWorkChange(that);
-    this.investorList();
     wx.showLoading({
       title: 'loading',
       mask: true,
@@ -53,7 +52,7 @@ Page({
           user_id: user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           app.log('身份状态获取', res);
           // 0:未认证1:待审核 2 审核通过 3审核未通过
           let status = res.data.status;
@@ -70,18 +69,17 @@ Page({
       });
       that.investorList();
     });
+  },
+  onShow() {
+    if (!this.data.firstTime) {
+      this.investorList();
+    }
+    // this.investorList();
     this.setData({
       requestCheck: true,
       currentPage: 1,
       page_end: false
     });
-  },
-  onShow() {
-    // if (!this.data.firstTime) {
-    //   this.investorList();
-    // }
-
-
   },
   //下拉刷新
   onPullDownRefresh() {
@@ -104,7 +102,7 @@ Page({
         filter: this.data.searchData
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == '2000000') {
           app.log('投资人列表', res.data.data);
           wx.hideLoading();
@@ -133,14 +131,14 @@ Page({
     let user_id = this.data.user_id;
     let str;
     str = 'investorList';
-    app.href('/pages/search/search3/search3?user_id=' + user_id + '&&entrance=' + str);
+    app.href('/pages/search/contactProjectSearch/contactProjectSearch?user_id=' + user_id + '&&entrance=' + str);
   },
   //  跳转到项目店铺筛选页面
   tagFilter() {
     app.href('/pages/my/projectShop/tagFilter/tagFilter');
   },
   // 用户详情
-  userDetail: function (e) {
+  userDetail(e) {
     let id = e.currentTarget.dataset.id;
     var user_id = wx.getStorageSync("user_id");//用戶id
     if (id == user_id) {
@@ -150,11 +148,12 @@ Page({
     }
   },
   // 上拉加载
-  loadMore: function () {
+  loadMore() {
     //请求上拉加载接口所需要的参数
     let that = this;
     let user_id = this.data.user_id;
     // let currentPage = this.data.currentPage;
+
     let request = {
       url: url_common + '/api/investor/getInvestorListByGroup',
       data: {
@@ -174,7 +173,7 @@ Page({
 
   },
   // 分享当前页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     return ShareModel.discoverInvestShare();
   },
   // 项目推送
@@ -187,7 +186,7 @@ Page({
   contactsAdd(e) {
     let added_user_id = e.currentTarget.dataset.id;
     let that = this;
-    app.operationModel('contactsAdd', this, added_user_id, function (res) {
+    app.operationModel('contactsAdd',this, added_user_id, function (res) {
       app.log('申请添加人脉完成', res);
       that.contactsAddSuccessFunc(res, added_user_id, 2);
     });
@@ -196,7 +195,7 @@ Page({
   contactsAddDirect(e) {
     let added_user_id = e.currentTarget.dataset.id;
     let that = this;
-    app.operationModel('contactsAddDirect', this, added_user_id, function (res) {
+    app.operationModel('contactsAddDirect',this, added_user_id, function (res) {
       app.log('直接添加人脉完成', res);
       that.contactsAddSuccessFunc(res, added_user_id, 1);
     });
@@ -234,7 +233,7 @@ Page({
   },
   //---------------------------我的人脉--------------------------------------------------------------
   // 一键拨号
-  telephone: function (e) {
+  telephone(e) {
     let telephone = e.currentTarget.dataset.telephone;
     wx.makePhoneCall({
       phoneNumber: telephone,
@@ -242,7 +241,7 @@ Page({
   },
   // -----------------------------------立即认证
   // 立即认证
-  toAccreditation: function () {
+  toAccreditation() {
     let status = this.data.status;
     let user_id = wx.getStorageSync('user_id');
     app.checkUserInfo(this, res => {
@@ -257,14 +256,14 @@ Page({
           confirmColor: "#333333;",
           confirmText: "重新认证",
           showCancel: false,
-          success: function (res) {
+          success(res) {
             wx.request({
               url: url_common + '/api/user/getUserGroupByStatus',
               data: {
                 user_id: user_id
               },
               method: 'POST',
-              success: function (res) {
+              success(res) {
                 let group_id = res.data.group.group_id;
                 app.href('/pages/my/identity/indentity/indentity?group_id=' + group_id);
               }

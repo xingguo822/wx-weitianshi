@@ -9,14 +9,14 @@ Page({
     personTime: 60,
     codeColor: true,
   },
-  onLoad: function (option) {
+  onLoad(option) {
     let that = this;
 
     //请求各种标签列表项
     wx.request({
       url: app.globalData.url_common + '/api/category/getProjectCategory',
       method: 'POST',
-      success: function (res) {
+      success(res) {
         var thisData = res.data.data;
         //添加false
         that.for(thisData.area);
@@ -49,7 +49,7 @@ Page({
           user_id: user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           // 0:未认证1:待审核 2 审核通过 3审核未通过
           let status = res.data.status;
           let group_id = res.data.group.group_id;
@@ -67,7 +67,7 @@ Page({
               authenticate_id: authenticate_id
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               let user_info = res.data.user_info;
               let invest_info = res.data.invest_info;
               that.dealTags(that, invest_info);
@@ -91,7 +91,7 @@ Page({
           user_id: user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           let user_info = res.data.user_info;
           let invest_info = res.data.invest_info;
           that.dealTags(that, invest_info);
@@ -104,7 +104,7 @@ Page({
       })
     }
   },
-  onShow: function () {
+  onShow() {
     //更改某一项表单值后返回表单页面数据更新
     let invest_info = this.data.invest_info;
     let user_info = this.data.user_info;
@@ -148,7 +148,7 @@ Page({
   },
   // 姓名type:0 手机type:1 品牌type:2 公司type:3 职位type:4 邮箱type:5  微信type:6 个人描述type:7
   //写入内容
-  writeNewThing: function (e) {
+  writeNewThing(e) {
     let type = e.currentTarget.dataset.type;
     let writeNameValue = this.data.user_info.user_real_name;
     let writeBrand = this.data.user_info.user_brand;
@@ -164,7 +164,7 @@ Page({
     }
     else if (type == 3) {
       // 跳转公司模糊搜索
-      app.href('/pages/search/search1/search1?company=' + writeCompany + '&&type=3')
+      app.href('/pages/search/companySearch/companySearch?company=' + writeCompany + '&&type=3')
     }
     else if (type == 4) {
       app.href('/pages/form/personInfo/personInfo?career=' + writeCareer + '&&type=4')
@@ -179,14 +179,14 @@ Page({
     }
   },
   // 上传名片
-  scanIDcard: function () {
+  scanIDcard() {
     let user_id = wx.getStorageSync('user_id');
     let group_id = this.data.group_id;
     let authenticate_id = this.data.authenticate_id;
     var that = this;
     wx.chooseImage({
       count: 1,
-      success: function (res) {
+      success(res) {
         var tempFilePaths = res.tempFilePaths
         let size = res.tempFiles[0].size;
         if (size <= 1048576) {
@@ -198,7 +198,7 @@ Page({
               'user_id': user_id,
               'authenticate_id': authenticate_id
             },
-            success: function (res) {
+            success(res) {
               let data = JSON.parse(res.data);
               if (data.status_code == 2000000) {
                 wx.showToast({
@@ -219,53 +219,53 @@ Page({
     })
   },
   // 跳转投资领域
-  toIndustry: function () {
+  toIndustry() {
     app.href('/pages/form/industry/industry?current=1')
   },
   // 跳转投资轮次
-  toScale: function () {
+  toScale() {
     app.href('/pages/form/scale/scale')
   },
   // 跳转投资金额
-  toStage: function () {
+  toStage() {
     app.href('/pages/form/stage/stage')
   },
   // 跳转投资地区
-  toArea1: function () {
+  toArea1() {
     app.href('/pages/form/area2/area2')
   },
   // 申请加入FA行业联盟
-  bindFAService: function (e) {
+  bindFAService(e) {
     this.setData({
       is_alliance: e.detail.value
     })
   },
   // FA服务
-  addFAService: function (e) {
+  addFAService(e) {
     this.setData({
       is_identify_member: e.detail.value
     })
   },
   // sass服务
-  sass: function (e) {
+  sass(e) {
     this.setData({
       is_saas: e.detail.value
     })
   },
   // 兼职FA
-  partFA: function (e) {
+  partFA(e) {
     this.setData({
       is_FA_part: e.detail.value
     })
   },
   // 需要FA顾问
-  needFA: function (e) {
+  needFA(e) {
     this.setData({
       is_financing: e.detail.value
     })
   },
   // 提交保存跳转
-  submit: function () {
+  submit() {
     let user_id = wx.getStorageSync('user_id');
     let authenticate_id = this.data.authenticate_id;
     let group_id = this.data.group_id;
@@ -310,7 +310,7 @@ Page({
           scale: this.data.scaleId
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           let statusCode = res.data.status_code;
           if (statusCode == 2000000) {
             app.href('/pages/my/identity/identityResult/identityResult?authenticate_id=' + authenticate_id + '&&recertification=' + recertification)
@@ -406,13 +406,13 @@ Page({
     wx.setStorageSync('payareaenchangeId', payareaenchangeId)
   },
   //给所有添加checked属性
-  for: function (name) {
+  for(name) {
     for (var i = 0; i < name.length; i++) {
       name[i].checked = false;
     }
   },
   // 新用户获取验证码
-  Code: function (e) {
+  Code(e) {
     let check = e.currentTarget.dataset.check;
     this.setData({
       personCode: false
@@ -440,7 +440,7 @@ Page({
 
   },
   // input获取焦点时停止倒计时
-  personNo: function (e) {
+  personNo(e) {
     var that = this;
     clearTimeout(stop),
       that.setData({

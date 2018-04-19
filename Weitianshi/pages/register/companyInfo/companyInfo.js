@@ -98,7 +98,6 @@ Page({
   //点击跳转
   backHome() {
     let email = this.data.email;
-    console.log(email)
     // 邮箱为非必填项,但是如果填写格式必须正确
     if(email == ''){
       register.companyInfoRegister.call(this);

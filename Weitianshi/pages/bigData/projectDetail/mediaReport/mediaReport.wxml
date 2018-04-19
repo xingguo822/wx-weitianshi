@@ -1,0 +1,20 @@
+
+    <!--媒体报道  -->
+    <view class='mediaReport' wx:if="{{projectInfo.news_list.total_num !=0}}">
+      <view class="flex title" bindtap='mediaReport'>
+        <view class="detailTitle">媒体报道</view>
+        <view class="allNumber" wx:if="{{projectInfo.news_list.total_num > 3}}">全部
+          <label>（{{projectInfo.news_list.total_num}}）</label>
+        </view>
+      </view>
+      <block wx:for="{{projectInfo.news_list.list}}" wx:key="{{index}}">
+        <view class="mediaReportBox">
+          <view class="mediaReportTime" wx:if="{{item.news_time}}">{{item.news_time}}</view>
+          <view class="mediaReportContent" wx:if="{{item.news_title}}">{{item.news_title}}</view>
+          <view class='mediaReportFrom'>
+            <label wx:if="{{item.news_label}}">{{item.news_label}}</label> ·
+            <label wx:if="{{item.media_name}}">{{item.media_name}}</label>
+          </view>
+        </view>
+      </block>
+    </view>

@@ -26,7 +26,7 @@ Page({
     buttonOneText: '保存',
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     //获取当前时间,以备picker使用
     var d = new Date();
     var yearBefore = d.getFullYear() - 20;
@@ -42,7 +42,7 @@ Page({
     wx.request({
       url: app.globalData.url_common + '/api/category/getProjectCategory',
       method: 'POST',
-      success: function (res) {
+      success(res) {
         var stage = res.data.data.stage;
         var stage_arr = [];
         stage.unshift({
@@ -65,7 +65,7 @@ Page({
       },
     });
   },
-  onShow: function () {
+  onShow() {
     var case_index = this.data.case_index;
     var tran_area = wx.getStorageSync('tran_area');
     let belongArea = this.data.belongArea;
@@ -100,7 +100,7 @@ Page({
     });
   },
   //项目名称
-  case_name: function (e) {
+  case_name(e) {
     var that = this;
     var case_name = e.detail.value;
     that.setData({
@@ -108,7 +108,7 @@ Page({
     });
   },
   //项目阶段
-  case_stage: function (e) {
+  case_stage(e) {
     var stage_index = e.detail.value;
     var stage = this.data.stage;
     this.setData({
@@ -118,7 +118,7 @@ Page({
 
   },
   //项目金额
-  case_money: function (e) {
+  case_money(e) {
     var that = this;
     var case_money = e.detail.value;
     that.setData({
@@ -126,20 +126,20 @@ Page({
     });
   },
   //项目时间
-  case_time: function (e) {
+  case_time(e) {
     this.setData({
       case_time: e.detail.value
     });
   },
   // 投资地区
-  case_local: function (e) {
+  case_local(e) {
     this.setData({
       case_city: e.detail.value
     });
     app.href('/pages/form/area1/area1?current=' + 2);
   },
   //保存
-  buttonOne: function () {
+  buttonOne() {
     var that = this;
     var case_index = this.data.case_index;
     let case_id = this.data.case_id;
@@ -215,7 +215,7 @@ Page({
     }
   },
   // 获取项目信息() 
-  getInfo: function (options) {
+  getInfo(options) {
     let case_id = options.case_id;
     // 维护案例的情况下
     // 通过是否有Index传值进来来区别新建案例还是维护案例,index存在是編輯案例
@@ -231,7 +231,7 @@ Page({
           case_id: case_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           let invest_case = res.data.data;
           let tran_industry = invest_case.case_industry;
           let industryCard = that.data.industryCard;
@@ -269,7 +269,7 @@ Page({
             belongArea: invest_case.has_one_city
           });
         },
-        fail: function (res) {
+        fail(res) {
         },
       });
       this.setData({
@@ -278,7 +278,7 @@ Page({
       });
     }
   },
-  onUnload: function () {
+  onUnload() {
     app.initTran();
   },
   // 重新加载

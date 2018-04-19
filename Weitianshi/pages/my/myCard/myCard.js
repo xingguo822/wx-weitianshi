@@ -18,7 +18,7 @@ Page({
     shareModal: app.globalData.picUrl.share_modal,
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
 
     if (options) {
       this.setData({
@@ -28,7 +28,7 @@ Page({
     let that = this;
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     let that = this;
     app.loginPage(function (user_id) {
       that.setData({
@@ -85,20 +85,20 @@ Page({
 
   },
   //编辑名片
-  cardEdit: function () {
+  cardEdit() {
     if (!this.data.options) {
       app.href('/pages/my/cardEdit/cardEdit')
     }
   },
   // 人气
-  popularity: function () {
+  popularity() {
     app.href('/pages/message/browseMe/browseMe')
   },
   // 加我为人脉
-  attention: function () {
+  attention() {
     app.href('/pages/message/beAddedContacts/beAddedContacts')
   },
-  pushTo: function () {
+  pushTo() {
     app.href('/pages/message/potentialProject/potentialProject')
   },
   //头像编辑
@@ -106,37 +106,37 @@ Page({
     app.href('/pages/my/cardEdit/cardEdit')
   },
   //寻找案源
-  findProjectEdit: function () {
+  findProjectEdit() {
     app.href('/pages/match/match/investDemand/investDemand?current=' + 1)
     if (!this.data.options) {
     }
   },
   //资源对接
-  resourceEnchangeEdit: function () {
+  resourceEnchangeEdit() {
     if (!this.data.options) {
       app.href('/pages/match/match/resourceDemand/resourceDemand?current=' + 1)
     }
   },
   //项目融资
-  projectFinance: function () {
+  projectFinance() {
     if (!this.data.options) {
       app.href('/pages/my/projectShop/projectShop/projectShop')
     }
   },
   //融资项目详情
-  financingDetail: function (e) {
+  financingDetail(e) {
     let id = e.currentTarget.dataset.id;
     let index = e.currentTarget.dataset.index
     app.href('/pages/myProject/projectDetail/projectDetail?id=' + id + "&&index=" + index + "&&currentTab=" + 0)
   },
   //投资案例
-  investCase: function () {
+  investCase() {
     if (!this.data.options) {
       app.href('/pages/my/investCase/investCase')
     }
   },
   //交换名片
-  cardChange: function () {
+  cardChange() {
     let that = this;
     let user_id = this.data.user_id;
     let modal = this.data.modal;
@@ -154,7 +154,7 @@ Page({
       wx.showModal({
         title: "友情提示",
         content: "交换名片之前,请先完善自己的名片",
-        success: function () {
+        success() {
           app.href('/pages/my/cardEdit/cardEdit')
         }
       })
@@ -168,25 +168,25 @@ Page({
     })
   },
   // 二维码分享按钮
-  shareSth: function (e) {
+  shareSth(e) {
     let QR_id = e.currentTarget.dataset.clickid;
     wx.setStorageSync('QR_id', QR_id)
     app.href('/pages/my/qrCode/qrCode')
   },
   //分享页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     let that = this;
     return ShareModel.myCardShare(that);
   },
 
   //取消分享
-  cancelShare: function () {
+  cancelShare() {
     this.setData({
       modal: 0
     })
   },
   // 查税号
-  searchIdentification: function (e) {
+  searchIdentification(e) {
     let that = this;
     let user_id = this.data.user_id;
     let modal = this.data.modal;
@@ -199,7 +199,7 @@ Page({
         com_name: com_name
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let data = res.data;
         if (data.status_code == 460004) {
           that.setData({
@@ -225,37 +225,37 @@ Page({
     })
   },
   //完善公司信息
-  writeInformation: function () {
+  writeInformation() {
     app.href('/pages/my/cardEdit/cardEdit')
     this.setData({
       modalBox: 0
     })
   },
   //确定或稍后再试
-  laterOn: function () {
+  laterOn() {
     this.setData({
       modalBox: 0
     })
   },
   //复制税号
-  copyNum: function () {
+  copyNum() {
     let num = this.data.tax_member;
     wx.setClipboardData({
       data: num,
-      success: function (res) {
+      success(res) {
         wx.showToast({
           title: '复制成功',
           icon: 'success',
         })
         wx.getClipboardData({
-          success: function (res) {
+          success(res) {
           }
         })
       }
     })
   },
   //去认证  status =0:未认证过  status = 1 认证中 status =2 认证成功 status =3 认证失败.需要重新认证
-  authentication: function (e) {
+  authentication(e) {
     let status = e.currentTarget.dataset.identitystatus;
     let user_id = this.data.user_id;
     app.checkUserInfo(this, res => {
@@ -270,7 +270,7 @@ Page({
             user_id: user_id
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             let user_id = wx.getStorageSync('user_id');
             let authenticate_id = res.data.authenticate_id;
             let group_id = res.data.group_id;
@@ -281,30 +281,12 @@ Page({
     })
   },
   //人脉大赛
-  competitor: function () {
+  competitor() {
     app.href('/pages/contactsActivty/activtyDetail/activtyDetail')
   },
   // 首页
   moreProject() {
     app.href('/pages/discoverProject/discoverProject')
-  },
-  // 长按号码响应函数  
-  phoneNumTap(e) {
-    let phoneNum = e.currentTarget.dataset.telephone;
-    let name = e.currentTarget.dataset.name;
-    let company = e.currentTarget.dataset.company;
-    let email = e.currentTarget.dataset.email;
-    let position = e.currentTarget.dataset.position;
-    var that = this;
-    // 添加到手机通讯录  
-    wx.addPhoneContact({
-      firstName: name,//联系人姓名 
-      mobilePhoneNumber: phoneNum,//联系人手机号  
-      organization: company,//公司
-      title: position,//职位
-      email: email
-    })
-
   },
   // 重新加载
   refresh() {

@@ -7,7 +7,7 @@ Page({
     nonet: true,
     jiandi:false,
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let project_id = options.project_id;
     this.setData({
       project_id: project_id
@@ -31,7 +31,7 @@ Page({
           type_id: 6
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           wx.hideLoading();
           var contacts = res.data.list.users;
           var count = res.data.list.count;
@@ -57,11 +57,11 @@ Page({
     wx.removeStorageSync("project_id");
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     
   },
   // 添加人脉
-  addNetWork: function (e) {
+  addNetWork(e) {
     var that = this;
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     var followed_user_id = e.target.dataset.followedid;//当前用户的user_id
@@ -77,7 +77,7 @@ Page({
           applied_user_id: followed_user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           if (res.data.status_code == 2000000) {
             //将状态设为"未验证"
             contacts.forEach((x) => {
@@ -90,7 +90,7 @@ Page({
             });
           }
         },
-        fail: function (res) {
+        fail(res) {
           wx.showModal({
             title: "错误提示",
             content: "添加人脉失败" + res
@@ -107,7 +107,7 @@ Page({
           apply_user_id: followed_user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           if (res.data.status_code == 2000000) {
             //将状态设为"未验证"
             contacts.forEach((x) => {
@@ -124,12 +124,12 @@ Page({
     }
   },
   // 用户详情
-  userDetail: function (e) {
+  userDetail(e) {
     var id = e.currentTarget.dataset.id;
     app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
   },
   //下拉加载
-  loadMore: function () {
+  loadMore() {
     var that = this;
     var user_id = this.data.user_id;
     var currentPage = this.data.currentPage;
@@ -148,7 +148,7 @@ Page({
      
   },
   //下拉加载模版
-  more: function (that, request, str, dataSum) {
+  more(that, request, str, dataSum) {
     var user_id = wx.getStorageSync("user_id");
     if (that.data.requestCheck) {
       if (user_id != '') {
@@ -167,7 +167,7 @@ Page({
             url: request.url,
             data: request.data,
             method: 'POST',
-            success: function (res) {
+            success(res) {
               if(res.data.list.users){
                 var newPage = res.data.list.users;
                 for (var i = 0; i < newPage.length; i++) {
@@ -243,7 +243,7 @@ Page({
     }
   },
   // 一键拨号
-  telephone: function (e) {
+  telephone(e) {
     let telephone = e.currentTarget.dataset.telephone;
     wx.makePhoneCall({
       phoneNumber: telephone,

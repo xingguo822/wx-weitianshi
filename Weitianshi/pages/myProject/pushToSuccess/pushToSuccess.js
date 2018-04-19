@@ -7,11 +7,11 @@ Page({
     disabled: false,
     nonet: true
   },
-  onLoad: function () {
+  onLoad() {
     let that = this;
     app.netWorkChange(that)
   },
-  btnYes: function () {
+  btnYes() {
     console.log(4544)
     wx.navigateBack({
       delta: 2

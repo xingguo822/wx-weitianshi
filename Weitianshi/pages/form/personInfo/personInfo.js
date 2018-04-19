@@ -5,7 +5,7 @@ Page({
   data: {
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let user_name = options.name;
     let user_brand = options.brand;
     let user_company = options.company;
@@ -28,7 +28,7 @@ Page({
     })
   },
   // 姓名
-  nameEdit: function (e) {
+  nameEdit(e) {
     let user_name = e.detail.value;
     let user_name_length = e.detail.value.length;
     let that = this;
@@ -42,7 +42,7 @@ Page({
   },
 
   // 品牌
-  brandEdit: function (e) {
+  brandEdit(e) {
     let user_brand = e.detail.value;
     let user_brand_length = e.detail.value.length;
     let that = this;
@@ -55,7 +55,7 @@ Page({
     }
   },
   // 公司
-  companyEdit: function (e) {
+  companyEdit(e) {
     let user_company_name = e.detail.value;
     let user_company_name_length = e.detail.value.length;
     let pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
@@ -73,7 +73,7 @@ Page({
     }
   },
   // 职位
-  careerEdit: function (e) {
+  careerEdit(e) {
     let user_career = e.detail.value;
     let user_career_length = e.detail.value.length;
     let that = this;
@@ -86,7 +86,7 @@ Page({
     }
   },
   // 邮箱
-  emailEdit: function (e) {
+  emailEdit(e) {
     let user_email = e.detail.value;
     let user_email_length = e.detail.value.length;
     this.setData({
@@ -94,7 +94,7 @@ Page({
     })
   },
   // 微信
-  weChat: function (e) {
+  weChat(e) {
     let user_weChat = e.detail.value;
     let user_weChat_length = e.detail.value.length;
     let that = this;
@@ -107,7 +107,7 @@ Page({
     }
   },
   // 个人描述
-  personDescrible: function (e) {
+  personDescrible(e) {
     let user_describle = e.detail.value;
     let user_describle_length = e.detail.value.length;
     let that = this;
@@ -119,7 +119,7 @@ Page({
       app.errorHide(that, "不能超过500个数字", 1000)
     }
   },
-  save: function () {
+  save() {
     let that = this;
     let user_id = wx.getStorageSync('user_id');
     let user_name = this.data.user_name;

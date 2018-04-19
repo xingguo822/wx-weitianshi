@@ -38,7 +38,7 @@ Page({
       wx.request({
         url: url_common + '/api/category/getProjectCategory',
         method: 'POST',
-        success: function (res) {
+        success(res) {
           // console.log('getProjectCategory',res)
           let thisData = res.data.data;
           thisData.area.forEach((x) => {
@@ -92,7 +92,7 @@ Page({
           user_id: user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           app.log("身份状态获取", res);
           // 0:未认证1:待审核 2 审核通过 3审核未通过
           let status = res.data.status;
@@ -123,13 +123,13 @@ Page({
     }
   },
   // 点击tab切换
-  swichNav: function (e) {
+  swichNav(e) {
     this.setData({
       currentTab: e.target.dataset.current
     });
   },
   // 滑动切换tab
-  bindChange: function (e) {
+  bindChange(e) {
     let that = this;
     let current = e.detail.current;
     let searchData = that.data.SearchInit.searchData;
@@ -254,7 +254,7 @@ Page({
         filter: this.data.SearchInit.searchData
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == '2000000') {
           app.log("投资人列表", res.data.data);
           wx.hideLoading();
@@ -293,7 +293,7 @@ Page({
         filter: this.data.SearchInit.searchData
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == '2000000') {
           app.log("FA", res.data.data);
           wx.hideLoading();
@@ -344,7 +344,7 @@ Page({
           filter: SearchInit.searchData
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           wx.hideLoading();
           app.log("我的人脉列表", res);
           if (res.data.status_code == '2000000') {
@@ -368,7 +368,7 @@ Page({
     }
   },
   // 用户详情
-  userDetail: function (e) {
+  userDetail(e) {
     let id = e.currentTarget.dataset.id;
     var user_id = wx.getStorageSync("user_id");//用戶id
     if (id == user_id) {
@@ -378,7 +378,7 @@ Page({
     }
   },
   // 上拉加载
-  loadMore: function () {
+  loadMore() {
     //请求上拉加载接口所需要的参数
     let that = this;
     let user_id = this.data.user_id;
@@ -429,7 +429,7 @@ Page({
     }
   },
   // 分享当前页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     return ShareModel.discoverInvestShare();
   },
   // 项目推送
@@ -572,7 +572,7 @@ Page({
 
   //---------------------------我的人脉--------------------------------------------------------------
   // 一键拨号
-  telephone: function (e) {
+  telephone(e) {
     let telephone = e.currentTarget.dataset.telephone;
     wx.makePhoneCall({
       phoneNumber: telephone,
@@ -580,7 +580,7 @@ Page({
   },
   // -----------------------------------立即认证
   // 立即认证
-  toAccreditation: function () {
+  toAccreditation() {
     let status = this.data.status;
     let user_id = wx.getStorageSync('user_id');
     app.checkUserInfo(this, res => {
@@ -595,14 +595,14 @@ Page({
           confirmColor: "#333333;",
           confirmText: "重新认证",
           showCancel: false,
-          success: function (res) {
+          success(res) {
             wx.request({
               url: url_common + '/api/user/getUserGroupByStatus',
               data: {
                 user_id: user_id
               },
               method: 'POST',
-              success: function (res) {
+              success(res) {
                 let group_id = res.data.group.group_id;
                 app.href('/pages/my/identity/indentity/indentity?group_id=' + group_id);
               }
@@ -613,15 +613,15 @@ Page({
     })
   },
   // 搜索跳转
-  allSearch: function () {
+  allSearch() {
     app.href('/pages/organization/org_search/org_search');
   },
   //跳转热门领域全部
-  toGoIndustry: function () {
+  toGoIndustry() {
     app.href('/pages/organization/subPage/list_industry/list_industry');
   },
   //投资机构全部
-  toGoInvestment: function () {
+  toGoInvestment() {
     app.href('/pages/organization/org_library/org_library');
   },
   //投资机构跳转

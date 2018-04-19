@@ -8,7 +8,7 @@ var url = app.globalData.url;
 var url_common = app.globalData.url_common;
 Page({
   data: {
-    //选项卡 
+    //选项卡
     winWidth: 0,
     winHeight: 0,
     currentTab: 0,
@@ -75,7 +75,7 @@ Page({
       wx.request({
         url: url_common + '/api/category/getProjectCategory',
         method: 'POST',
-        success: function (res) {
+        success(res) {
           // console.log('getProjectCategory',res)
           let thisData = res.data.data;
           thisData.area.forEach((x) => {
@@ -126,11 +126,7 @@ Page({
   // 轮播图跳转
   bannerLink(e) {
     let index = e.currentTarget.dataset.index + 1;
-    if (index == 2) {
-      app.href("/pages/projectDetail/projectDetail?id=" + "bpjBV7p9")
-    } else {
-      app.href('/pages/activtyPage/activtyPage/activtyPage?index=' + index);
-    }
+    app.href('/pages/activtyPage/activtyPage/activtyPage?index=' + index);
   },
   // 下拉刷新
   onPullDownRefresh() {
@@ -152,7 +148,7 @@ Page({
         filter: this.data.SearchInit.searchData
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         var financingNeed = res.data.data;
         app.log('最新', financingNeed);
         // 将无筛选条件的最新列表存入变量以备使用
@@ -247,7 +243,7 @@ Page({
         project_id: project_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         var userId = res.data.user_id;
         var user = wx.getStorageSync('user_id');
         if (userId == user) {
@@ -313,7 +309,7 @@ Page({
   },
   //跳转搜索页面
   searchMore() {
-    app.href('/pages/search/search2/search2');
+    app.href('/pages/search/globalSearch/globalSearch');
   },
   // 重新加载
   refresh() {
@@ -367,7 +363,7 @@ Page({
         user_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         console.log(res)
         let count = res.data.data;
         that.setData({

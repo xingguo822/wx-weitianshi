@@ -5,13 +5,13 @@ Page({
   data: {
     filePath: ''
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
   },
-  writeNewThing: function (e) {
+  writeNewThing(e) {
     let type = e.currentTarget.dataset.type;
     let team_name = this.data.team_name;
     let team_founder = this.data.team_founder;
@@ -23,14 +23,14 @@ Page({
     }
   },
   // 战队logo上传
-  warLogo: function () {
+  warLogo() {
     let that = this;
     let user_id = wx.getStorageSync('user_id');
     wx.chooseImage({
       count: 1, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
+      success(res) {
         var tempFilePaths = res.tempFilePaths;
         // let avatar = tempFilePaths[0];
         let size = res.tempFiles[0].size;
@@ -43,7 +43,7 @@ Page({
             formData: {
               user_id: user_id,
             },
-            success: function (res) {
+            success(res) {
               let data = JSON.parse(res.data);
               let image_id = data.data.image_id;
               that.setData({
@@ -60,7 +60,7 @@ Page({
       }
     });
   },
-  createWar: function () {
+  createWar() {
     let user_id = wx.getStorageSync('user_id');
     let team_name = this.data.team_name;
     let team_founder = this.data.team_founder;
@@ -75,7 +75,7 @@ Page({
         team_logo: team_logo
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let team_id = res.data.team_id;
         let user_id = wx.getStorageSync('user_id');
         if (res.data.status_code == 2000000) {
@@ -85,7 +85,7 @@ Page({
             confirmText: "下一步",
             confirmColor: "#333333",
             showCancel: false,
-            success: function (res) {
+            success(res) {
               wx.redirectTo({
                 url: '/pages/contactsActivty/activtyRegister/activtyRegister'
               });
@@ -98,7 +98,7 @@ Page({
             confirmText: "加入",
             cancelText: "取消",
             confirmColor: "#333333",
-            success: function (res) {
+            success(res) {
               if (res.confirm) {
                 let arr = [];
                 let parameter = [];
@@ -111,7 +111,7 @@ Page({
                     teams: parameter
                   },
                   method: 'POST',
-                  success: function (res) {
+                  success(res) {
                     app.log("res",res);
                   }
                 });
@@ -128,7 +128,7 @@ Page({
             confirmText: "下一步",
             cancelText: "取消",
             confirmColor: "#333333",
-            success: function (res) {
+            success(res) {
               if (res.confirm) {
                 app.href('/pages/contactsActivty/activtyRegister/activtyRegister');
               } else if (res.cancel) {

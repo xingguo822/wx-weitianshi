@@ -17,7 +17,7 @@ Page({
     jiandi : false,
     atBottom : false
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let type = options.type;
     let that = this;
     app.netWorkChange(that);
@@ -25,7 +25,7 @@ Page({
       type: type
     });
   },
-  onShow: function () {
+  onShow() {
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let that = this;
     let type = this.data.type;
@@ -40,7 +40,7 @@ Page({
         user_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         wx.hideLoading();
         let pushToList = res.data.data;
         let count1 = res.data.count;
@@ -61,7 +61,7 @@ Page({
         user_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let pushProjectList = res.data.data;
         let count = res.data.count;
         if (count >= 999) {
@@ -81,7 +81,7 @@ Page({
         type_id: type
       },
       method: "POST",
-      success: function (res) {
+      success(res) {
       }
     });
     that.setData({
@@ -95,7 +95,7 @@ Page({
     });
   },
   /*滑动切换tab*/
-  bindChange: function (e) {
+  bindChange(e) {
     var that = this;
     let type = this.data.type;
     var current = e.detail.current;
@@ -111,7 +111,7 @@ Page({
           type: "push"
         },
         method: "POST",
-        success: function (res) {
+        success(res) {
           if (res.data.status_code == 2000000) {
             pushProjectList.forEach((x) => {
               x.message_status = 1;
@@ -130,7 +130,7 @@ Page({
           type_id: type
         },
         method: "POST",
-        success: function (res) {
+        success(res) {
           if (res.data.status_code == 2000000) {
             pushToList.forEach((x) => {
               x.message_status = 1;
@@ -154,7 +154,7 @@ Page({
     that.setData({ currentTab: e.detail.current });
   },
   /*点击tab切换*/
-  swichNav: function (e) {
+  swichNav(e) {
     var that = this;
     let cancel = this.data.cancel;
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
@@ -168,7 +168,7 @@ Page({
             type: "push"
           },
           method: "POST",
-          success: function (res) {
+          success(res) {
             if (res.data.status_code == 2000000) {
               pushProjectList.forEach((x) => {
                 x.message_status = 1;
@@ -187,7 +187,7 @@ Page({
             type_id: type
           },
           method: "POST",
-          success: function (res) {
+          success(res) {
             if (res.data.status_code == 2000000) {
               pushToList.forEach((x) => {
                 x.message_status = 1;
@@ -207,7 +207,7 @@ Page({
     }
   },
   // 点击跳转
-  projectDetail: function (e) {
+  projectDetail(e) {
     // 获取我自己的项目id
     var that = this;
     // 获取当前点击的项目id
@@ -219,7 +219,7 @@ Page({
         project_id: id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         var that = this;
         var userId = res.data.user_id;
         var user = wx.getStorageSync('user_id');
@@ -232,12 +232,12 @@ Page({
     });
   },
   //点击跳转到用户详情
-  personDetail: function (e) {
+  personDetail(e) {
     var id = e.currentTarget.dataset.project;
     app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
   },
   //推送给我的加载更多
-  loadMore: function () {
+  loadMore() {
     //请求上拉加载接口所需要的参数
     var that = this;
     var user_id = wx.getStorageSync('user_id');
@@ -253,7 +253,7 @@ Page({
     app.loadMore(that, request, "pushToList");
   },
   // 我推送的项目加载更多
-  moreForApply: function () {
+  moreForApply() {
     //请求上拉加载接口所需要的参数
     var user_id = wx.getStorageSync("user_id");
     let that = this;
@@ -278,7 +278,7 @@ Page({
               page: this.data.otherCurrentPage
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               var newPage = res.data.data;
               var page_end = res.data.page_end;
               for (var i = 0; i < newPage.length; i++) {
@@ -302,7 +302,7 @@ Page({
     }
   },
   // 感兴趣
-  interesting: function (e) {
+  interesting(e) {
     let that = this;
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let push_id = e.currentTarget.dataset.push;
@@ -318,7 +318,7 @@ Page({
     });
   },
   //不感兴趣
-  noInteresting: function (e) {
+  noInteresting(e) {
     let that = this;
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let push_id = e.currentTarget.dataset.push;
@@ -333,7 +333,7 @@ Page({
         status: status
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let statusCode = res.data.status_code;
         if (statusCode == 2000000) {
           pushToList.forEach((x) => {
@@ -355,7 +355,7 @@ Page({
     });
   },
   // 同意或者拒绝
-  btn: function (e) {
+  btn(e) {
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let that = this;
     let record_id = e.currentTarget.dataset.record;
@@ -368,7 +368,7 @@ Page({
         record_id: record_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (status == 1) {
         } else if (status == 2) {
           that.setData({
@@ -379,7 +379,7 @@ Page({
     });
   },
   //联系项目方
-  contactPerson: function () {
+  contactPerson() {
     let user_id = wx.getStorageSync('user_id');
     let that = this;
     app.checkUserInfo(this, res => {
@@ -391,13 +391,13 @@ Page({
     })
   },
   //关闭模态框
-  closeModal: function () {
+  closeModal() {
     this.setData({
       modalBox: 0
     });
   },
   //约谈
-  contentProject: function (e) {
+  contentProject(e) {
     let message = e.detail.value;
     let message_length = e.detail.value.length;
     let that = this;
@@ -410,7 +410,7 @@ Page({
     }
   },
   //约谈信息发送
-  yesBtn: function () {
+  yesBtn() {
     let that = this;
     let currentProject_id = this.data.currentProject_id;
     let push_id = this.data.push_id;
@@ -435,7 +435,7 @@ Page({
     });
   },
   //加入项目库
-  addProjectLibrary: function (e) {
+  addProjectLibrary(e) {
     let user_id = wx.getStorageSync('user_id');
     let project_id = e.currentTarget.dataset.project;
     let pushToList = this.data.pushToList;
@@ -448,7 +448,7 @@ Page({
         project_id: project_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == 2000000) {
           pushToList.forEach((x) => {
             if (x.project_id == project_id) {
@@ -474,7 +474,7 @@ Page({
         status: status
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let statusCode = res.data.status_code;
         if (statusCode == 2000000) {
           pushToList.forEach((x) => {

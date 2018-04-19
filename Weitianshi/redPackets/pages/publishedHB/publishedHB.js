@@ -16,7 +16,7 @@ Page({
     openHover: app.globalData.picUrl.zhanfaHover,
     bindContact: false
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let unique_id = options.unique_id;
     let user_id = wx.getStorageSync('user_id');
     this.setData({

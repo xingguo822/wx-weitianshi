@@ -10,7 +10,7 @@ Page({
     open: app.globalData.picUrl.open,
     currentPage: 1
   },
-  onLoad: function (options) {
+  onLoad(options) {
     //红包分享人的id
     let unique_id = options.unique_id;
     let user_id = wx.getStorageSync('user_id');

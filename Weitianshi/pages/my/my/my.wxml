@@ -1,7 +1,7 @@
 <import src="/pages/Template/Template.wxml" />
 <include src='/utils/wxml/common' />
 <view wx:if="{{nonet}}">
-  <view class="entryBox flex" wx:if="{{!user_id}}" bindtap='entry' hover-class='t-hoverColor'>
+  <view class="entryBox flex" wx:if="{{!user}}" bindtap='entry' hover-class='t-hoverColor'>
     <view class="user_left">
       <image class="user_pic" src="/img/img-touxiang@2x.png"></image>
     </view>
@@ -10,7 +10,7 @@
       <label class='entryContent'>登录只需1秒，就能体验更多功能</label>
     </view>
   </view>
-  <view wx:if="{{user_id}}">
+  <view wx:if="{{user}}">
     <view class="myInfo flex" bindtap='toMyCard' hover-class='t-hoverColor'>
       <view class="user_left" catchtap='avatarEdit'>
         <image wx:if="{{user.user_avatar_url}}" class="user_pic" src="{{user.user_avatar_url}}"></image>
@@ -68,7 +68,7 @@
     </view>
   </view>
   <!--红包页面  -->
-  <view bindtap='sendBag' wx:if="{{packetStatus == 'SUCCESS'}}">
+  <view  bindtap='sendBag' wx:if="{{packetStatus == 'SUCCESS'}}">
     <image src="{{sendHB}}" class='redBag'></image>
   </view>
   <!--项目店铺  -->
@@ -140,16 +140,6 @@
       </view>
       <view class="flex">
         <view class="number">{{count.meet_project_count}}</view>
-        <image src="/img/icon-jiantou3@2x.png" class="arrowStyle"></image>
-      </view>
-    </view>
-    <view class="aline"></view>
-    <view class="blockInfo flex" bindtap="activity" hover-class="t-hoverColor">
-      <view class="flex">
-        <image src="/img/icon-huodong@2x.png" class="blockPic"></image>
-        <view class="blockTitle">我的活动</view>
-      </view>
-      <view class="flex">
         <image src="/img/icon-jiantou3@2x.png" class="arrowStyle"></image>
       </view>
     </view>

@@ -6,13 +6,6 @@
   background: #40587a;
 }
 
-#mobileStyle {
-  color: #009eff;
-  text-decoration: underline;
-  width: 40%;
-  margin-right: 16rpx;
-}
-
 .giveProject, .addNetwork, .myContacts {
   display: flex;
   align-items: center; /*垂直居中*/
@@ -25,12 +18,6 @@
   letter-spacing: 0;
   line-height: 28rpx;
   text-align: center;
-}
-
-#hold {
-  width: 40%;
-  color: #009eff;
-  font-size: 24rpx;
 }
 
 .giveProject {
@@ -116,7 +103,6 @@ button {
   font-size: 24rpx;
   color: #f14b50;
 }
-
 .contactLine {
   background: #f0f0f0;
   width: 686rpx;

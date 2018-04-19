@@ -9,7 +9,7 @@ Page({
     clicked: false,
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let pushed_user_id = options.pushId;
     let projectId = options.projectId;
     this.setData({
@@ -17,7 +17,7 @@ Page({
     });
     app.netWorkChange(this);
   },
-  onShow: function () {
+  onShow() {
     var that = this;
     app.initPage(that);
     let user_id = wx.getStorageSync('user_id');
@@ -42,7 +42,7 @@ Page({
         page: 1
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         wx.hideLoading();
         let dataList = res.data.data;
         let pushTimes = res.data.push_times;
@@ -143,7 +143,7 @@ Page({
           pushed_project: projectList
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           let statusCode = res.data.status_code;
           if (statusCode == 2000000) {
             setTimeout(function () {
@@ -157,7 +157,7 @@ Page({
     }
   },
   //上拉加载
-  loadMore: function () {
+  loadMore() {
     //请求上拉加载接口所需要的参数
     var that = this;
     var user_id = wx.getStorageSync('user_id');

@@ -1,0 +1,37 @@
+   <!--相似项目  -->
+    <view class='similarProject' wx:if="{{projectInfo.competition_company.total_num != 0}}">
+      <view class="flex title" bindtap='similarProject'>
+        <view class="detailTitle">相似项目</view>
+        <view class="allNumber" wx:if="{{projectInfo.competition_company.total_num > 3}}">全部
+          <label>（{{projectInfo.competition_company.total_num}}）</label>
+        </view>
+      </view>
+      <block wx:for="{{projectInfo.competition_company.list}}" wx:key="{{index}}">
+        <view class="similarProjectBox flex">
+          <image class="belongTo1" src='/img/img-weitianshi@2x(1).png' wx:if="{{item.wts_project_id == 0}}"></image>
+          <image class="similarPic" src="{{item.project_logo}}" wx:if="{{item.project_logo}}"></image>
+          <image class="similarPic" src='/img/img-logo@2x.png' wx:if="{{!item.project_logo}}"></image>
+          <view>
+            <view class="flex">
+              <view class="similarProjectInro" wx:if="{{item.project_name}}">{{item.project_name}}</view>
+              <view class="similarScale" wx:if="{{item.financing_status}}">{{item.financing_status}}</view>
+            </view>
+            <view class="similarInro" wx:if="{{item.project_intro}}">{{item.project_intro}}</view>
+
+            <view class="similarMain flex">
+              <block wx:for="{{item.industry_list}}" wx:key="{{index}}" wx:for-item='industryItem'>
+                <label wx:if="{{index < item.industry_list.length-1}}">{{industryItem.industry_name}}· </label>
+                <label wx:if="{{index == item.industry_list.length-1}}">{{industryItem.industry_name}}</label>
+              </block>
+            </view>
+            <view class="projectSpecial flex">
+              <block wx:for="{{item.special_list}}" wx:key="{{index}}" wx:for-item='SpecialItem'>
+                <view class="otherProjectBox">
+                  <label class='otherProject'>项目的特色标签</label>
+                </view>
+              </block>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>

@@ -13,7 +13,7 @@ Page({
     nonet: true
   },
 
-  onLoad: function (options) {
+  onLoad(options) {
     this.setData({
       investment_id: options.investment_id,
     });
@@ -21,7 +21,7 @@ Page({
     app.netWorkChange(that);
   },
 
-  onShow: function () {
+  onShow() {
     let that = this;
     app.allPoint(that, 0);
     this.orgDetail();
@@ -40,7 +40,7 @@ Page({
         investment_id: this.data.investment_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         app.log("机构详情", res);
         let orgDetail = res.data.data;
         let info = res.data.data.info;
@@ -67,9 +67,7 @@ Page({
           member_list: member_list,
           memberList: memberList,
           leave_member_list: leave_member_list,
-          leaveList: leaveList,
-          org_name: info.investment_name,
-          org_number: investment_events.investment_event_total_num
+          leaveList: leaveList
         });
         wx.setNavigationBarTitle({
           title: info.investment_name
@@ -118,7 +116,7 @@ Page({
     });
   },
   //查看全部
-  checkMore: function (e) {
+  checkMore(e) {
     let id = e.target.dataset.id;
     if (id == 5) {
       this.setData({
@@ -127,7 +125,7 @@ Page({
     }
   },
   // 折叠
-  noCheckMore: function (e) {
+  noCheckMore(e) {
     let id = e.target.dataset.id;
     if (id == 5) {
       this.setData({
@@ -136,7 +134,7 @@ Page({
     }
   },
   // 领域，轮次中的展开和收起
-  allBrightPoint: function (e) {
+  allBrightPoint(e) {
     let check = e.currentTarget.dataset.check;
     if (check == 3) {
       this.setData({
@@ -149,7 +147,7 @@ Page({
     }
 
   },
-  noBrightPoint: function (e) {
+  noBrightPoint(e) {
     let check = e.currentTarget.dataset.check;
     console.log(check);
     if (check == 3) {
@@ -177,28 +175,24 @@ Page({
     return str.substring(0, idx);
   },
   // 投资案例跳转
-  toCase: function () {
+  toCase() {
     app.href('/pages/organization/subPage/list_investCase/list_investCase?investment_id=' + this.data.investId);
   },
   // 媒体跳转
-  toMedia: function () {
+  toMedia() {
     app.href('/pages/organization/subPage/list_media/list_media?investment_id=' + this.data.investId);
   },
   // 在职跳转
-  toMember: function () {
+  toMember() {
     app.href('/pages/organization/subPage/list_orgMember/list_orgMember?investment_id=' + this.data.investId);
   },
   // 离职成员跳转
-  toLeave: function () {
+  toLeave() {
     app.href('/pages/organization/subPage/list_leaveMember/list_leaveMember?investment_id=' + this.data.investId);
   },
   // 分享当前页面
-  onShareAppMessage: function () {
-    let  that = this;
-    let org_name = this.data.org_name;
-    let org_number = this.data.org_number;
-    console.log(org_name,org_number)
-    return ShareModel.orgDetail(that);
+  onShareAppMessage() {
+    return ShareModel.orgDetail();
   },
   // 重新加载
   refresh() {

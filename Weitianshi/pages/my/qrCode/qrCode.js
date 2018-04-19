@@ -7,7 +7,7 @@ Page({
     dataUrl: "",
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     let QR_id = this.options.user_id;
     let type = this.options.type;
@@ -19,7 +19,7 @@ Page({
     }
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     let that = this;
     let type = this.data.type;
     let QR_id;
@@ -45,7 +45,7 @@ Page({
           view_id: user_id,
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           let user = res.data.user_info;
           that.setData({
             user: user,
@@ -63,7 +63,7 @@ Page({
           'line_color': { "r": "0", "g": "0", "b": "0" }
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           let net = res.data;
           let access_token = net.qrcode;
           that.setData({
@@ -71,19 +71,19 @@ Page({
           });
           let filPath = wx.setStorageSync('access_token', access_token);
         },
-        fail: function (res) {
+        fail(res) {
         }
       });
     });
   },
 
   //保存小程序码
-  savePic: function () {
+  savePic() {
     let that=this;
     let filePath = wx.getStorageSync('access_token');
     wx.getImageInfo({
       src: filePath,
-      success: function (res) {
+      success(res) {
         let picPath = res.path;
         wx.getSetting({
           success(res) {
@@ -93,13 +93,13 @@ Page({
                 success() {
                   wx.saveImageToPhotosAlbum({
                     filePath: picPath,
-                    success: function (res) {
+                    success(res) {
                       wx.showToast({
                         title: '保存图片成功',
                         icon: 'success'
                       });
                     },
-                    fail: function (res) {
+                    fail(res) {
                       app.log("filePath",filePath);
                       console.log(res);
                     }
@@ -114,12 +114,12 @@ Page({
   },
 
   //分享页面
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     let that = this;
     return ShareModel.qrCodeShare(that);
   },
   //取消分享
-  cancelShare: function () {
+  cancelShare() {
     this.setData({
       modal: 0
     });

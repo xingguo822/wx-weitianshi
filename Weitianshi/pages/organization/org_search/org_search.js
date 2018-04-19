@@ -14,7 +14,7 @@ Page({
     industry_list: [],
     nonet: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     let timer = this.data.timer;
     let currentTab = this.data.currentTab;
@@ -51,7 +51,7 @@ Page({
     });
     app.netWorkChange(that);
   },
-  onShow: function () {
+  onShow() {
     this.setData({
       requestCheck: true,
       requestCheckBoolean: true,
@@ -64,7 +64,7 @@ Page({
   },
 
   // 点击tab切换
-  swichNav: function (e) {
+  swichNav(e) {
     let that = this;
     let current = e.target.dataset.current;
     that.setData({
@@ -85,7 +85,7 @@ Page({
     }
   },
   // 滑动切换tab
-  bindChange: function (e) {
+  bindChange(e) {
     let that = this;
     that.setData({
       currentTab: e.detail.current
@@ -93,7 +93,7 @@ Page({
     app.initPage(that);
   },
   //搜索事件
-  searchSth: function (e) {
+  searchSth(e) {
     let that = this;
     let str = e.detail.value;
     let timer = this.data.timer;
@@ -131,7 +131,7 @@ Page({
     });
   },
   //取消
-  searchEsc: function () {
+  searchEsc() {
     wx.navigateBack({
       delta: 1
     });
@@ -177,7 +177,7 @@ Page({
     });
   },
 
-  memberList: function () {
+  memberList() {
     let that = this;
     let memberList = this.data.memberList;
     let word = this.data.word;
@@ -200,7 +200,7 @@ Page({
             word: word
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             var newPage = res.data.data.member_list.list;
             var page_end = res.data.data.member_list.page_end;
             for (var i = 0; i < newPage.length; i++) {

@@ -15,7 +15,7 @@ Page({
     jinadi : false,
     jiandi1 : false
   },
-  onLoad: function (e) {
+  onLoad(e) {
     let that = this;
     app.netWorkChange(that);
     // 我申请查看的项目
@@ -30,7 +30,7 @@ Page({
         user_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         wx.hideLoading();
         let count = res.data.count;
         let applyList = res.data.data;
@@ -50,7 +50,7 @@ Page({
         user_id: user_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let pushToList = res.data.data;
         let count1 = res.data.count;
         if (count1 >= 999) {
@@ -70,7 +70,7 @@ Page({
         type: 'only_match'
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == 2000000) {
           let count2 = res.data.data.match_count;
           let getMatchList = res.data.data.projects;
@@ -92,7 +92,7 @@ Page({
     });
   },
 
-  onShow: function (e) {
+  onShow(e) {
     // 我申请查看的项目
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let that = this;
@@ -104,7 +104,7 @@ Page({
         type_id: "7"
       },
       method: "POST",
-      success: function (res) {
+      success(res) {
       }
     });
     that.setData({
@@ -123,7 +123,7 @@ Page({
 
   },
   /*滑动切换tab*/
-  bindChange: function (e) {
+  bindChange(e) {
     var that = this;
     true;
     var current = e.detail.current;
@@ -140,7 +140,7 @@ Page({
           type: "apply"
         },
         method: "POST",
-        success: function (res) {
+        success(res) {
           applyList.forEach((x) => {
             x.message_status = 1;
           });
@@ -164,7 +164,7 @@ Page({
           type_id: "7"
         },
         method: "POST",
-        success: function (res) {
+        success(res) {
           if (res.data.status_code == 2000000) {
             pushToList.forEach((x) => {
               x.message_status = 1;
@@ -178,7 +178,7 @@ Page({
     }
   },
   /*点击tab切换*/
-  swichNav: function (e) {
+  swichNav(e) {
     var that = this;
     if (this.data.currentTab === e.target.dataset.current) {
 
@@ -190,7 +190,7 @@ Page({
     }
   },
   //我申请的项目加载更多
-  loadMore: function () {
+  loadMore() {
     //请求上拉加载接口所需要的参数
     var that = this;
     var user_id = wx.getStorageSync('user_id');
@@ -206,7 +206,7 @@ Page({
     app.loadMore(that, request, "applyList");
   },
   //匹配更多
-  matchMore: function () {
+  matchMore() {
     //请求上拉加载接口所需要的参数
     var user_id = wx.getStorageSync("user_id");
     let that = this;
@@ -232,7 +232,7 @@ Page({
               page: this.data.thirdCurrentPage
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               let newPage = res.data.data.projects;
               let page_end = res.data.page_end;
               for (var i = 0; i < newPage.length; i++) {
@@ -256,7 +256,7 @@ Page({
     }
   },
   //推送给我更多
-  pushMore: function () {
+  pushMore() {
     //请求上拉加载接口所需要的参数
     var user_id = wx.getStorageSync("user_id");
     let that = this;
@@ -281,7 +281,7 @@ Page({
               page: this.data.otherCurrentPage
             },
             method: 'POST',
-            success: function (res) {
+            success(res) {
               var newPage = res.data.data;
               var page_end = res.data.page_end;
               console.log(page_end)
@@ -306,7 +306,7 @@ Page({
     }
   },
   // 点击跳转
-  projectDetail: function (e) {
+  projectDetail(e) {
     // 获取我自己的项目id
     // var that = this;
     // 获取当前点击的项目id
@@ -318,7 +318,7 @@ Page({
         project_id: id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         // var that = this;
         var userId = res.data.user_id;
         var user = wx.getStorageSync('user_id');
@@ -331,7 +331,7 @@ Page({
     });
   },
   // 申请查看
-  matchApply: function (e) {
+  matchApply(e) {
     let user_id = wx.getStorageSync('user_id');//获取我的user_id
     let that = this;
     let getMatchList = this.data.getMatchList;
@@ -348,7 +348,7 @@ Page({
     });
   },
   //重新申请
-  matchReApply: function (e) {
+  matchReApply(e) {
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let that = this;
     let project_id = e.currentTarget.dataset.project;
@@ -361,7 +361,7 @@ Page({
         project_id: project_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         applyList.forEach((x) => {
           if (x.project_id == project_id) {
             x.handle_status = 0;
@@ -374,7 +374,7 @@ Page({
     });
   },
   // 感兴趣
-  interesting: function (e) {
+  interesting(e) {
     // let that = this;
     // var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let push_id = e.currentTarget.dataset.push;
@@ -390,7 +390,7 @@ Page({
     });
   },
   //不感兴趣
-  noInteresting: function (e) {
+  noInteresting(e) {
     let that = this;
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let push_id = e.currentTarget.dataset.push;
@@ -405,7 +405,7 @@ Page({
         status: status
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let statusCode = res.data.status_code;
         if (statusCode == 2000000) {
           pushToList.forEach((x) => {
@@ -427,7 +427,7 @@ Page({
     });
   },
   // 同意或者拒绝
-  btn: function (e) {
+  btn(e) {
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     let that = this;
     let record_id = e.currentTarget.dataset.record;
@@ -440,7 +440,7 @@ Page({
         record_id: record_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (status == 1) {
         } else if (status == 2) {
           that.setData({
@@ -451,7 +451,7 @@ Page({
     });
   },
   //联系项目方
-  contactPerson: function () {
+  contactPerson() {
     let user_id = wx.getStorageSync('user_id');
     let that = this;
     app.checkUserInfo(this, res => {
@@ -463,13 +463,13 @@ Page({
     })
   },
   //关闭模态框
-  closeModal: function () {
+  closeModal() {
     this.setData({
       modalBox: 0
     });
   },
   //约谈
-  contentProject: function (e) {
+  contentProject(e) {
 
     let message = e.detail.value;
     let message_length = e.detail.value.length;
@@ -483,7 +483,7 @@ Page({
     }
   },
   //约谈信息发送
-  yesBtn: function () {
+  yesBtn() {
     let that = this;
     let currentProject_id = this.data.currentProject_id;
     let push_id = this.data.push_id;
@@ -507,7 +507,7 @@ Page({
     });
   },
   //加入项目库
-  addProjectLibrary: function (e) {
+  addProjectLibrary(e) {
     let user_id = wx.getStorageSync('user_id');
     let project_id = e.currentTarget.dataset.project;
     let pushToList = this.data.pushToList;
@@ -520,7 +520,7 @@ Page({
         project_id: project_id
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         if (res.data.status_code == 2000000) {
           pushToList.forEach((x) => {
             if (x.project_id == project_id) {
@@ -546,7 +546,7 @@ Page({
         status: status
       },
       method: 'POST',
-      success: function (res) {
+      success(res) {
         let statusCode = res.data.status_code;
         if (statusCode == 2000000) {
           pushToList.forEach((x) => {

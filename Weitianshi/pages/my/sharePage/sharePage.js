@@ -17,10 +17,9 @@ Page({
     bg_hongbao2: app.globalData.picUrl.bg_hongbao2,
     kai: true,
     open: app.globalData.picUrl.open,
-    preventQuickClick: true,
-    blue: -1,
+    preventQuickClick: true
   },
-  onLoad: function (options) {
+  onLoad(options) {
     let that = this;
     let followed_user_id = options.user_id;
     let share_id = options.share_id;
@@ -74,7 +73,6 @@ Page({
       }
     }, this).then(res => {
       let user = res.data.user_info;
-      var tel = user.user_mobile;
       let count = res.data.count;
       app.log("count", count);
       let invest = res.data.invest_info;
@@ -93,11 +91,6 @@ Page({
         view_id: view_id,
         user_id: view_id
       });
-      if (tel.indexOf("*") != -1) {
-        that.setData({
-          blue: 1
-        })
-      }
       wx.setNavigationBarTitle({
         title: res.data.user_info.user_real_name + "的投资名片",
       });
@@ -118,9 +111,9 @@ Page({
     let unique_id = this.data.unique_id;
     let added_user_id = this.data.personInfo.user.user_id;
     let user_id = wx.getStorageSync('user_id');
-    if (this.data.preventQuickClick) {
+    if (this.data.preventQuickClick){
       this.setData({
-        preventQuickClick: false
+        preventQuickClick:false
       })
       app.checkUserInfo(this, res => {
         // 开红包动效
@@ -129,7 +122,7 @@ Page({
         })
         rp.openHB.call(this, unique_id)
       });
-    }
+    }  
   },
   // 打开红包后,点击确定跳转
   makeSure(e) {
@@ -139,18 +132,18 @@ Page({
     rp.openedHB.call(this, added_user_id, is_card)
   },
   // 回到首页
-  moreProject: function () {
+  moreProject() {
     app.href('/pages/discoverProject/discoverProject');
   },
   // 一键拨号
-  telephone: function (e) {
+  telephone(e) {
     let telephone = e.currentTarget.dataset.telephone;
     wx.makePhoneCall({
       phoneNumber: telephone,
     });
   },
   // 添加人脉
-  addNetwork: function () {
+  addNetwork() {
     let that = this;
     let user_id = this.data.user_id;//我的id,查看者的id
     let followed_user_id = this.data.followed_user_id;//当前被查看的用户id;
@@ -171,7 +164,7 @@ Page({
             applied_user_id: followed_user_id
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             that.setData({
               button_type: 2
             });
@@ -192,7 +185,7 @@ Page({
           apply_user_id: followed_user_id
         },
         method: 'POST',
-        success: function (res) {
+        success(res) {
           that.setData({
             button_type: 1
           });
@@ -212,7 +205,7 @@ Page({
             followed_user_id: followed_user_id
           },
           method: 'POST',
-          success: function (res) {
+          success(res) {
             that.setData({
               button_type: 1
             });
@@ -227,34 +220,34 @@ Page({
     }
   },
   // 二维码分享按钮
-  shareSth: function (e) {
+  shareSth(e) {
     let QR_id = e.currentTarget.dataset.clickid;
     wx.setStorageSync('QR_id', QR_id);
     app.href('/pages/my/qrCode/qrCode');
   },
   // 项目融资
-  projectFinance: function () {
+  projectFinance() {
     let followed_user_id = this.data.followed_user_id;
     app.href('/pages/my/projectShop/projectShop/projectShop?currentTab=1' + '&&followed_user_id=' + followed_user_id);
   },
   // 融资项目详情
-  financingDetail: function (e) {
+  financingDetail(e) {
     let id = e.currentTarget.dataset.id;
     app.href('/pages/projectDetail/projectDetail?id=' + id);
   },
   // 跳转到我的人脉
-  toContactsMy: function () {
+  toContactsMy() {
     a00.href('/pages/my/my/my')
   },
   // 跳转注册
-  toContacts: function () {
+  toContacts() {
     //走正常申请流程
     let user_id = this.data.user_id;//我的id,查看者的id
     let followed_user_id = this.data.followed_user_id;
     app.checkUserInfo(this, res => { })
   },
   // 跳转到推送项目页面 
-  pushProject: function () {
+  pushProject() {
     // 推送给数据显示的人 push_id = followed_user_id
     // 查看的人 view_id = user_id
     let that = this;
@@ -275,7 +268,7 @@ Page({
     app.href('/pages/my/cardEdit/cardEdit');
   },
   // 分享页面部分
-  onShareAppMessage: function () {
+  onShareAppMessage() {
     let that = this;
     if (this.data.unique_id) {
       let unique_id = this.data.unique_id;
@@ -289,23 +282,6 @@ Page({
     } else {
       return ShareModel.sharePageShare(that);
     }
-  },
-  // 长按号码响应函数  
-  phoneNumTap(e) {
-    let phoneNum = e.currentTarget.dataset.telephone;
-    let name = e.currentTarget.dataset.name;
-    let company = e.currentTarget.dataset.company;
-    let email = e.currentTarget.dataset.email;
-    let position = e.currentTarget.dataset.position;
-    var that = this;
-    // 添加到手机通讯录  
-    wx.addPhoneContact({
-      firstName: name,//联系人姓名  
-      mobilePhoneNumber: phoneNum,//联系人手机号  
-      organization: company,//公司
-      title: position,//职位
-      email: email
-    })
   },
   // 非本人不能分享提示
   message() {
