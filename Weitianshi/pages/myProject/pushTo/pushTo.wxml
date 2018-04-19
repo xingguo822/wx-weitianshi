@@ -1,5 +1,5 @@
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <view class="title">
     今日剩余提交
@@ -45,11 +45,9 @@
     </scroll-view>
   </view>
 
-  <!--按钮组  -->
-  <view class='buttonArry flex'>
-    <button class='reset' bindtap='createProject'>创建项目</button>
-    <button class='certain' hoverBlue='hoverBlue' bindtap='pushTo'>提交项目</button>
-  </view>
+  <button disabled="{{clicked}}" class="floatBtn flex pushPro" bindtap="pushTo" hover-class='t-other-button-hover'>
+    <label class="pushProjectAfter">提交</label>
+  </button>
   <!-- 错误提示-->
   <view class="error" wx:if="{{error=='1'}}">{{error_text}}</view>
 </view>

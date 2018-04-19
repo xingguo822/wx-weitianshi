@@ -1,5 +1,5 @@
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view id="doMain" wx:if="{{nonet}}">
   <view class="title">*最多可选择5个</view>
   <view class="context flex">

@@ -1,8 +1,8 @@
 let app = getApp();
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as FilterModel from '../../../../utils/model/filterModel';
-import * as ShareModel from '../../../../utils/model/shareModel';
+import * as FilterModel from '../../../../utils/filterModel';
+import * as ShareModel from '../../../../utils/shareModel';
 Page({
   data:{
     filterList:[

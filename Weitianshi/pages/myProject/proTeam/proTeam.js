@@ -1,7 +1,7 @@
 let app = getApp();
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as ShareModel from '../../../utils/model/shareModel';
+import * as ShareModel from '../../../utils/shareModel';
 Page({
   data: {
     nonet: true
@@ -16,7 +16,7 @@ Page({
     });
     console.log('pro_id', this.data.id);
     let that = this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
   },
   onShow: function () {
     //  投资人数据
@@ -41,7 +41,7 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        console.log('projectDetail', res);
+        console.log('projectDetail', res)
         let project = res.data.data;
         that.setData({
           project: project,
@@ -52,32 +52,33 @@ Page({
           let core_memberArray = project.core_users;//
           core_memberArray.forEach((x, index) => {
             core_memberArray[index] = x;
-          });
+          })
           that.setData({
             core_memberArray: core_memberArray,
-          });
+          })
         }
 
       },
-    });
+    })
   },
 
 
 
   //下拉刷新
   onPullDownRefresh: function () {
-    wx.stopPullDownRefresh();
+    wx.stopPullDownRefresh()
   },
   // 重新加载
   refresh() {
+    let timer = '';
     wx.showLoading({
       title: 'loading',
       mask: true
     });
-    setTimeout(x => {
+    timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
 
 

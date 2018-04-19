@@ -56,7 +56,7 @@ function loadMore(projectCheck, url, that, api, page, parameter, user_id, page_e
           },
           method: 'POST',
           success: function (res) {
-            app.log("资源需求匹配的分页加载接口",res);
+            app.log(that,"资源需求匹配的分页加载接口",res);
             that.callback(res, that);
           }
         });

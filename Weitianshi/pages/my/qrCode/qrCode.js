@@ -1,7 +1,7 @@
 let app = getApp();
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as ShareModel from '../../../utils/model/shareModel';
+import * as ShareModel from '../../../utils/shareModel'
 Page({
   data: {
     dataUrl: "",
@@ -15,9 +15,9 @@ Page({
       this.setData({
         QR_id: QR_id,
         type: type
-      });
-    }
-    app.netWorkChange(that);
+      })
+    };
+    app.netWorkChange(that)
   },
   onShow: function () {
     let that = this;
@@ -35,7 +35,7 @@ Page({
       wx.setStorageSync('user_id', user_id);
       that.setData({
         user_id: user_id
-      });
+      })
       //载入我的个人信息
       wx.request({
         url: url_common + '/api/user/getUserAllInfo',
@@ -49,9 +49,9 @@ Page({
           let user = res.data.user_info;
           that.setData({
             user: user,
-          });
+          })
         },
-      });
+      })
       // 获取二维码接口
       wx.request({
         url: url + '/api/wx/getCardQr',
@@ -68,13 +68,13 @@ Page({
           let access_token = net.qrcode;
           that.setData({
             access_token: access_token
-          });
+          })
           let filPath = wx.setStorageSync('access_token', access_token);
         },
         fail: function (res) {
         }
-      });
-    });
+      })
+    })
   },
 
   //保存小程序码
@@ -97,20 +97,20 @@ Page({
                       wx.showToast({
                         title: '保存图片成功',
                         icon: 'success'
-                      });
+                      })
                     },
                     fail: function (res) {
-                      app.log("filePath",filePath);
-                      console.log(res);
+                      app.log(that,"filePath",filePath)
+                      console.log(res)
                     }
-                  });
+                  })
                 }
-              });
+              })
             }
           }
-        });
+        })
       },
-    });
+    })
   },
 
   //分享页面
@@ -122,7 +122,7 @@ Page({
   cancelShare: function () {
     this.setData({
       modal: 0
-    });
+    })
   },
   // 重新加载
   refresh() {
@@ -134,7 +134,7 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
 
-});
+})

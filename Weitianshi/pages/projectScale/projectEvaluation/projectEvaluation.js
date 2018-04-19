@@ -3,7 +3,7 @@ var rqj = require('../../Template/Template.js');
 var app = getApp();
 var url = app.globalData.url;
 var url_common = app.globalData.url_common;
-import * as ShareModel from '../../../utils/model/shareModel';
+import * as ShareModel from '../../../utils/shareModel';
 Page({
   data: {
     disabled: false,
@@ -33,6 +33,7 @@ Page({
   onShow: function () {
     let that = this;
     this.history();
+
   },
   // 获取内容
   content() {
@@ -46,7 +47,7 @@ Page({
         competition_id: that.data.competition_id,
       },
       success: function (res) {
-        app.log('input填写', res);
+        app.log(that,'input填写', res);
         let score_list1 = res.data.data.list;
         // 历史消息接口没有这个最大值字段 需要人为添加到数组
         let view_id = [];
@@ -56,12 +57,15 @@ Page({
         let historyName = [];
         let name = [];
         for (let i = 0; i < score_list1.length; i++) {
+
           viewId.push(score_list1[i].index_id);
+
           if (viewId[i] != that.data.history_id[i]) {
             name.push(score_list1[i]);
             view_id.push(viewId[i]);
           }
         }
+
         let competition_name = res.data.data.competition_name;
         that.setData({
           score_list1: score_list1,
@@ -72,6 +76,7 @@ Page({
           competition_name: competition_name,
           name: name
         });
+
       }
     });
   },
@@ -86,15 +91,20 @@ Page({
         project_id: that.data.project_id,
         competition_id: that.data.competition_id,
       },
+
       success: function (res) {
+        app.log(that,'历史', res);
         let list1 = res.data.data.score_list;
-        let leaveMessage = res.data.data.remark;
+        let remark = res.data.data.remark;
         let competition_name = res.data.data.competition_name;
         let slider;
         let total = res.data.data.total_score;
         let score = that.data.score;
         let history_id = [];
+
+
         let score_list1 = Object.assign(list1, that.data.name);
+        // console.log(score_list1);
         for (let i = 0; i < score_list1.length; i++) {
           score[i] = score_list1[i].index_score;
           history_id.push(score_list1[i].index_id);
@@ -115,7 +125,7 @@ Page({
           score_list1: score_list1,
           score: score,
           competition_name: competition_name,
-          leaveMessage: leaveMessage,
+          introduce: remark,
           sliderValue: that.data.slider,
           slivalue: that.data.slider,
           totalNum1: total,
@@ -128,6 +138,7 @@ Page({
         }
         that.content();
       }
+
     });
   },
   // 滑块滑动
@@ -216,10 +227,22 @@ Page({
     that.setData({
       score_list: score_list
     });
+    // console.log('score_list', score_list);
+    // console.log('score_list1', score_list1);
     if (score_list.length < score_list1.length) {
       app.errorHide(that, "请打分", 1500);
       return;
     }
+    // if (score_list1.length != 0) {
+    //   if (that.data.score_list.length == 0) {    
+    //   app.errorHide(that, "请打分", 1500);
+    //     return
+    //   }
+    // }
+    // if (that.data.score_list1.length == 0) {
+    //     app.errorHide(that, "请打分", 1500);
+    //     return
+    // }
     // 提交中过渡态()
     app.disableButton(that);
     app.httpPost({
@@ -242,7 +265,7 @@ Page({
         }, 2000);
       }
     }).catch(err => {
-      app.errorHide(that, error_msg, 3000);
+      app.errorHide(that, "提交失败", 3000);
     });
   },
   // 重新加载

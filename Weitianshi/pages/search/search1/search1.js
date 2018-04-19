@@ -73,13 +73,13 @@ Page({
     let user_id = this.data.user_id;
     let pages = getCurrentPages();
     let currPage = pages[pages.length - 1];
-    let prePage = pages[pages.length - 2];
+    let prevPage = pages[pages.length - 2];
     if (type == 3) {
-      let user_info = prePage.data.user_info;
+      let user_info = prevPage.data.user_info;
       let company_name = this.data.company_name;
       user_info.user_company_name = company_name;
       if (company_name != '') {
-        prePage.setData({
+        prevPage.setData({
           user_info: user_info
         })
         wx.navigateBack({
@@ -90,8 +90,8 @@ Page({
       }
     } else if (type == 8) {
       let pages = getCurrentPages();
-      let prePage = pages[pages.length - 2];
-      let project = prePage.data.project;
+      let prevPage = pages[pages.length - 2];
+      let project = prevPage.data.project;
       let companyName = this.data.company_name;
       project.pro_company_name = companyName;
       let id = project.project_id;
@@ -108,7 +108,7 @@ Page({
           },
           method: 'POST',
           success: function (res) {
-            prePage.setData({
+            prevPage.setData({
               project: project,
               options: {
                 id: id,
@@ -118,7 +118,7 @@ Page({
             wx.navigateBack({
               delta: 1
             })
-            prePage.onLoad(options)
+            prevPage.onLoad(options)
           }
         })
       } else {

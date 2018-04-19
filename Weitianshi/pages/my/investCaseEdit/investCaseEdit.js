@@ -32,11 +32,11 @@ Page({
     var yearBefore = d.getFullYear() - 20;
     var yearNow = d.getFullYear();
     var month = (d.getMonth() + 1) > 9 ? (d.getMonth() + 1) : '0' + (d.getMonth() + 1);
-    var day = d.getDate() > 9 ? d.getDate() : '0' + d.getDate();
+    var day = d.getDate() > 9 ? d.getDate() : '0' + d.getDate()
     var timeBefore = yearBefore + '-' + month + '-' + day;
     var timeNow = yearNow + '-' + month + '-' + day;
     var that = this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
     let stageId = [];
     let stage_arr = [];
     wx.request({
@@ -52,18 +52,18 @@ Page({
 
         stage.forEach((x) => {
           stage_arr.push(x.stage_name);
-          stageId.push(x.stage_id);
-        });
+          stageId.push(x.stage_id)
+        })
         that.setData({
           timeNow: timeNow,
           timeBefore: timeBefore,
           stage: stage,
           stageId: stageId,
           stage_arr: stage_arr
-        });
-        that.getInfo(options);
+        })
+        that.getInfo(options)
       },
-    });
+    })
   },
   onShow: function () {
     var case_index = this.data.case_index;
@@ -71,11 +71,11 @@ Page({
     let belongArea = this.data.belongArea;
     if (tran_area.length != 0) {
       belongArea.area_title = tran_area[1].area_title;
-      belongArea.area_id = tran_area[1].area_id;
+      belongArea.area_id = tran_area[1].area_id
       this.setData({
         belongArea: belongArea,
         tran_area: tran_area
-      });
+      })
     }
 
 
@@ -88,16 +88,16 @@ Page({
       industryCard.value = [];
       industryCard.id = [];
       tran_industry.forEach((x) => {
-        industryCard.value.push(x.industry_name);
-        industryCard.id.push(x.industry_id);
-      });
+        industryCard.value.push(x.industry_name)
+        industryCard.id.push(x.industry_id)
+      })
     } else if (tran_industry.length == 0) {
       industryCard.value = "选择领域";
       industryCard.id = [];
     }
     this.setData({
       industryCard: industryCard
-    });
+    })
   },
   //项目名称
   case_name: function (e) {
@@ -105,7 +105,7 @@ Page({
     var case_name = e.detail.value;
     that.setData({
       case_name: case_name
-    });
+    })
   },
   //项目阶段
   case_stage: function (e) {
@@ -114,7 +114,7 @@ Page({
     this.setData({
       case_stage: stage[stage_index],
       case_stage_index: stage_index
-    });
+    })
 
   },
   //项目金额
@@ -123,20 +123,20 @@ Page({
     var case_money = e.detail.value;
     that.setData({
       case_money: case_money
-    });
+    })
   },
   //项目时间
   case_time: function (e) {
     this.setData({
       case_time: e.detail.value
-    });
+    })
   },
   // 投资地区
   case_local: function (e) {
     this.setData({
       case_city: e.detail.value
-    });
-    app.href('/pages/form/area1/area1?current=' + 2);
+    })
+    app.href('/pages/form/area1/area1?current=' + 2)
   },
   //保存
   buttonOne: function () {
@@ -166,23 +166,23 @@ Page({
       if (index == case_stage_index) {
         case_stage_id = x.stage_id;
       }
-    });
-    app.log("名称,标签名,标签Id,阶段ID,金额,时间,省份ID,城市ID");
+    })
+    app.log(that,"名称,标签名,标签Id,阶段ID,金额,时间,省份ID,城市ID")
     // console.log(user_id, case_name, industry, case_industry, case_stage_id, case_money, case_time, case_province, case_city, tran_area)
     if (case_name == undefined) {
-      app.errorHide(that, "项目名称不能为空", 1500);
+      app.errorHide(that, "项目名称不能为空", 1500)
     } else if (case_industry.length < 1) {
-      app.errorHide(that, "领域不能为空", 1500);
+      app.errorHide(that, "领域不能为空", 1500)
     } else if (case_stage_id == 0) {
-      app.errorHide(that, "轮次不能为空", 1500);
+      app.errorHide(that, "轮次不能为空", 1500)
     } else if (case_money == undefined || case_money == "") {
-      app.errorHide(that, "投资金额不能为空", 1500);
+      app.errorHide(that, "投资金额不能为空", 1500)
     } else if (case_time == '请选择') {
-      app.errorHide(that, "交易时间不能为空", 1500);
+      app.errorHide(that, "交易时间不能为空", 1500)
     } else if (!case_city) {
-      app.errorHide(that, "地区不能为空", 1500);
+      app.errorHide(that, "地区不能为空", 1500)
     } else if (!reg.test(case_money)) {
-      app.errorHide(that, "请输入整数", 1500);
+      app.errorHide(that, "请输入整数", 1500)
     } else {
       let submitData = {
         url: url_common + '/api/user/createUserProjectCase',
@@ -196,22 +196,22 @@ Page({
           case_province: case_province,
           case_city: case_city
         }
-      };
-      let successText = '创建投资案例成功';
+      }
+      let successText = '创建投资案例成功'
       // 区别处理创建和编辑
       if (case_index) {
         submitData.url = url_common + '/api/user/editUserProjectCase';
         submitData.data.case_id = case_id;
-        successText = '编辑投资案例成功';
+        successText = '编辑投资案例成功'
       }
       app.buttonSubmit(that, submitData, that.data.buttonOneText, res => {
-        app.errorHide(that, successText, 1000);
+        app.errorHide(that, successText, 1000)
         setTimeout(res => {
           wx.navigateBack({
             delta: 1,
-          });
-        }, 1000);
-      });
+          })
+        }, 1000)
+      })
     }
   },
   // 获取项目信息() 
@@ -236,19 +236,19 @@ Page({
           let tran_industry = invest_case.case_industry;
           let industryCard = that.data.industryCard;
           let tran_area = [];
-          tran_area[0] = { area_id: invest_case.case_province, area_title: "" };
-          tran_area[1] = { area_id: invest_case.has_one_city.area_id, area_title: invest_case.has_one_city.area_title };
+          tran_area[0] = { area_id: invest_case.case_province, area_title: "" }
+          tran_area[1] = { area_id: invest_case.has_one_city.area_id, area_title: invest_case.has_one_city.area_title }
           //----------------------------项目领域进行处理----------------------
           if (tran_industry) {
             industryCard.value = [];
             industryCard.id = [];
             tran_industry.forEach((x) => {
-              industryCard.value.push(x.industry_name);
-              industryCard.id.push(x.industry_id);
-            });
+              industryCard.value.push(x.industry_name)
+              industryCard.id.push(x.industry_id)
+            })
           }
-          wx.setStorageSync('tran_industry', tran_industry);
-          wx.setStorageSync('tran_area', tran_area);
+          wx.setStorageSync('tran_industry', tran_industry)
+          wx.setStorageSync('tran_area', tran_area)
           // 处理轮次,让轮次的id对应上index下标
           let stage = that.data.stage;
           stage.forEach((x, index) => {
@@ -256,9 +256,9 @@ Page({
               let case_stage_index = index;
               that.setData({
                 case_stage_index: case_stage_index,
-              });
+              })
             }
-          });
+          })
           that.setData({
             case_name: invest_case.case_name,
             industryCard: industryCard,
@@ -267,19 +267,19 @@ Page({
             case_time: invest_case.case_deal_time,
             // case_city: invest_case.case_city,
             belongArea: invest_case.has_one_city
-          });
+          })
         },
         fail: function (res) {
         },
-      });
+      })
       this.setData({
         case_index: case_index,
         case_id: case_id
-      });
+      })
     }
   },
   onUnload: function () {
-    app.initTran();
+    app.initTran()
   },
   // 重新加载
   refresh() {
@@ -291,6 +291,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-}); 
+}) 

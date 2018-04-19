@@ -1,10 +1,8 @@
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
-  <view wx:if="{{!competition_id}}">
-    <template is="pointPC">用电脑创建项目，体验更好更流畅</template>
-    <view class='whiteSpace'></view>
-  </view>
+  <template is="pointPC">用电脑创建项目，体验更好更流畅</template>
+  <view class='whiteSpace'></view>
   <view class="modalBox" hidden="{{modalBox==0}}">
     <view class="classname" bindtap="closeModal">
       <image src="/img/icon-guanbi@2x.png" class="close"></image>

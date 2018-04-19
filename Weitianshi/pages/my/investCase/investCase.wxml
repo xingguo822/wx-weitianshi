@@ -1,5 +1,5 @@
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <scroll-view style="height:100%;" scroll-y="true">
     <!--已发布的项目-->

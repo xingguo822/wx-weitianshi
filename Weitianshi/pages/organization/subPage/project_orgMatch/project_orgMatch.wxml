@@ -1,7 +1,7 @@
 <!--pages/organization/subPage/list_orgMember/list_orgMember.wxml-->
 <!--pages/organization/subPage/list_media/list_media.wxml-->
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <scroll-view style='heigt:3000rpx;' scroll-y='true' scroll-top="{{scroll}}" bindscrolltolower='loadMore'>
 

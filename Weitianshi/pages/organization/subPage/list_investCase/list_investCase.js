@@ -1,9 +1,9 @@
 let app = getApp();
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as ShareModel from '../../../../utils/model/shareModel';
-import * as httpModel from '../../../../utils/model/httpModel';
-import * as FilterModel from '../../../../utils/model/filterModel';
+import * as ShareModel from '../../../../utils/shareModel';
+import * as httpModel from '../../../../utils/httpModel';
+import * as FilterModel from '../../../../utils/filterModel';
 Page({
   data: {
     SearchInit: FilterModel.data,
@@ -16,7 +16,7 @@ Page({
     this.setData({
       investment_id: options.investment_id,
     });
-    app.log("investment_id",this.data.investment_id);
+    app.log(that,"investment_id",this.data.investment_id);
     //更改搜索模块初始化设置
     FilterModel.reInitSearch(that, {
       tab: [

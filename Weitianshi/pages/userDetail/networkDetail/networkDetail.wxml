@@ -1,9 +1,8 @@
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
 <view id="my">
 
   <!--我的名片-->
-  <template is="userInfo" data="{{user:user,blue:blue,count:count,text:'加他为人脉',show:0,IdentificationShow:2,playTime:1,button_type}}"></template>
+  <template is="userInfo" data="{{user:user,blue:blue,count:count,text:'加他为人脉',show:0,IdentificationShow:2,playTime:1}}"></template>
   <view style='background:white'>
     <view class="contactIcon flex">
       <view class="littleBox">
@@ -101,7 +100,7 @@
       <view class='t-shopBlock'>加好友</view>
     </view>
     <view class="t-line"></view>
-    <view class="t-flexBox" wx:if="{{button_type == 1}}" data-telephone="{{user.user_mobile}}" catchtap="telephone" hover-class="t-hoverColor">
+    <view class="t-flexBox" wx:if="{{button_type==1}}" data-telephone="{{user.user_mobile}}" catchtap="telephone" hover-class="t-hoverColor">
       <image src='/img/icon-dadianhua1.png' class='t-shopPic'></image>
       <view class='t-shopBlock'>打电话</view>
     </view>

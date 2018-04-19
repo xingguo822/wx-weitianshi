@@ -1,11 +1,13 @@
 var app = getApp();
+var url = app.globalData.url;
+var url_common = app.globalData.url_common;
 Page({
   data: {
     nonet: true
   },
   onLoad: function (options) {
     let that = this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
   },
   onShow: function () {
 
@@ -13,7 +15,7 @@ Page({
   route: function () {
     wx.navigateBack({
       delta: 2  // 回退前 delta(默认为1) 页面
-    });
+    })
   },
   // 重新加载
   refresh() {
@@ -25,6 +27,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

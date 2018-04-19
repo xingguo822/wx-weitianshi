@@ -1,7 +1,7 @@
 let app = getApp();
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as ShareModel from '../../../utils/model/shareModel';
+import * as ShareModel from '../../../utils/shareModel';
 Page({
   data: {
     nonet: true
@@ -16,7 +16,7 @@ Page({
     });
     console.log('pro_id', this.data.id);
     let that = this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
   },
   onShow: function () {
     //  投资人数据
@@ -41,7 +41,7 @@ Page({
       },
       method: 'POST',
       success: function (res) {
-        console.log('projectDetail', res);
+        console.log('projectDetail', res)
         let project = res.data.data;
         that.setData({
           project: project,
@@ -51,19 +51,19 @@ Page({
         mileStoneArray.forEach((x, index) => {
           mileStoneArray[index].dh_start_time = app.changeTimeStyle1(x.dh_start_time);
           mileStoneArray[index].dh_event = x.dh_event;
-        });
+        })
         that.setData({
           mileStoneArray: mileStoneArray,
-        });
+        })
       },
-    });
+    })
   },
 
 
 
   //下拉刷新
   onPullDownRefresh: function () {
-    wx.stopPullDownRefresh();
+    wx.stopPullDownRefresh()
   },
 
   // 重新加载
@@ -76,7 +76,7 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
 
 });

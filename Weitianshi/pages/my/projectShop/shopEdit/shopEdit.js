@@ -12,7 +12,7 @@ Page({
     this.setData({
       user_id: user_id
     });
-    app.netWorkChange(that);
+    app.netWorkChange(that)
   },
   onShow: function () {
     let user_id = this.data.user_id;
@@ -31,9 +31,9 @@ Page({
         let userInfo = res.data.user_info;
         that.setData({
           userInfo: userInfo
-        });
+        })
       }
-    });
+    })
   },
   //上传图片
   upLoadPic: function () {
@@ -51,7 +51,7 @@ Page({
           wx.showLoading({
             title: '上传中',
             mask: true,
-          });
+          })
           wx.uploadFile({
             url: url_common + '/api/user/uploadImage', //仅为示例，非真实的接口地址
             filePath: tempFilePaths[0],
@@ -66,18 +66,18 @@ Page({
                 let image_id = data.image_id;
                 that.setData({
                   image_id: image_id
-                });
+                })
               }
               that.setData({
                 filePath: tempFilePaths
-              });
+              })
             }
-          });
+          })
         } else {
-          app.errorHide(that, "上传图片不能超过2M", 1500);
+          app.errorHide(that, "上传图片不能超过2M", 1500)
         }
       }
-    });
+    })
   },
   //店铺名称
   shopNameEdit: function (e) {
@@ -85,7 +85,7 @@ Page({
     let that = this;
     that.setData({
       shop_name: shop_name
-    });
+    })
   },
   //店铺描述
   shopDescrible: function (e) {
@@ -93,11 +93,10 @@ Page({
     let that = this;
     that.setData({
       user_intro: user_intro
-    });
+    })
   },
   //保存
   save: function () {
-    let that=this;
     let user_id = wx.getStorageSync('user_id');
     let shop_name = this.data.shop_name;
     let shop_banner = this.data.image_id;
@@ -117,12 +116,12 @@ Page({
         if (res.data.status_code == 2000000) {
           wx.navigateBack({
             delta: 1
-          });
+          })
         } else {
-          app.errorHide(that, res.data.status_code, 1500);
+          app.errorHide(that, res.data.status_code, 1500)
         }
       }
-    });
+    })
   },
   // 重新加载
   refresh() {
@@ -134,6 +133,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

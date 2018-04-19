@@ -10,7 +10,7 @@ Page({
   },
   onLoad: function (option) {
     let that = this;
-    app.netWorkChange(that);
+    app.netWorkChange(that)
     //用来判断是否是重新认证
     let recertification = option.isUpdate;
     // group_id 18:买方FA 19:卖方FA  6:投资人 3:创业者 8:其他
@@ -20,7 +20,7 @@ Page({
     that.setData({
       group_id: group_id,
       recertification: recertification
-    });
+    })
     //请求数据  recertification 1: 重新认证  0: 第一次认证
     if (recertification == 1) {
       wx.request({
@@ -39,7 +39,7 @@ Page({
             group_id: group_id,
             // type: type,
             authenticate_id: authenticate_id
-          });
+          })
           wx.request({
             url: url_common + '/api/user/getUserAuthenticateInfo',
             data: {
@@ -58,11 +58,11 @@ Page({
                 is_financing: user_info.is_finacing,
                 is_identify_member: user_info.is_identify_member,
                 is_saas: user_info.is_saas
-              });
+              })
             }
-          });
+          })
         }
-      });
+      })
     } else if (recertification == 0) {
       wx.request({
         url: url_common + '/api/user/getUserBasicInfo',
@@ -73,26 +73,25 @@ Page({
         success: function (res) {
           let user_info = res.data.user_info;
           let invest_info = res.data.invest_info;
-          app.log("invest_info",invest_info);
-          wx.setStorageSync("tran_scale", invest_info.invest_scale);
-          wx.setStorageSync("tran_stage", invest_info.invest_stage);
-          wx.setStorageSync("tran_hotCity", invest_info.invest_area);
-          wx.setStorageSync("tran_industry", invest_info.invest_industry);
+          app.log(that,"invest_info",invest_info)
+          wx.setStorageSync("tran_scale", invest_info.invest_scale)
+          wx.setStorageSync("tran_stage", invest_info.invest_stage)
+          wx.setStorageSync("tran_hotCity", invest_info.invest_area)
+          wx.setStorageSync("tran_industry", invest_info.invest_industry)
           that.setData({
             user_info: user_info,
             invest_info: invest_info,
             authenticate_id: authenticate_id
-          });
+          })
         }
-      });
+      })
     }
   },
   onShow: function () {
-    let that=this;
     //更改某一项表单值后返回表单页面数据更新
     let invest_info = this.data.invest_info;
-    app.log("invest_info",invest_info);
-    // let user_info = this.data.user_info;
+    app.log(that,"invest_info",invest_info)
+    let user_info = this.data.user_info;
     let tran_industry = wx.getStorageSync('tran_industry') || [];
     let tran_scale = wx.getStorageSync('tran_scale') || [];
     let tran_stage = wx.getStorageSync('tran_stage') || [];
@@ -106,22 +105,22 @@ Page({
     let stageId = [];
     let industryId = [];
     tran_industry.forEach(x => {
-      newIndustry.push({ industry_name: x.industry_name });
-      industryId.push({ industry_id: x.industry_id });
-    });
+      newIndustry.push({ industry_name: x.industry_name })
+      industryId.push({ industry_id: x.industry_id })
+    })
     // 将scale_id 和scale_money 单独放入一个数组中,以便展示和保存
     tran_scale.forEach(x => {
-      newScale.push({ scale_money: x.scale_money });
-      scaleId.push({ scale_id: x.scale_id });
-    });
+      newScale.push({ scale_money: x.scale_money })
+      scaleId.push({ scale_id: x.scale_id })
+    })
     tran_stage.forEach(x => {
-      newStage.push({ stage_name: x.stage_name });
-      stageId.push({ stage_id: x.stage_id });
-    });
+      newStage.push({ stage_name: x.stage_name })
+      stageId.push({ stage_id: x.stage_id })
+    })
     tran_hotCity.forEach(x => {
-      newArea.push({ area_title: x.area_title });
-      areaId.push({ area_id: x.area_id });
-    });
+      newArea.push({ area_title: x.area_title })
+      areaId.push({ area_id: x.area_id })
+    })
     //如果是由更改表单某一项内容后返回该页面的话
     if (invest_info) {
       invest_info.invest_industry = newIndustry;
@@ -134,7 +133,7 @@ Page({
         scaleId: scaleId,
         stageId: stageId,
         areaId: areaId
-      });
+      })
     }
   },
   // 姓名type:0 手机type:1 品牌type:2 公司type:3 职位type:4 邮箱type:5  微信type:6 个人描述type:7
@@ -149,24 +148,24 @@ Page({
     let writeWeChat = this.data.user_info.user_wechat;
     let writeDescrible = this.data.user_info.user_intro;
     if (type == 0) {
-      app.href('/pages/form/personInfo/personInfo?name=' + writeNameValue + '&&type=0');
+      app.href('/pages/form/personInfo/personInfo?name=' + writeNameValue + '&&type=0')
     } else if (type == 2) {
-      app.href('/pages/form/personInfo/personInfo?brand=' + writeBrand + '&&type=2');
+      app.href('/pages/form/personInfo/personInfo?brand=' + writeBrand + '&&type=2')
     }
     else if (type == 3) {
       // 跳转公司模糊搜索
-      app.href('/pages/search/search1/search1?company=' + writeCompany + '&&type=3');
+      app.href('/pages/search/search1/search1?company=' + writeCompany + '&&type=3')
     }
     else if (type == 4) {
-      app.href('/pages/form/personInfo/personInfo?career=' + writeCareer + '&&type=4');
+      app.href('/pages/form/personInfo/personInfo?career=' + writeCareer + '&&type=4')
     }
     else if (type == 5) {
-      app.href('/pages/form/personInfo/personInfo?email=' + writeEmail + '&&type=5');
+      app.href('/pages/form/personInfo/personInfo?email=' + writeEmail + '&&type=5')
     }
     else if (type == 6) {
-      app.href('/pages/form/personInfo/personInfo?writeWeChat=' + writeWeChat + '&&type=6');
+      app.href('/pages/form/personInfo/personInfo?writeWeChat=' + writeWeChat + '&&type=6')
     } else if (type == 7) {
-      app.href('/pages/form/personInfo/personInfo?writeDescrible=' + writeDescrible + '&&type=7');
+      app.href('/pages/form/personInfo/personInfo?writeDescrible=' + writeDescrible + '&&type=7')
     }
   },
   // 上传名片
@@ -178,7 +177,7 @@ Page({
     wx.chooseImage({
       count: 1,
       success: function (res) {
-        var tempFilePaths = res.tempFilePaths;
+        var tempFilePaths = res.tempFilePaths
         let size = res.tempFiles[0].size;
         if (size <= 1048576) {
           wx.uploadFile({
@@ -196,71 +195,71 @@ Page({
                   title: '成功',
                   icon: 'success',
                   duration: 2000
-                });
+                })
                 that.setData({
                   upLoadSuccess: true
-                });
+                })
               }
             }
-          });
+          })
         } else {
-          app.errorHide(that, "上传图片不能超过1M", 1500);
+          app.errorHide(that, "上传图片不能超过1M", 1500)
         }
       }
-    });
+    })
   },
   // 跳转投资领域
   toIndustry: function () {
-    app.href('/pages/form/industry/industry?current=1&identity=1');
+    app.href('/pages/form/industry/industry?current=1&identity=1')
   },
   // 跳转投资轮次
   toScale: function () {
-    app.href('/pages/form/scale/scale');
+    app.href('/pages/form/scale/scale')
   },
   // 跳转投资金额
   toStage: function () {
-    app.href('/pages/form/stage/stage');
+    app.href('/pages/form/stage/stage')
   },
   // 跳转投资地区
   toArea1: function () {
-    app.href('/pages/form/area2/area2');
+    app.href('/pages/form/area2/area2')
   },
   // 申请加入FA行业联盟
   bindFAService: function (e) {
     this.setData({
       is_alliance: e.detail.value
-    });
+    })
   },
   // FA服务
   addFAService: function (e) {
     this.setData({
       is_identify_member: e.detail.value
-    });
+    })
   },
   // sass服务
   sass: function (e) {
     this.setData({
       is_saas: e.detail.value
-    });
+    })
   },
   // 兼职FA
   partFA: function (e) {
     this.setData({
       is_FA_part: e.detail.value
-    });
+    })
   },
   // 需要FA顾问
   needFA: function (e) {
     this.setData({
       is_financing: e.detail.value
-    });
+    })
   },
   // 提交保存跳转
   submit: function () {
     let that = this;
     let user_id = wx.getStorageSync('user_id');
     let authenticate_id = this.data.authenticate_id;
-    // let group_id = this.data.group_id;
+    let group_id = this.data.group_id;
     let iden_name = this.data.user_info.user_real_name;
     let iden_company_name = this.data.user_info.user_company_name;
     let iden_company_career = this.data.user_info.user_company_career;
@@ -276,11 +275,11 @@ Page({
     let industry = this.data.industry;
     let recertification = this.data.recertification;
     if (iden_name == '') {
-      app.errorHide(that, "姓名不能为空", 1500);
+      app.errorHide(that, "姓名不能为空", 1500)
     } else if (iden_company_name == '') {
-      app.errorHide(that, "公司不能为空", 1500);
+      app.errorHide(that, "公司不能为空", 1500)
     } else if (iden_company_career == '') {
-      app.errorHide(that, "职位不能为空", 1500);
+      app.errorHide(that, "职位不能为空", 1500)
     } else {
       let submitData = {
         url: url_common + '/api/user/saveUserAuthentication',
@@ -304,21 +303,21 @@ Page({
           stage: this.data.stageId,
           scale: this.data.scaleId
         }
-      };
+      }
       app.buttonSubmit(that, submitData, that.data.buttonOneText, res => {
-        wx.removeStorageSync("tran_hotCity");
-        wx.removeStorageSync("tran_stage");
-        wx.removeStorageSync("tran_scale");
-        wx.removeStorageSync("tran_industry");
-        app.errorHide(that, '认证资料提交成功', 1000);
+        wx.removeStorageSync("tran_hotCity")
+        wx.removeStorageSync("tran_stage")
+        wx.removeStorageSync("tran_scale")
+        wx.removeStorageSync("tran_industry")
+        app.errorHide(that, '认证资料提交成功', 1000)
         setTimeout(res => {
-          app.href('/pages/my/identity/identityResult/identityResult?authenticate_id=' + authenticate_id + '&&recertification=' + recertification);
-        }, 1000);
-      });
+          app.href('/pages/my/identity/identityResult/identityResult?authenticate_id=' + authenticate_id + '&&recertification=' + recertification)
+        }, 1000)
+      })
     }
   },
   onUnload: function () {
-    app.initTran();
+    app.initTran()
   },
   // 重新加载
   refresh() {
@@ -330,6 +329,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

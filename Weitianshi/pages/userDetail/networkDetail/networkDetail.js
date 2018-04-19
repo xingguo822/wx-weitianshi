@@ -1,9 +1,7 @@
 var app = getApp();
 var url = app.globalData.url;
 var url_common = app.globalData.url_common;
-import * as ShareModel from '../../../utils/model/shareModel';
-let RG = require('../../../utils/model/register.js');
-let register = new RG.register();
+import * as ShareModel from '../../../utils/shareModel';
 Page({
   data: {
     bindContact: false,
@@ -26,13 +24,15 @@ Page({
       mask: true,
     })
     var user_id = options.id;
-    app.loginPage(view_id => {
+    app.loginPage(view_id=>{
       that.setData({
         user_id: user_id,
         view_id: view_id
       })
+      //分享至群打点准备
+
       if (user_id == view_id) {
-        app.href("/pages/my/my/my")
+        app.href("/pages/my/myNew/myNew")
       }
       //用戶的个人信息
       app.httpPost({
@@ -56,7 +56,7 @@ Page({
         wx.setNavigationBarTitle({
           title: user_name + "的投资名片",
         })
-        app.log(user.active_status)
+        app.log(that, user.active_status)
         if (tel.indexOf("*") != -1) {
           that.setData({
             blue: 1
@@ -110,68 +110,113 @@ Page({
     let button_type = this.data.button_type;
     // button_type==0  0申请加人脉按钮，1不显示任何按钮  2待验证   3同意加为人脉  4加为单方人脉
     //判断用户信息是否完整
-    app.checkUserInfo(this, res => {
-      //信息完整
-      if (button_type == 0) {
-        wx.request({
-          url: url + '/api/user/UserApplyFollowUser',
-          data: {
-            user_id: view_id,
-            applied_user_id: followed_user_id
-          },
-          method: 'POST',
-          success: function (res) {
-            app.log("正常申请添加人脉")
-            that.setData({
-              button_type: 2
+    app.httpPost({
+      url: url_common + '/api/user/checkUserInfo',
+      data: {
+        user_id: view_id
+      },
+    }, this).then(res => {
+      if (res.data.status_code == 2000000) {
+        var complete = res.data.is_complete;
+        if (complete == 1) {
+          //信息完整
+          if (button_type == 0) {
+            wx.request({
+              url: url + '/api/user/UserApplyFollowUser',
+              data: {
+                user_id: view_id,
+                applied_user_id: followed_user_id
+              },
+              method: 'POST',
+              success: function (res) {
+                app.log(that,"正常申请添加人脉")
+                that.setData({
+                  button_type: 2
+                })
+              }
+            })
+          } else if (button_type == 1) {
+            app.log(that,"我的人脉--不显示内容")
+          } else if (button_type == 2) {
+            app.log(that,"待验证===显示待验证")
+          } else if (button_type == 3) {
+            wx.request({
+              url: url + '/api/user/handleApplyFollowUser',
+              data: {
+                // 当前登录者的
+                user_id: view_id,
+                // 当前申请的用户
+                apply_user_id: followed_user_id
+              },
+              method: 'POST',
+              success: function (res) {
+                app.log(that,"同意申請")
+                that.setData({
+                  button_type: 1
+                })
+              }
+            })
+          } else if (button_type == 4) {
+            // 单方人脉添加
+            wx.request({
+              url: url + '/api/user/followUser',
+              data: {
+                user_id: user_id,
+                followed_user_id: followed_user_id
+              },
+              method: 'POST',
+              success: function (res) {
+                that.setData({
+                  button_type: 1
+                })
+                wx.setStorageSync('followed_user_id', followed_user_id)
+                if (res.confirm == true) {
+                  app.href('/pages/register/companyInfo/companyInfo')
+                }
+              }
             })
           }
-        })
-      } else if (button_type == 1) {
-        app.log("我的人脉--不显示内容")
-      } else if (button_type == 2) {
-        app.log("待验证===显示待验证")
-      } else if (button_type == 3) {
-        wx.request({
-          url: url + '/api/user/handleApplyFollowUser',
-          data: {
-            // 当前登录者的
-            user_id: view_id,
-            // 当前申请的用户
-            apply_user_id: followed_user_id
-          },
-          method: 'POST',
+        } else if (complete == 0) {
+          //有user_id但信息不全
+          wx.showModal({
+            title: "提示",
+            content: "请先绑定个人信息",
+            success: function (res) {
+              wx.setStorageSync('followed_user_id', followed_user_id)
+              if (res.confirm == true) {
+                // wx.navigateTo({
+                //   url: '/pages/register/companyInfo/companyInfo'
+                // })
+                app.href('/pages/register/companyInfo/companyInfo')
+              }
+            }
+          })
+        }
+      } else {
+        //没有user_id
+        wx.showModal({
+          title: "提示",
+          content: "请先绑定个人信息",
           success: function (res) {
-            app.log("同意申請")
-            that.setData({
-              button_type: 1
-            })
-          }
-        })
-      } else if (button_type == 4) {
-        // 单方人脉添加
-        wx.request({
-          url: url + '/api/user/followUser',
-          data: {
-            user_id: user_id,
-            followed_user_id: followed_user_id
-          },
-          method: 'POST',
-          success: function (res) {
-            that.setData({
-              button_type: 1
-            })
             wx.setStorageSync('followed_user_id', followed_user_id)
+            if (res.confirm == true) {
+              app.href('/pages/register/personInfo/personInfo')
+            }
           }
         })
       }
+    }).catch(res => {
+      app.errorHide(this, res.data.error_msg)
     })
+
+
   },
   // 二维码分享页面
   shareSth: function (e) {
     var QR_id = e.currentTarget.dataset.clickid;
     wx.setStorageSync('QR_id', QR_id)
     app.href('/pages/my/qrCode/qrCode')
+
   },
   //分享页面
   onShareAppMessage: function () {
@@ -194,6 +239,19 @@ Page({
     let that = this;
     app.operationModel('projectPush', that, push_id)
   },
+  // // 人气进入
+  // popularity: function () {
+  //   let id = this.data.user_id;//当前用户的
+  //   wx.navigateTo({
+  //     url: '/pages/message/browseMe/browseMe?id=' + id
+  //   })
+  // },
+  // 加我为人脉
+  // attention: function () {
+  //   wx.navigateTo({
+  //     url: '/pages/message/beAddedContacts/beAddedContacts'
+  //   })
+  // },
   //分享引导跳转
   shareJump(e) {
     let index = e.currentTarget.dataset.index;
@@ -219,24 +277,6 @@ Page({
       });
     }, 10000)
   },
-  // 长按号码响应函数  
-  phoneNumTap(e) {
-    let phoneNum = e.currentTarget.dataset.telephone;
-    let name = e.currentTarget.dataset.name;
-    let company = e.currentTarget.dataset.company;
-    let email = e.currentTarget.dataset.email;
-    let position = e.currentTarget.dataset.position;
-    var that = this;
-    // 提示呼叫号码还是将号码添加到手机通讯录  
-    // 添加到手机通讯录  
-    wx.addPhoneContact({
-      firstName: name,//联系人姓名  
-      mobilePhoneNumber: phoneNum,//联系人手机号  
-      organization: company,//公司
-      title: position,//职位
-      email: email
-    })
-  },
   // 重新加载
   refresh() {
     let timer = '';
@@ -248,17 +288,5 @@ Page({
       wx.hideLoading();
       this.onShow();
     }, 1500)
-  },
-  // 微信授权绑定
-  getPhoneNumber(e) {
-    register.getPhoneNumber.call(this, e);
-  },
-  // 手机号码绑定
-  telephoneRegister() {
-    register.telephoneRegister.call(this);
-  },
-  // 关闭绑定方式选择弹框
-  closeRegisterModal() {
-    register.closeRegisterModal.call(this);
   }
 });

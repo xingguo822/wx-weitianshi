@@ -1,4 +1,4 @@
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <!--热门领域  -->
   <scroll-view scroll-y="true" bindscrolltolower='loadMore' scroll-top="{{scroll}}" class="scrollStyle">

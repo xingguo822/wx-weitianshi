@@ -15,23 +15,18 @@ page {
   display: inline-block;
   width: 50%;
   font-size: 26rpx;
-  color: #333;
+  color: #999;
   line-height: 62rpx;
   text-align: center;
   border: none;
 }
 
-.on::after {
-  content: '';
+.on {
   color: #40587a;
-  width: 40rpx;
-  height: 4rpx;
-  border-radius: 4rpx;
   text-align: center;
-  z-index: 666;
-  display: block !important;
-  background: #3378e0;
-  margin-left: 38%;
+  font-size: 26rpx;
+  line-height: 80rpx;
+  border-bottom: 4rpx solid #40587a;
 }
 
 .empty {
@@ -73,8 +68,52 @@ page {
 
 /*名片*/
 
+.outBox {
+  margin: 0 16px 0 16px;
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
+.insideBox {
+  padding: 32rpx 32rpx 24rpx 32rpx;
+  background: #fff;
+  border-radius: 8rpx;
+}
+
+.outBox .describle {
+  font-size: 34rpx;
+  color: #666;
+  line-height: 38rpx;
+  text-align: left;
+  margin-bottom: 32rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.allIndustry {
+  font-size: 26rpx;
+  color: #40587a;
+  line-height: 26rpx;
+  text-align: left;
+  margin-bottom: 24rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.projectDetailLine {
+  padding: 0 16rpx;
+  border-right: 1rpx solid #999;
+}
+
 .otherInfo {
   position: relative;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #e6e6e6;
 }
 
 .others_pic {
@@ -148,9 +187,8 @@ page {
   height: 52rpx;
   line-height: 52rpx;
 }
-
-.addedSuccess {
-  color: #999;
+.addedSuccess{
+    color: #999;
   /* right: 32rpx; */
   white-space: nowrap;
   display: block;
@@ -160,10 +198,10 @@ page {
   line-height: 52rpx;
 }
 
-.btnHaveInterest, .btnNoInterest, .addProjectTo {
+.btnHaveInterest, .btnNoInterest,.addProjectTo{
   font-size: 24rpx;
-  color: #3378e0;
-  border: 1rpx solid #3378e0;
+  color: #40587a;
+  border: 1px solid #40587a;
   height: 52rpx;
   line-height: 52rpx;
   padding: 0 32rpx;
@@ -173,28 +211,23 @@ page {
 
 .btnHaveInterest {
   margin: 20rpx 0 0 0;
-  padding: 0 20rpx;
-  color: #fff;
-  background: #3378e0;
-}
-
-.btnNoInterest {
-  padding: 0 20rpx;
+  padding: 0 8rpx;
+  color:#fff;
+  background:#40587a;
 }
 
 #time {
-  font-size: 22rpx;
+  font-size: 20rpx;
   color: #999;
-  line-height: 32rpx;
+  line-height: 20rpx;
   text-align: right;
-  margin: 12rpx 32rpx 32rpx 0;
+  margin: 10rpx 0 20rpx 0;
 }
-
-.addProjectTo {
-  margin: 20rpx 16rpx 0 0;
-  padding: 0 20rpx;
-  color: #3378e0;
-  background: #fff;
+.addProjectTo{
+    margin: 20rpx 0 0 0;
+  padding: 0 8rpx;
+  color:#40587a;
+  background:#fff;
 }
 
 /*==========我申请查看的项目===============  */
@@ -217,6 +250,7 @@ page {
 }
 
 .outsideBox {
+  margin: 0 30rpx;
   position: relative;
 }
 
@@ -228,20 +262,26 @@ page {
   line-height: 88rpx;
   text-align: left;
   height: 88rpx;
+  margin-left: 30rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-content: space-between;
+  width: 691rpx;
 }
 
 #introduce .introduce {
-  background: #F9FAFC;
+  background: #fafafa;
   border-radius: 4rpx 4rpx 0 0;
-  font-size: 30rpx;
-  color:#333;
+  font-size: 26rpx;
+  color: #666;
   line-height: 88rpx;
   text-align: left;
   height: 88rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 620rpx;
+  width: 670rpx;
   padding-left: 32rpx;
 }
 
@@ -354,6 +394,15 @@ page {
   top: -2rpx;
 }
 
+.userPic {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 100%;
+  position: absolute;
+  right: 32rpx;
+  top: 32rpx;
+}
+
 .redPoint {
   background: #f44c4c;
   width: 16rpx;
@@ -449,34 +498,45 @@ page {
 }
 
 .status {
-  border-radius: 4rpx;
-  font-size: 20rpx;
-  text-align: center;
-  position: absolute;
-  right: 32rpx;
-  top: 42rpx;
-  padding: 5rpx 8rpx;
+  font-size: 24rpx;
+  color: #40587a;
+  line-height: 88rpx;
+  text-align: right;
+  padding-right: 34rpx;
 }
 
 .noRead {
-  color: #999;
-  background: rgba(204, 204, 204, 0.1);
+  color: #ccc;
 }
 
 .statusNoInterest {
-  background: rgba(249, 83, 85, 0.1) ;
-  color: #f95355;
-}
-
-.statusHasInterest {
-  background:rgba(71, 192, 85, 0.1);
-  color: #47c055;
-  /* width:76rpx; */
+  color: #999;
 }
 
 .readed {
-  color: #3378e0;
-  background: rgba(51, 120, 224, 0.1);
+  color: #40587a;
+}
+
+.projectDetailLight {
+  padding: 0 16rpx;
+  border-right: 1rpx solid #999;
+  color: #40587a;
+}
+
+.projectDetailLine:first-child {
+  padding-left: 0;
+}
+
+.projectDetailLine:last-child {
+  border-right: none;
+}
+
+.projectDetailLight:first-child {
+  padding-left: 0;
+}
+
+.projectDetailLight:last-child {
+  border-right: none;
 }
 
 .noLight {

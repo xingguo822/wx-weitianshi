@@ -11,25 +11,19 @@
   display: inline-block;
   width: 33.3%;
   font-size: 26rpx;
-  color: #333;
+  color: #999;
   line-height: 62rpx;
   text-align: center;
   border: none;
 }
 
-.on::after {
-  content: '';
+.on {
   color: #40587a;
-  width: 40rpx;
-  height: 4rpx;
-  border-radius: 4rpx;
   text-align: center;
-  z-index: 666;
-  display: block !important;
-  background: #3378e0;
-  margin-left: 38%;
+  font-size: 26rpx;
+  line-height: 80rpx;
+  border-bottom: 4rpx solid #40587a;
 }
-
 
 .empty {
   padding-top: 0;
@@ -70,10 +64,61 @@
 
 /*名片*/
 
+.outBox {
+  margin: 0 16px 0 16px;
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
+.insideBox {
+  padding: 32rpx 32rpx 24rpx 32rpx;
+  background: #fff;
+  border-radius: 8rpx;
+}
+
+.outBox .describle {
+  font-size: 34rpx;
+  color: #666;
+  line-height: 38rpx;
+  text-align: left;
+  margin-bottom: 32rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.allIndustry {
+  font-size: 26rpx;
+  color: #40587a;
+  line-height: 26rpx;
+  text-align: left;
+  margin-bottom: 24rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.projectDetailLine {
+  padding: 0 16rpx;
+  border-right: 1rpx solid #999;
+}
+
 .projectDetailLight {
   padding: 0 16rpx;
   border-right: 1rpx solid #999;
   color: #40587a;
+}
+
+.otherInfo {
+  position: relative;
+  padding-bottom: 30rpx;
+  border-bottom: 1rpx solid #e6e6e6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .others_pic {
@@ -83,9 +128,25 @@
   margin-right: 16rpx;
 }
 
+.projectDetailLine:first-child {
+  padding-left: 0;
+}
+
+.projectDetailLine:last-child {
+  border-right: none;
+}
+
+.projectDetailLight:first-child {
+  padding-left: 0;
+}
+
+.projectDetailLight:last-child {
+  border-right: none;
+}
+
 .allProjectDetail {
   font-size: 26rpx;
-  color: #999;
+  color:#999999;
   line-height: 26rpx;
   text-align: left;
   margin-bottom: 34rpx;
@@ -97,6 +158,25 @@
 .userInfo {
   width: 566rpx;
   margin-top: 9rpx;
+}
+
+.userCompany, .userCareer, .userName {
+  font-size: 22rpx;
+  color: #999;
+  line-height: 24rpx;
+  text-align: left;
+  width: 320rpx;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.userCareer, .userName {
+  margin-right: 16rpx;
+  white-space: nowrap;
+  width: auto;
+  text-overflow: clip;
+  overflow: none;
 }
 
 .projectInfo {
@@ -124,24 +204,23 @@
   line-height: 52rpx;
 }
 
-.btnHaveInterest, .btnNoInterest, .addProjectTo {
+.btnHaveInterest, .btnNoInterest,.addProjectTo {
   font-size: 24rpx;
-  color: #3378e0;
-  border: 1rpx solid #3378e0;
+  color: #40587a;
+  border: 1px solid #40587a;
   height: 52rpx;
   line-height: 52rpx;
   padding: 0 32rpx;
   margin: 20rpx 16rpx 0 16rpx;
   border-radius: 4rpx;
 }
-.btnNoInterest {
-  padding: 0 20rpx;
-}
+
+
 .btnHaveInterest {
   margin: 20rpx 0 0 0;
-  padding: 0 20rpx;
-  color: #fff;
-  background: #3378e0;
+  padding: 0 8rpx;
+  color:#fff;
+  background:#40587a;
 }
 
 #time {
@@ -151,14 +230,12 @@
   text-align: right;
   margin: 10rpx 0 20rpx 0;
 }
-
-.addProjectTo {
-  margin: 20rpx 16rpx 0 0;
-  padding: 0 20rpx;
-  color: #3378e0;
-  background: #fff;
+.addProjectTo{
+    margin: 20rpx 0 0 0;
+  padding: 0 8rpx;
+  color:#40587a;
+  background:#fff;
 }
-
 /*==========我申请查看的项目===============  */
 
 .apply {
@@ -299,7 +376,16 @@
   height: 68rpx;
   position: absolute;
   right: -2rpx;
-  top: -2rpx;
+  top:-2rpx;
+}
+
+.userPic {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 100%;
+  position: absolute;
+  right: 32rpx;
+  top: 32rpx;
 }
 
 .redPoint {
@@ -340,8 +426,10 @@
   right: 0;
   white-space: nowrap;
 }
-
-.refuseToRead {
+.refuseToRead{
+  color: #40587A;
+}
+.agreeToRead {
   color: #40587a;
 }
 
@@ -417,7 +505,7 @@
   background: #f2f2f2;
   line-height: 40rpx;
   text-align: center;
-  color: #40587a;
+   color:#40587a;
 }
 
 .refuseMe {
@@ -428,11 +516,9 @@
   position: absolute;
   top: 34rpx;
   right: 16rpx;
-  white-space: nowrap;
+  white-space:nowrap;
 }
-
 /*模态框  */
-
 .modalBox {
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
@@ -441,7 +527,6 @@
   left: 0;
   top: 0;
 }
-
 .contactModalBox {
   height: 616rpx;
   width: 534rpx;
@@ -451,57 +536,49 @@
   padding: 40rpx 32rpx 32rpx 32rpx;
   position: relative;
 }
-
-.modalTitle {
-  font-size: 36rpx;
-  color: #333;
-  line-height: 36rpx;
-  text-align: center;
+.modalTitle{
+font-size:36rpx;
+color:#333333;
+line-height:36rpx;
+text-align:center;
 }
-
-.modalContent {
-  border: 1rpx solid #e6e6e6;
-  /* width:504rpx; */
-  height: 258rpx;
-  margin-top: 32rpx;
-  margin-bottom: 24rpx;
-  margin-right: 0;
-  outline: none;
-  padding-top: 20rpx;
-  padding-left: 24rpx;
-  font-size: 28rpx;
-  color: #999;
-  line-height: 28rpx;
+.modalContent{
+border:1rpx solid #e6e6e6;
+/* width:504rpx; */
+height:258rpx;
+margin-top:32rpx;
+margin-bottom:24rpx;
+margin-right: 0;
+outline: none;
+padding-top:20rpx;
+padding-left:24rpx;
+font-size:28rpx;
+color:#999999;
+line-height:28rpx;
 }
-
-.modalTips {
-  font-size: 28rpx;
-  color: #666;
-  line-height: 40rpx;
-  text-align: center;
-  padding: 0 28rpx;
+.modalTips{
+font-size:28rpx;
+color:#666666;
+line-height:40rpx;
+text-align:center;
+padding:0 28rpx;
 }
-
-.btn {
-  background: #40587a;
-  border-radius: 6rpx;
-  width: 506rpx;
-  height: 88rpx;
-  font-size: 32rpx;
-  color: #fff;
-  line-height: 88rpx;
-  text-align: center;
-  margin-top: 72rpx;
+.btn{
+background:#40587a;
+border-radius:6rpx;
+width:506rpx;
+height:88rpx;
+font-size:32rpx;
+color:#ffffff;
+line-height:88rpx;
+text-align:center;
+margin-top: 72rpx;
 }
-
-.close {
-  width: 48rpx;
-  height: 48rpx;
+.close{
+  width:48rpx;
+  height:48rpx;
   position: absolute;
-  top: 185rpx;
-  right: 67rpx;
+  top:185rpx;
+  right:67rpx;
   z-index: 99;
-}
-.project-detailm{
-  margin-bottom: 32rpx;
 }

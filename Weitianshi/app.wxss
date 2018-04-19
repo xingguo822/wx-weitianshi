@@ -1,13 +1,53 @@
 /* @import "weui.wxss"; */
-@import './common.wxss';
 @import '/utils/wxss/myContactsCard.wxss';
 @import '/utils/wxss/filterModel.wxss';
 @import '/utils/wxss/organization.wxss';
 @import '/utils/wxss/filterTag.wxss';
 @import '/utils/wxss/oneadd.wxss';
-@import '/utils/wxss/HB.wxss';
-@import '/utils/wxss/registerModal.wxss';
-@import '/utils/wxss/projectApply.wxss';
+
+scroll-view {
+  height: 100%;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: 0;
+  margin-right: 0;
+  position: static;
+  border-radius: 0;
+  background: white;
+  /* text-align: left; */
+}
+
+button::after {
+  border: none;
+  width: auto;
+  height: auto;
+  background: white;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+}
+
+.flex {
+  display: flex;
+}
+
+page {
+  background-color: #f2f3f4;
+  /*font-size: 16px;*/
+  font-family: -apple-system-font, Helvetica Neue, Helvetica, sans-serif;
+}
 
 .page__hd {
   padding: 40px;
@@ -487,11 +527,12 @@ textarea {
   margin-top: 18rpx;
   position: absolute;
   right: 32rpx;
-} 
+}
+
 .t-contactsPic {
   width: 750rpx;
   height: 280rpx;
-  background: url(http://weitianshi-2017.oss-cn-shanghai.aliyuncs.com/image/banner/share_top.jpg) no-repeat;
+  background: url(https://cdn.weitianshi.cn/image/banner/share_top.jpg) no-repeat;
   background-size: 100%;
 }
 
@@ -538,10 +579,16 @@ textarea {
 
 /*---------------------------------项目卡片------------------------------------*/
 
-.outBox {
+.t-outBox {
+  /* margin: 0 32rpx 0 32rpx; */
   width: auto;
   height: auto;
   position: relative;
+  /* border-radius: 8rpx; */
+}
+
+.t-outBox:first-child {
+  /* margin-top: 32rpx; */
 }
 
 .t-insideBox {
@@ -764,7 +811,7 @@ textarea {
   color: #40587a;
 }
 
-#t-time {
+.t-outBox .t-time {
   font-size: 20rpx;
   color: #999;
   line-height: 20rpx;
@@ -838,7 +885,7 @@ textarea {
 .t-applyMyProject .t-careerCompany {
   margin-left: 128rpx;
   margin-bottom: 56rpx;
-  max-width:408rpx;
+  max-width: 364rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1232,11 +1279,11 @@ textarea {
 }
 
 #t-time {
-  font-size: 22rpx;
+  font-size: 20rpx;
   color: #999;
-  line-height: 32rpx;
+  line-height: 20rpx;
   text-align: right;
-  margin: 12rpx 32rpx 32rpx 0;
+  margin: 10rpx 0 20rpx 0;
 }
 
 /*绑定页面  */
@@ -1414,7 +1461,6 @@ textarea {
 .theBottomBox {
   justify-content: center;
   margin-top: 32rpx;
-  margin-bottom: 40rpx;
 }
 
 .t-nothingBottom {
@@ -1619,9 +1665,4 @@ textarea {
 .whiteSpace {
   height: 104rpx;
   width: 100%;
-}
-
-.t-highBox{
-  width: 100%;
-  height: 88rpx;
 }

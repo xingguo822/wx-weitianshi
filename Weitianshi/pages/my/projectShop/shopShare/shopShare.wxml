@@ -1,4 +1,4 @@
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <view class="outside">
     <view class="box">

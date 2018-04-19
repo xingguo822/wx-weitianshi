@@ -1,4 +1,4 @@
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <view class="searchBox">
     <input class="searchCompany" placeholder="请输入公司名称" bindinput="inputValue" value="{{company_name}}" maxlength="40" />

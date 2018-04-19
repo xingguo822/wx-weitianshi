@@ -1,5 +1,5 @@
 <import src="/pages/Template/Template.wxml" />
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
  
 <scroll-view style='heigt:1000rpx;' scroll-y='true' bindscrolltolower='loadMore'>
   <view wx:if="{{nonet}}">

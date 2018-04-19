@@ -4,7 +4,7 @@
     "pages/discoverInvest/discoverInvest",
     "pages/discoverInvest/institutionalInvest/institutionalInvest",
     "pages/discoverInvest/investor/investor",
-    "pages/my/myCard/myCard",
+    "pages/my/my/my",
     "pages/match/match/investDemand/investDemand",
     "pages/match/match/resourceDemand/resourceDemand",
     "pages/matchInvestor/matchInvestor",
@@ -16,6 +16,7 @@
     "pages/form/personInfo/personInfo",
     "pages/register/personInfo/personInfo",
     "pages/register/companyInfo/companyInfo",
+    "pages/register/bindSuccess/bindSuccess",
     "pages/message/message/message",
     "pages/message/viewProjectUser/viewProjectUser",
     "pages/message/applyProject/applyProject",
@@ -33,10 +34,10 @@
     "pages/projectDetail/projectDetail",
     "pages/myProject/projectDetail/projectDetail",
     "pages/myProject/publishProject/publishProject",
+    "pages/myProject/publishedProject/publishedProject",
     "pages/myProject/pushTo/pushTo",
     "pages/myProject/initPrivacy/initPrivacy",
     "pages/myProject/pushToSuccess/pushToSuccess",
-    "pages/myProject/maintainProject/maintainProject",
     "pages/myProject/publishSuccess/publishSuccess",
     "pages/myProject/bpScanSuccess/bpScanSuccess",
     "pages/my/investCase/investCase",
@@ -52,8 +53,7 @@
     "pages/my/identity/indentity/indentity",
     "pages/my/identity/identityEdit/identityEdit",
     "pages/my/identity/identityResult/identityResult",
-    "pages/my/my/my",
-    "pages/my/activityList/activityList",
+    "pages/my/myNew/myNew",
     "pages/oneKeyResearch/oneKeyResearch",
     "pages/contactsActivty/activtyDetail/activtyDetail",
     "pages/contactsActivty/joinWarband/joinWarband",
@@ -93,26 +93,10 @@
       "pages": [
         "pages/activityDetail/activityDetail",
         "pages/activityAgenda/activityAgenda",
+        "pages/signScan/signScan",
         "pages/signCheckIndentity/signCheckIndentity",
         "pages/signIndentityCard/signIndentityCard",
-        "pages/signNoIndentity/signNoIndentity",
-        "pages/signUpList/signUpList",
-        "pages/publishActive/publishActive",
-        "pages/projectList/projectList",
-        "pages/activityIdentityInfo/activityIdentityInfo",
-        "pages/activityIdentitySuccess/activityIdentitySuccess",
-        "pages/activityProjectInfo/activityProjectInfo"
-      ]
-    },
-    {
-      "root": "redPackets/",
-      "pages": [
-        "pages/publishHB/publishHB",
-        "pages/publishedHB/publishedHB",
-        "pages/openedHB/openedHB",
-        "pages/myHB/myHB",
-        "pages/crowdDetail/crowdDetail",
-        "pages/allCrowdHB/allCrowdHB"
+        "pages/signNoIndentity/signNoIndentity"
       ]
     }
   ],
@@ -140,13 +124,13 @@
       {
         "iconPath": "img/icon-wode-n@2x.png",
         "selectedIconPath": "img/icon-wode-s@2x.png",
-        "pagePath": "pages/my/my/my",
+        "pagePath": "pages/my/myNew/myNew",
         "text": "我的"
       }
     ],
     "selectedColor": "#40587A",
     "backgroundColor": "#fafafa",
-    "borderStyle": "white",
+    "borderStyle":"white",
     "color": "#999999"
   },
   "networkTimeout": {

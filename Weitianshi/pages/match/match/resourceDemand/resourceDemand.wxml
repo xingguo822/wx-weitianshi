@@ -1,7 +1,7 @@
 <import src="/pages/Template/Template.wxml" />
 <!--可提供资源-->
 
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <view id="resourceEnchange">
     <view class="offer">

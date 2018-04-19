@@ -15,7 +15,7 @@ Page({
     wx.showLoading({
       title: 'loading',
       mask: true,
-    });
+    })
     var that = this;
     // 初始化下拉加载相关参数
     app.initPage(that);
@@ -32,16 +32,16 @@ Page({
         },
         method: 'POST',
         success: function (res) {
-          wx.hideLoading();
+          wx.hideLoading()
           var contacts = res.data.list.users;
           var count = res.data.list.count;
           that.setData({
             contacts: contacts,
             count: count,
             project_id: project_id
-          });
+          })
         }
-      });
+      })
     }
 
     //向后台发送信息取消红点
@@ -53,8 +53,8 @@ Page({
         type_id: 6
       },
       method: "POST",
-    });
-    wx.removeStorageSync("project_id");
+    })
+    wx.removeStorageSync("project_id")
     app.netWorkChange(that);
   },
   onShow: function () {
@@ -66,14 +66,14 @@ Page({
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     var followed_user_id = e.target.dataset.followedid;//当前用户的user_id
     var follow_status = e.currentTarget.dataset.follow_status;
-    // var index = e.target.dataset.index;
-    var contacts = this.data.contacts;
+    var index = e.target.dataset.index;
+    var contacts = this.data.contacts
     if (follow_status == 0) {
       //添加人脉接口
       wx.request({
         url: url + '/api/user/UserApplyFollowUser',
         data: {
-          user_id: user_id,
+          user_id : user_id,
           applied_user_id: followed_user_id
         },
         method: 'POST',
@@ -82,21 +82,21 @@ Page({
             //将状态设为"未验证"
             contacts.forEach((x) => {
               if (x.user_id == followed_user_id) {
-                x.follow_status = 2;
+                x.follow_status = 2
               }
-            });
+            })
             that.setData({
               contacts: contacts
-            });
+            })
           }
         },
         fail: function (res) {
           wx.showModal({
             title: "错误提示",
             content: "添加人脉失败" + res
-          });
+          })
         },
-      });
+      })
 
     } else if (follow_status == 3) {
       // 同意申請接口
@@ -112,26 +112,26 @@ Page({
             //将状态设为"未验证"
             contacts.forEach((x) => {
               if (x.user_id == followed_user_id) {
-                x.follow_status = 1;
+                x.follow_status = 1
               }
-            });
+            })
             that.setData({
               contacts: contacts
-            });
+            })
           }
         }
-      });
+      })
     }
   },
   // 用户详情
   userDetail: function (e) {
-    var id = e.currentTarget.dataset.id;
-    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
+    var id = e.currentTarget.dataset.id
+    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id)
   },
   //下拉加载
   loadMore: function () {
     var that = this;
-    var user_id = this.data.user_id;
+    var user_id = this.data.user_id
     var currentPage = this.data.currentPage;
     var project_id = this.data.project_id;
     var request = {
@@ -142,7 +142,7 @@ Page({
         page: currentPage,
         type_id: 6
       }
-    };
+    }
     //调用通用加载函数
     this.more(that, request, "contacts", that.data.contacts);
      
@@ -156,7 +156,7 @@ Page({
           wx.showToast({
             title: 'loading...',
             icon: 'loading'
-          });
+          })
           request.data.page++;
           that.setData({
             currentPage: request.data.page,
@@ -168,24 +168,22 @@ Page({
             data: request.data,
             method: 'POST',
             success: function (res) {
-              if(res.data.list.users){
-                var newPage = res.data.list.users;
-                for (var i = 0; i < newPage.length; i++) {
-                  dataSum.push(newPage[i]);
-                }
-              }
+              var newPage = res.data.list.users;
               var page_end = res.data.page_end;
+              for (var i = 0; i < newPage.length; i++) {
+                dataSum.push(newPage[i])
+              }
               that.setData({
                 [str]: dataSum,
                 page_end: page_end,
                 requestCheck: true
               });
-              console.log("page_end",that.data.page_end);
+              app.log(that,"page_end",that.data.page_end);
               if (that.data.page_end == true) {
                 that.setData({
                   jiandi: true,
                   requestCheck: true
-                });
+                })
               }
             }
           });
@@ -194,7 +192,7 @@ Page({
             that.setData({
               jiandi: true,
               requestCheck: true
-            });
+            })
           }
         }
       }
@@ -210,8 +208,8 @@ Page({
   contactsAdd(e) {
     let added_user_id = e.currentTarget.dataset.id;
     let that = this;
-    app.operationModel('contactsAdd',this, added_user_id, function (res) {
-      console.log('申请添加人脉完成', res);
+    app.operationModel('contactsAdd', added_user_id, function (res) {
+      app.log(that,'申请添加人脉完成', res);
       that.contactsAddSuccessFunc(res, added_user_id, 2);
     });
   },
@@ -219,27 +217,27 @@ Page({
   contactsAddDirect(e) {
     let added_user_id = e.currentTarget.dataset.id;
     let that = this;
-    app.operationModel('contactsAddDirect',this, added_user_id, function (res) {
-      console.log('直接添加人脉完成', res);
+    app.operationModel('contactsAddDirect', added_user_id, function (res) {
+      app.log(that,'直接添加人脉完成', res)
       that.contactsAddSuccessFunc(res, added_user_id, 1);
     });
   },
   // 加人脉成功后处理(辅助函数)
   contactsAddSuccessFunc(res, added_user_id, num) {
     var that = this;
-    // var user_id = wx.getStorageSync('user_id');//获取我的user_id
-    var contacts = this.data.contacts;
+    var user_id = wx.getStorageSync('user_id');//获取我的user_id
+    var contacts = this.data.contacts
     if (res.data.status_code == 2000000) {
       contacts.forEach((x) => {
         if (x.user_id == added_user_id) {
-          x.follow_status = num;
+          x.follow_status = 1
         }
-      });
+      })
       that.setData({
         contacts: contacts
-      });
+      })
     } else {
-      app.errorHide(that, res.data.error_Msg, 3000);
+      app.errorHide(that, res.data.error_Msg, 3000)
     }
   },
   // 一键拨号
@@ -247,7 +245,7 @@ Page({
     let telephone = e.currentTarget.dataset.telephone;
     wx.makePhoneCall({
       phoneNumber: telephone,
-    });
+    })
   },
   // 重新加载
   refresh() {
@@ -259,6 +257,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

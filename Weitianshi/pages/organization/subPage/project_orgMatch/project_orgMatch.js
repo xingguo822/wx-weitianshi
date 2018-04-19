@@ -2,7 +2,7 @@
 let app = getApp();
 let url = app.globalData.url;
 let url_common = app.globalData.url_common;
-import * as ShareModel from '../../../../utils/model/shareModel';
+import * as ShareModel from '../../../../utils/shareModel';
 Page({
 
   /**
@@ -62,7 +62,7 @@ Page({
       },
     }
     app.loadMore2(that, request, res => {
-      app.log("机构版买家图谱", res)
+      app.log(that,"机构版买家图谱", res)
       let newPage = res.data.data;
       let list = res.data.data.investment_list;
       let page_end = res.data.data.page_end;

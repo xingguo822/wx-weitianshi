@@ -1,9 +1,9 @@
 var app = getApp();
+var url = app.globalData.url;
 var url_common = app.globalData.url_common;
 Page({
   data: {
-    nonet: true,
-    jiandi: false
+    nonet: true
   },
   onLoad: function (options) {
     let that = this;
@@ -11,7 +11,7 @@ Page({
     this.setData({
       project_id: project_id
     });
-    app.netWorkChange(that);
+    app.netWorkChange(that)
   },
   onShow: function () {
     let user_id = wx.getStorageSync('user_id');//获取我的user_id
@@ -20,7 +20,7 @@ Page({
     wx.request({
       url: url_common + '/api/project/myMet',
       data: {
-        user_id: user_id,
+        user_id : user_id,
         type_id: 9,
         project_id: project_id,
         page: 1
@@ -34,7 +34,7 @@ Page({
           projectMessage: projectMessage,
           metList: metList,
           count: count
-        });
+        })
 
         //向后台发送信息取消红点
         wx.request({
@@ -47,14 +47,14 @@ Page({
           method: "POST",
           success: function (res) {
           }
-        });
+        })
       }
-    });
+    })
     this.setData({
       requestCheck: true,
       currentPage: 1,
       page_end: false
-    });
+    })
   },
   loadMore: function () {
     var that = this;
@@ -62,35 +62,35 @@ Page({
     let project_id = this.data.project_id;
     var currentPage = this.data.currentPage;
     let metList = this.data.metList;
-    // let list = this.data.list;
+    let list = this.data.list;
     var request = {
       url: url_common + '/api/project/myMet',
       data: {
-        user_id: user_id,
+        user_id : user_id,
         type_id: 9,
         project_id: project_id,
         page: currentPage
       },
-    };
+    }
     //调用通用加载函数
     app.loadMore2(that, request, res => {
       let rank = res.data.data.messages;
       let page_end = res.data.data.page_end;
       if (rank) {
-        let newRank_list = metList.concat(rank);
+        let newRank_list = metList.concat(rank)
         that.setData({
           metList: newRank_list,
           page_end: page_end,
-          requestCheck: true,
-          jiandi:true
-        });
+          requestCheck: true
+        })
       }
-    });
+    })
   },
   //点击跳转到用户详情
   personDetail: function (e) {
     var id = e.currentTarget.dataset.id;
-    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
+    app.console(id)
+    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id)
   },
   //推送项目
   pushProject:function(e){
@@ -106,25 +106,25 @@ Page({
           title: '成功',
           icon: 'success',
           duration: 20000
-        });
+        })
       }
       metList.forEach((x) => {
         if (x.user_id == pushed_user_id) {
-          x.push_status = 1;
+          x.push_status = 1
         }
-      });
-      app.log("meList",metList);
+      })
+      app.log(that,"meList",metList)
       that.setData({
         metList: metList
-      });
-    });
+      })
+    })
   },
-  // 申请加人脉
+    // 申请加人脉
   contactsAdd(e) {
     let added_user_id = e.currentTarget.dataset.id;
     let that = this;
-    app.operationModel('contactsAdd',this, added_user_id, function (res) {
-      app.log('申请添加人脉完成', res);
+    app.operationModel('contactsAdd', added_user_id, function (res) {
+      app.log(that,'申请添加人脉完成', res);
       that.contactsAddSuccessFunc(res, added_user_id, 2);
     });
   },
@@ -132,8 +132,8 @@ Page({
   contactsAddDirect(e) {
     let added_user_id = e.currentTarget.dataset.id;
     let that = this;
-    app.operationModel('contactsAddDirect',this, added_user_id, function (res) {
-      app.log('直接添加人脉完成', res);
+    app.operationModel('contactsAddDirect', added_user_id, function (res) {
+      app.log(that,'直接添加人脉完成', res)
       that.contactsAddSuccessFunc(res, added_user_id, 1);
     });
   },
@@ -146,15 +146,15 @@ Page({
       if (metList) {
         metList.forEach(x => {
           if (x.user_id == added_user_id) {
-            x.follow_status = num;
+            x.follow_status = num
           }
-        });
+        })
         that.setData({
           metList: metList
-        });
+        })
       }
     } else {
-      app.errorHide(that, res.data.error_Msg, 3000);
+      app.errorHide(that, res.data.error_Msg, 3000)
     }
   },
   // 重新加载
@@ -167,17 +167,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
-  },
-  // 一键拨号
-  telephone: function (e) {
-    let telephone = e.currentTarget.dataset.telephone;
-    wx.makePhoneCall({
-      phoneNumber: telephone,
-    });
-  },
-  userDetail(e){
-    var id = e.currentTarget.dataset.id;
-    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
+    }, 1500)
   }
-});
+})

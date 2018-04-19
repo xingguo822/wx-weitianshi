@@ -15,15 +15,13 @@
           <view class="projectDetailTop">
             <view class="projectDetailBox">
               <view>
-                <view class="flex">
-                  <view class="describle">{{project.pro_intro}}</view>
-                  <image src="/img/img-dujia@2x.png" class="projectDetailType" wx:if="{{project.is_exclusive == 1}}"></image>
+                <view class="flex"><view class="describle">{{project.pro_intro}}</view><image src="/img/img-dujia@2x.png" class="projectDetailType" wx:if="{{project.is_exclusive == 1}}"></image>
                   <!-- <image src="/img/img-feidujiaqianyue@2x.png" class="projectDetailType" wx:if="{{project.is_exclusive == 2}}"></image> -->
                 </view>
-                <view class="flex industryBox" wx:if="{{industy_sort.length != 0}}">
+                <view class="flex allIndustry" wx:if="{{industy_sort.length != 0}}">
                   <!-- <view class="industry">{{industy_sort}}</view> -->
                   <block wx:for="{{pro_industry}}" wx:key="{{index}}">
-                    <label class="allIndustry">{{item.industry_name}}</label>
+                    <label class="industry">{{item.industry_name}}</label>
                   </block>
                 </view>
                 <view class="allProjectDetail flex" wx:if="{{project.pro_area != ''||project.pro_stage!=''||project.pro_scale!=''}}">
@@ -428,14 +426,12 @@
         </scroll-view>
         <!--机构版买家图谱  -->
         <scroll-view wx:if="{{matchBut1}}" style='height:1254rpx;' scroll-y='true' scroll-top="{{scroll}}" bindscrolltolower='loadMore1'>
-          <view class="t-matchButton flex">
-            <!--t-matchButton1  代表选中  -->
-            <button class="{{matchBut?'t-matchButton1':'t-matchButton3'}}" bindtap='matchButt'>投资人(
-              <label>{{matchCount}}</label>)
-            </button>
-            <button class="{{matchBut1?'t-matchButton4':'t-matchButton2'}}" bindtap='matchButt1'>投资机构(
-              <label>{{investment_total_num}}</label>)</button>
-          </view>
+           <view class="t-matchButton flex">
+          <!--t-matchButton1  代表选中  -->
+          <button class="{{matchBut?'t-matchButton1':'t-matchButton3'}}" bindtap='matchButt'>投资人(<label>{{matchCount}}</label>)
+          </button>
+          <button class="{{matchBut1?'t-matchButton4':'t-matchButton2'}}" bindtap='matchButt1'>投资机构(<label>{{investment_total_num}}</label>)</button>
+        </view>
           <view class="{{investment_list.length==0?'media123':'media12'}}">
             <view class="matchIntro">{{newPage.pro_intro}}</view>
             <view id="investment1" wx:if="{{investment_list.length!=0}}">
@@ -443,7 +439,7 @@
               <template is="theBottom" wx:if="{{jiandi1==true&&investment_list.length!==0}}"></template>
             </view>
             <!-- <view class="hasNothing" wx:if="{{investment_list.length ==0 }}">暂无数据</view> -->
-             <template is="isEmpty" data="{{emptyNumber:investment_list}}"></template> 
+            <template is="isEmpty" data="{{emptyNumber:investment_list}}"></template>
           </view>
 
 

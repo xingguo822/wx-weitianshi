@@ -1,7 +1,7 @@
 <!--pages/organization/subPage/list_investCase/list_investCase.wxml-->
 <import src="/pages/Template/Template.wxml" />
 
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <!--筛选和搜索  -->
   <template is='search' data='{{SearchInit,linkDataShow,linkShow, currentIcon:0,hidden:true}}'></template>

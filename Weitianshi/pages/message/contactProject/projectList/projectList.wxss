@@ -18,9 +18,7 @@
   border-radius: 2px;
   margin-right: 30rpx;
 }
-.titleNum{
-  margin-top: 32rpx;
-}
+
 .browseMeTitle {
   /*height: 90rpx;*/
   margin: 0 32rpx 32rpx 32rpx;

@@ -8,62 +8,55 @@ Page({
     currentTab: 0,//选项卡
     type: 1, //我申請查看的項目,
     hasRedPoint: true,
-    nonet: true,
-    jiandi: false,
-    atBottom: false
+    nonet: true
   },
   onLoad: function (options) {
     let type = options.type;
+    let group_id = options.group_id;
     let that = this;
     that.setData({
       type: type,
-    });
-    app.netWorkChange(that);
+    })
+    app.netWorkChange(that)
     var user_id = wx.getStorageSync('user_id');//获取我的user_id
     // 申请查看我的项目
     wx.showLoading({
       title: 'loading',
       mask: true,
-    });
+    })
     wx.request({
       url: url_common + '/api/message/applyProjectToMe',
       data: {
-        user_id: user_id
+        user_id : user_id
       },
       method: 'POST',
       success: function (res) {
-        wx.hideLoading();
+        wx.hideLoading()
         let contentList = res.data.data;
         let count1 = res.data.count;
-        if (count1 >= 999) {
-          count1 = "999+"
-        }
         that.setData({
           count1: count1,
           contentList: contentList
-        });
+        })
       }
-    });
+    })
 
     // 我申请查看的项目
     wx.request({
       url: url_common + '/api/message/applyProjectList',
       data: {
-        user_id: user_id
+        user_id : user_id
       },
       method: 'POST',
       success: function (res) {
         let count = res.data.count;
         let applyList = res.data.data;
-        if (count >= 999) {
-          count = "999+"
-        }
         that.setData({
           count: count,
           applyList: applyList
-        });
+        })
       }
-    });
+    })
   },
   onShow: function () {
     let that = this;
@@ -78,7 +71,7 @@ Page({
       page_endBoolean: false,
       push_page: 1,
       cancel: false
-    });
+    })
     //向后台发送信息取消红点
     wx.request({
       url: url_common + '/api/message/setMessageToRead',
@@ -89,7 +82,7 @@ Page({
       method: "POST",
       success: function (res) {
       }
-    });
+    })
   },
   /*滑动切换tab*/
   bindChange: function (e) {
@@ -111,17 +104,17 @@ Page({
         success: function (res) {
           applyList.forEach((x) => {
             x.message_status = 1;
-          });
+          })
           that.setData({
             hasRedPoint: false
-          });
+          })
         }
-      });
+      })
     } else if (current == 0) {
       if (this.data.hasRedPoint === false) {
         that.setData({
           applyList: applyList
-        });
+        })
       }
       wx.request({
         url: url_common + '/api/message/setMessageToRead',
@@ -133,12 +126,12 @@ Page({
         success: function (res) {
           contentList.forEach((x) => {
             x.message_status = 1;
-          });
+          })
           that.setData({
             contentList: contentList
-          });
+          })
         }
-      });
+      })
     }
     that.setData({ currentTab: e.detail.current });
   },
@@ -150,7 +143,7 @@ Page({
     } else {
       that.setData({
         currentTab: e.target.dataset.current
-      });
+      })
     }
   },
   //我申请的项目加载更多
@@ -158,16 +151,16 @@ Page({
     //请求上拉加载接口所需要的参数
     var that = this;
     var user_id = wx.getStorageSync('user_id');
-    // var currentPage = this.data.currentPage;
+    var currentPage = this.data.currentPage;
     var request = {
       url: url_common + '/api/message/applyProjectList',
       data: {
         user_id: user_id,
         page: this.data.currentPage
       }
-    };
+    }
     //调用通用加载函数
-    app.loadMore(that, request, "applyList");
+    app.loadMore(that, request, "applyList")
   },
   // 申请我的项目加载更多
   moreForApply: function () {
@@ -182,7 +175,7 @@ Page({
           wx.showToast({
             title: 'loading...',
             icon: 'loading'
-          });
+          })
           that.data.push_page++;
           that.setData({
             otherCurrentPage: this.data.push_page,
@@ -200,20 +193,19 @@ Page({
               var newPage = res.data.data;
               var page_end = res.data.page_end;
               for (var i = 0; i < newPage.length; i++) {
-                contentList.push(newPage[i]);
+                contentList.push(newPage[i])
               }
               that.setData({
                 contentList: contentList,
                 page_endBoolean: page_end,
                 requestCheckBoolean: true
-              });
+              })
             }
-          });
+          })
         } else {
-          // app.errorHide(that, "没有更多了", that, 3000);
+          app.errorHide(that, "没有更多了", that, 3000)
           that.setData({
-            requestCheckBoolean: true,
-            jiandi: true
+            requestCheckBoolean: true
           });
         }
       }
@@ -222,6 +214,7 @@ Page({
   // 点击跳转
   projectDetail: function (e) {
     // 获取我自己的项目id
+    var that = this;
     // 获取当前点击的项目id
     var id = e.currentTarget.dataset.project;
     // 判斷項目是不是自己的
@@ -232,20 +225,21 @@ Page({
       },
       method: 'POST',
       success: function (res) {
+        var that = this;
         var userId = res.data.user_id;
         var user = wx.getStorageSync('user_id');
         if (userId == user) {
-          app.href('/pages/myProject/projectDetail/projectDetail?id=' + id + '&&index=' + 0);
+          app.href('/pages/myProject/projectDetail/projectDetail?id=' + id + '&&index=' + 0)
         } else {
-          app.href('/pages/projectDetail/projectDetail?id=' + id);
+          app.href('/pages/projectDetail/projectDetail?id=' + id)
         }
       }
-    });
+    })
   },
   //点击跳转到用户详情
   personDetail: function (e) {
     var id = e.currentTarget.dataset.project;
-    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id);
+    app.href('/pages/userDetail/networkDetail/networkDetail?id=' + id)
   },
   // 点击同意或者拒绝
   btn: function (e) {
@@ -258,7 +252,7 @@ Page({
     wx.request({
       url: url_common + '/api/message/handleApplyProjectMessage',
       data: {
-        user_id: user_id,
+        user_id : user_id,
         record_id: record_id,
         status: status
       },
@@ -267,34 +261,34 @@ Page({
         if (status == 1) {
           contentList.forEach((x) => {
             if (x.record_id == record_id) {
-              x.handle_status = 1;
+              x.handle_status = 1
             }
-          });
+          })
           wx.showToast({
             title: '已同意',
             icon: 'success',
             duration: 2000
-          });
+          })
           that.setData({
             contentList: contentList
-          });
+          })
         } else if (status == 2) {
           contentList.forEach((x) => {
             if (x.record_id == record_id) {
-              x.handle_status = 2;
+              x.handle_status = 2
             }
-          });
+          })
           wx.showToast({
             title: '拒绝',
             duration: 2000,
             image: "/img/icon-chacha@2x.png"
-          });
+          })
           that.setData({
             contentList: contentList
-          });
+          })
         }
       }
-    });
+    })
   },
   // 重新加载
   refresh() {
@@ -306,6 +300,6 @@ Page({
     timer = setTimeout(x => {
       wx.hideLoading();
       this.onShow();
-    }, 1500);
+    }, 1500)
   }
-});
+})

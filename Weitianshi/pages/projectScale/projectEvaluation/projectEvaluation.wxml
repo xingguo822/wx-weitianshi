@@ -1,7 +1,7 @@
 <!--pages/projectScale/projectEvaluation.wxml-->
 <import src="/pages/Template/Template.wxml" />
 
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view wx:if="{{nonet}}">
   <!--滑块评分  -->
   <view class="slider">
@@ -21,7 +21,7 @@
       <view class="sliderRight"></view>
       <view class="sliderMax">10</view>
     </view>
-    <textarea id="textContent" bindinput="leaveMessage" value="{{leaveMessage}}" maxlength="500" placeholder="您对项目的评价描述" />
+    <textarea id="textContent" bindinput="leaveMessage" value="{{introduce}}" maxlength="500" placeholder="您对项目的评价描述" />
   </view>
   <!--其余评分  -->
   <view class="scoreItem" wx:if="{{score_list1.length!=0}}">

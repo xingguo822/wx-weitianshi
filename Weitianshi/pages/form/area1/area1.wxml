@@ -1,4 +1,4 @@
-<include src='/utils/wxml/common' />
+<include src='/utils/wxml/netWork' />
 <view id="payArea" class="flex" wx:if="{{nonet}}">
   <scroll-view scroll-y="true" class="frame_province">
     <view>

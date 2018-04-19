@@ -224,12 +224,12 @@ page {
   white-space: nowrap;
   margin-bottom: 20rpx;
 }
-/* 
+
 .allIndustry {
   margin: 0;
   word-break: break-all;
   flex-wrap: wrap;
-} */
+}
 
 .allProjectDetail {
   font-size: 26rpx;
