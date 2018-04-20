@@ -21,14 +21,14 @@ Page({
     bannerIndex: 0,
     modalBox: 0,
     insideColor: true,
-    imgUrls: [
-      app.globalData.picUrl.banner_1,
-      app.globalData.picUrl.banner_2,
-      app.globalData.picUrl.banner_3,
-      app.globalData.picUrl.banner_4,
-      app.globalData.picUrl.banner_5,
-    ],
-    imgUrls1: app.globalData.picUrl.page_discoverProject,
+    // imgUrls: [
+    //   app.globalData.picUrl.banner_1,
+    //   app.globalData.picUrl.banner_2,
+    //   app.globalData.picUrl.banner_3,
+    //   app.globalData.picUrl.banner_4,
+    //   app.globalData.picUrl.banner_5,
+    // ],
+    // imgUrls1: app.globalData.picUrl.page_discoverProject,
     atBottom: false,
     nonet: true,
     loadingGif: app.globalData.picUrl.loadingGif,
@@ -54,10 +54,12 @@ Page({
       // 载入项目列表数据
       that.selectedAndMarketProjectList();
     });
+
     app.netWorkChange(that);
   },
   onShow() {
     let Pages = getCurrentPages();
+    let that = this;
     let preRoute = Pages[Pages.length - 2];
     if (!this.data.firstTime) {
       this.setData({
@@ -66,6 +68,17 @@ Page({
       })
       this.selectedAndMarketProjectList();
     }
+    wx.request({
+      url: url_common + '/api/home/banner',
+      method: 'GET',
+      success: function (res) {
+        let imgUrl = res.data.data;
+        console.log(imgUrl)
+        that.setData({
+          imgUrls: imgUrl
+        })
+      }
+    })
   },
   onReady() {
     let that = this;
@@ -124,14 +137,14 @@ Page({
     }
   },
   // 轮播图跳转
-  bannerLink(e) {
-    let index = e.currentTarget.dataset.index + 1;
-    if (index == 2) {
-      app.href("/pages/projectDetail/projectDetail?id=" + "bpjBV7p9")
-    } else {
-      app.href('/pages/activtyPage/activtyPage/activtyPage?index=' + index);
-    }
-  },
+  // bannerLink(e) {
+  //   let index = e.currentTarget.dataset.index + 1;
+  //   if (index == 2) {
+  //     app.href("/pages/projectDetail/projectDetail?id=" + "bpjBV7p9")
+  //   } else {
+  //     app.href('/pages/activtyPage/activtyPage/activtyPage?index=' + index);
+  //   }
+  // },
   // 下拉刷新
   onPullDownRefresh() {
     this.selectedAndMarketProjectList();
