@@ -871,9 +871,9 @@ App({
     verify: verify, // 验证文件
     registerModalShow: false, // 是否显示注册弹框
  
-    url: "https://balance.weitianshi.cn",
-    url_common: "https://balance.weitianshi.cn"
-    // url: "https://wx.dev.weitianshi.cn",
-    // url_common: "https://wx.dev.weitianshi.cn"
+    // url: "https://balance.weitianshi.cn",
+    // url_common: "https://balance.weitianshi.cn"
+    url: "https://wx.dev.weitianshi.cn",
+    url_common: "https://wx.dev.weitianshi.cn"
   },
 }); 
