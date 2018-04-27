@@ -20,4 +20,4 @@
   </scroll-view>
   <!--空状态-->
   <template is="isEmpty" data="{{emptyNumber:investorList}}"></template>
-</view>
+</view> 

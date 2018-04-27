@@ -32,6 +32,7 @@ Page({
     let that = this;
     let industry = this.data.industry
     let tranArr = this.data.tran_industry;
+    console.log()
     let item = app.checkMore(e, industry, tranArr, that, "industry_id");
     this.setData({
       industry: item.item,

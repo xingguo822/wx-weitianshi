@@ -215,7 +215,7 @@ Page({
     }
     app.loadMore(that, request, "financingNeed")
   },
-  // 项目详情
+  // 项目详情 
   projectDetail: function (e) {
     var project_id = e.currentTarget.dataset.project;
     // 判斷項目是不是自己的

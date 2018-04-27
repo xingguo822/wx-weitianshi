@@ -13,6 +13,7 @@ App({
         success: function (login) {
           let code = login.code;
           if (code) {
+            // 群分享时有效，
             let path = options.path;
             let shareTicket = options.shareTicket;
             //获取群ID
@@ -90,7 +91,7 @@ App({
                 encryptedData: res.encryptedData,
                 iv: res.iv,
                 app_key: that.globalData.app_key
-              }                                                   
+              }
             }, that).then(res => {
               console.log('这里是用户授权后调用returnOauth,获取并设置了open_session,session_time,user_id')
               //在globalData里存入open_session,session_time,user_id;
@@ -857,7 +858,7 @@ App({
     if (this.globalData.url_common == 'https://wx.dev.weitianshi.cn') {
       console.log(text, res);
     } else {
-     
+
     }
   },
   //初始本地缓存
@@ -865,15 +866,16 @@ App({
     routerPage: [],
     error: 0,
     picUrl: picUrl,
-    app_id: 'wxdf2eba3b79b83110',
-    app_key: 'wxos_lt',
+    app_id: 'wx02699b49950f4df2',
+    app_key: 'wxos_czhd',
     open_session: '',
     delay_time: 0,
+    // product
     url: "https://wx.weitianshi.cn",
     url_common: "https://wx.weitianshi.cn"
+
+    // test
     // url: "https://wx.dev.weitianshi.cn",
     // url_common: "https://wx.dev.weitianshi.cn"
-    // url: "https://wx.debug.weitianshi.cn",
-    // url_common: "https://wx.debug.weitianshi.cn"
   },
 }); 
