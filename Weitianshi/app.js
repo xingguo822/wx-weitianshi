@@ -866,8 +866,8 @@ App({
     routerPage: [],
     error: 0,
     picUrl: picUrl,
-    app_id: 'wx02699b49950f4df2',
-    app_key: 'wxos_czhd',
+    app_id: 'wxd74a0f8040faa01f',
+    app_key: 'wxos_cyfw',
     open_session: '',
     delay_time: 0,
     // product

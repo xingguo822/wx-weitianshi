@@ -43,7 +43,7 @@ function projectDetailShare(that) {
 //找项目分享
 function discoverProjectShare() {
   return {
-    title: '来微天使找优质项目',
+    title: '3W+投资人，1.5K+FA加速融资',
     path: '/pages/discoverProject/discoverProject'
   }
 }
