@@ -119,9 +119,7 @@ function projectOneKeyPush(that, pushTo_user_id, pushed_project_id, callback) {
   })
   let user_id = wx.getStorageSync('user_id');
   app.checkUserInfo(that, x => {
-    getPushProjectTimes(that, pushRequest())
-    // 实现推送
-    function pushRequest() {
+    getPushProjectTimes(that, function(){
       wx.request({
         url: url_common + '/api/project/pushProjectToUser',
         data: {
@@ -132,6 +130,7 @@ function projectOneKeyPush(that, pushTo_user_id, pushed_project_id, callback) {
         method: 'POST',
         success: function (res) {
           let statusCode = res.data.status_code;
+          console.log(statusCode);
           if (statusCode == 2000000) {
             wx.showToast({
               title: '成功',
@@ -149,9 +148,10 @@ function projectOneKeyPush(that, pushTo_user_id, pushed_project_id, callback) {
           wx.hideLoading();
         }
       })
-    }
+    });
   })
 }
+
 
 //项目推送 (user_id:谁推送的; pushTo_user_id:推送给谁的)
 function projectPush(that, pushTo_user_id) {
@@ -231,7 +231,7 @@ function getPushProjectTimes(that, callBack) {
   let user_id = wx.getStorageSync('user_id');
   let app = getApp();
   let url_common = app.globalData.url_common;
-  wx.request({
+ wx.request({
     url: url_common + '/api/user/getPushProjectTimes',
     data: {
       user_id: user_id
@@ -241,6 +241,7 @@ function getPushProjectTimes(that, callBack) {
       app.log('getPushProjectTimes', res);
       let remain_time = res.data.data.remain_times;
       if (remain_time < 1) {
+        console.log('00000');
         app.errorHide(that, "您今日的提交次数已经用光了", 3000)
       } else {
         if (callBack) {
